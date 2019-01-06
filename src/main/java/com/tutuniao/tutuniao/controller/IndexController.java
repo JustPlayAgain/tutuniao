@@ -1,11 +1,9 @@
 package com.tutuniao.tutuniao.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.tutuniao.tutuniao.entity.IndexObject;
 import com.tutuniao.tutuniao.schedule.ScheduledService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
