@@ -10,7 +10,9 @@ public class ScheduledServiceTest {
 
     @Test
     public void buildIndex() {
-        IndexObject indexObject = new ScheduledService().buildIndex();
-        System.out.println(JSONObject.toJSONString(indexObject));
+//        IndexObject indexObject = new ScheduledService().buildIndex();
+//        System.out.println(JSONObject.toJSONString(indexObject));
+
+        System.out.println(ScheduledService.buildIndexJson());
     }
 }

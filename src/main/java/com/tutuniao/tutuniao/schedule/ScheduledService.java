@@ -1,15 +1,16 @@
 package com.tutuniao.tutuniao.schedule;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.tutuniao.tutuniao.entity.IndexObject;
 import com.tutuniao.tutuniao.util.HttpClientUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 
 @Service
 public class ScheduledService {
@@ -49,5 +50,51 @@ public class ScheduledService {
         content = content.replaceAll("src=\"./|src=\"/", "src=\"http://www.caa.edu.cn/");
         content = content.replaceAll("src=\"images", "src=\"http://www.caa.edu.cn/images");
         return content;
+    }
+
+    public static String buildIndexJson(){
+        JSONObject reslut = new JSONObject();
+        try {
+            String dataAsStringFromUrl = HttpClientUtils.get(academyArtUrl);
+            if(null != dataAsStringFromUrl){
+                Document doc = Jsoup.parse(dataAsStringFromUrl);
+                // 获取 banner
+                Elements dgWrappers = doc.getElementsByClass("dg-wrapper");
+                if(null != dgWrappers){
+                    JSONArray banners = new JSONArray();
+                    for (Element dgWrapper:dgWrappers) {
+                        JSONObject banner = new JSONObject();
+                        String href = dgWrapper.select("a").attr("href");
+                        String img = dgWrapper.select("img").attr("src");
+                        if(!href.startsWith("http") && !href.equals("#")){
+                            banner.put("href","http://www.caa.edu.cn/"+href);
+                        }else {
+                            banner.put("href",href);
+                        }
+                        if(!img.startsWith("http")){
+                            banner.put("img","http://www.caa.edu.cn/"+img);
+                        }else{
+                            banner.put("img",img);
+                        }
+
+                        banners.add(banner);
+                    }
+
+
+                    reslut.put("banners",banners);
+                }
+                Elements boxs = doc.getElementsByClass("box");
+                if(null != boxs){
+                    Element element = boxs.get(0);
+                    Elements hd = element.getElementsByClass("hd");
+                    Elements bd = element.getElementsByClass("bd");
+                }
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return reslut.toJSONString();
     }
 }
