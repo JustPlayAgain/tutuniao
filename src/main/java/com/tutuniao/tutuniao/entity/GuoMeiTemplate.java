@@ -1,23 +1,28 @@
 package com.tutuniao.tutuniao.entity;
 
+import com.alibaba.druid.support.monitor.annotation.MTable;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
+@MTable(name = "t_guomei_template")
 public class GuoMeiTemplate implements Serializable {
+    /** 主键id **/
+    private Integer id;
     /** 序号 **/
-    private String numberId;
+    private Integer numberId;
     /** 名字 **/
-    private String name;
+    private String studentName;
     /** 国籍 **/
     private String nationality;
-    /** 名族 **/
+    /** 民族 **/
     private String nation;
     /** 性别 **/
     private String gender;
     /** 出生日期 **/
-    private String birthDate;
+    private Date birthDate;
     /** 证书编号 **/
     private String certificateNumber;
     /** 专业 **/
@@ -28,8 +33,12 @@ public class GuoMeiTemplate implements Serializable {
     private String examinationLevel;
     /** 原级别 **/
     private String originalLevel;
-    /** 籍贯 **/
+    /** 所在地 **/
     private String nativePlace;
+    /** 考试时间 **/
+    private Date examDate;
     /** 插入数据库时间 **/
-    private String insertTime;
+    private Date createDate;
+    /** 插入数据库时间 **/
+    private Date createUser;
 }

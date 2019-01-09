@@ -1,17 +1,26 @@
 package com.tutuniao.tutuniao.entity;
 
+import com.alibaba.druid.support.monitor.annotation.MTable;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * 比赛证书entity
+ */
 
 @Data
+@MTable(name = "t_match_template")
 public class MatchTemplate implements Serializable {
+    /** 主键id **/
+    private Integer id;
     /** 序号 **/
-    private String numberId;
+    private Integer numberId;
     /** 名字 **/
-    private String name;
+    private String studentName;
     /** 出生日期 **/
-    private String birthDate;
+    private Date birthDate;
     /**  性别 **/
     private String gender;
     /** 专业 **/
@@ -25,5 +34,5 @@ public class MatchTemplate implements Serializable {
     /**  获奖结果 **/
     private String results;
     /** 插入数据库时间 **/
-    private String insertTime;
+    private Date createDate;
 }
