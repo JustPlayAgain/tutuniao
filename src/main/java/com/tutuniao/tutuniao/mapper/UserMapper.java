@@ -1,9 +1,11 @@
 package com.tutuniao.tutuniao.mapper;
 
 import com.tutuniao.tutuniao.entity.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface UserMapper {
 
     /**
