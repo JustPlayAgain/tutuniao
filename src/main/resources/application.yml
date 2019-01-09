@@ -5,7 +5,7 @@ server:
 
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     username: tutuniao
     password: tutuniao123!@#123
     url: jdbc:mysql://97.64.36.211/tutuniaoDB?characterEncoding=utf-8&useSSL=false
