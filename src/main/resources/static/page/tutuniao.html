@@ -18,7 +18,7 @@
 
 <script type="text/javascript">
     $(function() {
-        $.ajax({ url: "/index", success: function(s){
+        $.ajax({ url: "../index", success: function(s){
                 $("body").append(s.banners);
                 $("body").append(s.content);
             }});
