@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public User quertyUser(Integer userId) {
+    public User quertyUserById(Integer userId) {
         return userMapper.queryUserById(1);
     }
 }

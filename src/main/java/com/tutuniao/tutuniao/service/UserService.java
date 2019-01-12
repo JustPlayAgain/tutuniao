@@ -9,5 +9,5 @@ public interface UserService {
      * @param userId
      * @return
      */
-    User quertyUser(Integer userId);
+    User quertyUserById(Integer userId);
 }

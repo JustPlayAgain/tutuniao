@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tutuniao.tutuniao.mapper.NewsMapper" >
+    <resultMap id="BaseResultMap" type="com.tutuniao.tutuniao.entity.News" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="news_url" property="newsUrl" jdbcType="VARCHAR" />
+        <result column="news_pic" property="newsPic" jdbcType="VARCHAR" />
+        <result column="news_title" property="newsTitle" jdbcType="VARCHAR" />
+        <result column="news_is_able" property="newsIsAble" jdbcType="INTEGER" />
+        <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, news_url, news_pic, news_title, news_is_able, create_user, create_date, update_user, update_date
+    </sql>
+
+    <sql id="Base_Where_Clause">
+        <where>
+            1=1
+            <if test="id != null">
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="newsUrl != null and newsUrl ! = ''">
+                and news_url = #{newsUrl,jdbcType=VARCHAR}
+            </if>
+            <if test="newsPic != null and newsPic ! = ''">
+                and news_pic = #{newsPic,jdbcType=VARCHAR}
+            </if>
+            <if test="newsTitle != null and newsTitle ! = ''">
+                and news_title = #{newsTitle,jdbcType=VARCHAR}
+            </if>
+            <if test="newsIsAble != null and newsIsAble ! = ''">
+                and news_is_able = #{newsIsAble,jdbcType=INTEGER}
+            </if>
+            <if test="createUser != null and createUser ! = ''">
+                and create_user = #{createUser,jdbcType=VARCHAR}
+            </if>
+            <if test="updateUser != null and updateUser ! = ''">
+                and update_user = #{updateUser,jdbcType=VARCHAR}
+            </if>
+            <if test="updateDate != null and updateDate ! = ''">
+                and update_date = #{updateDate,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </sql>
+
+    <!--<select id="queryUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from t_user
+        where id = #{userId,jdbcType=INTEGER}
+    </select>
+
+    <select id="queryUserList" resultMap="BaseResultMap"
+            parameterType="com.tutuniao.tutuniao.entity.User">
+        select
+        <include refid="Base_Column_List"/>
+        from nidc_contract_resource
+        <include refid="Base_Where_Clause"/>
+    </select>-->
+
+    <delete id="queryNewsList" parameterType="java.lang.Integer" >
+        delete from t_user
+        where id = #{userId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insertNews" parameterType="com.tutuniao.tutuniao.entity.News" >
+        insert into t_user
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="userName != null and userName ! = ''" >
+                user_name,
+            </if>
+            <if test="userPassword != null and userPassword ! = ''" >
+                user_password,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userName != null and userName ! = ''" >
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPassword != null and userPassword ! = ''" >
+                #{userPassword,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <!--<update id="updateUser" parameterType="com.tutuniao.tutuniao.entity.User" >
+        update t_user
+        <set >
+            <if test="userName != null and userName ! = ''" >
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPassword != null and userPassword ! = ''" >
+                user_password = #{userPassword,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>-->
+
+</mapper>
