@@ -37,10 +37,13 @@
             <if test="createUser != null and createUser ! = ''">
                 and create_user = #{createUser,jdbcType=VARCHAR}
             </if>
+            <if test="createDate != null">
+                and create_date = #{createDate,jdbcType=TIMESTAMP}
+            </if>
             <if test="updateUser != null and updateUser ! = ''">
                 and update_user = #{updateUser,jdbcType=VARCHAR}
             </if>
-            <if test="updateDate != null and updateDate ! = ''">
+            <if test="updateDate != null">
                 and update_date = #{updateDate,jdbcType=TIMESTAMP}
             </if>
         </where>
@@ -52,42 +55,79 @@
         from t_user
         where id = #{userId,jdbcType=INTEGER}
     </select>
+    <delete id="queryNewsList" parameterType="java.lang.Integer" >
+        delete from t_news
+        where id = #{userId,jdbcType=INTEGER}
+    </delete>-->
 
-    <select id="queryUserList" resultMap="BaseResultMap"
-            parameterType="com.tutuniao.tutuniao.entity.User">
+    <select id="queryNewsList" resultMap="BaseResultMap"
+            parameterType="com.tutuniao.tutuniao.entity.News">
         select
         <include refid="Base_Column_List"/>
-        from nidc_contract_resource
+        from t_news
         <include refid="Base_Where_Clause"/>
-    </select>-->
+    </select>
 
-    <delete id="queryNewsList" parameterType="java.lang.Integer" >
-        delete from t_user
-        where id = #{userId,jdbcType=INTEGER}
-    </delete>
+
 
     <insert id="insertNews" parameterType="com.tutuniao.tutuniao.entity.News" >
-        insert into t_user
+        insert into t_news
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="id != null" >
                 id,
             </if>
-            <if test="userName != null and userName ! = ''" >
-                user_name,
+            <if test="newsUrl != null and newsUrl ! = ''">
+                news_url,
             </if>
-            <if test="userPassword != null and userPassword ! = ''" >
-                user_password,
+            <if test="newsPic != null and newsPic ! = ''">
+                news_pic,
+            </if>
+            <if test="newsTitle != null and newsTitle ! = ''">
+                news_title,
+            </if>
+            <if test="newsIsAble != null and newsIsAble ! = ''">
+                news_is_able,
+            </if>
+            <if test="createUser != null and createUser ! = ''">
+                create_user,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateUser != null and updateUser ! = ''">
+                update_user,
+            </if>
+            <if test="updateDate != null">
+                update_date,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="userName != null and userName ! = ''" >
-                #{userName,jdbcType=VARCHAR},
+            <if test="newsUrl != null and newsUrl ! = ''">
+                #{newsUrl,jdbcType=VARCHAR}
             </if>
-            <if test="userPassword != null and userPassword ! = ''" >
-                #{userPassword,jdbcType=VARCHAR},
+            <if test="newsPic != null and newsPic ! = ''">
+                #{newsPic,jdbcType=VARCHAR}
+            </if>
+            <if test="newsTitle != null and newsTitle ! = ''">
+                #{newsTitle,jdbcType=VARCHAR}
+            </if>
+            <if test="newsIsAble != null and newsIsAble ! = ''">
+                #{newsIsAble,jdbcType=INTEGER}
+            </if>
+            <if test="createUser != null and createUser ! = ''">
+                #{createUser,jdbcType=VARCHAR}
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateUser != null and updateUser ! = ''">
+                #{updateUser,jdbcType=VARCHAR}
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP}
             </if>
         </trim>
     </insert>

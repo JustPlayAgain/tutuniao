@@ -36,7 +36,7 @@
             parameterType="com.tutuniao.tutuniao.entity.User">
         select
         <include refid="Base_Column_List"/>
-        from nidc_contract_resource
+        from t_user
         <include refid="Base_Where_Clause"/>
     </select>
 
@@ -80,7 +80,7 @@
                 user_password = #{userPassword,jdbcType=VARCHAR},
             </if>
         </set>
-        where id = #{id,jdbcType=INTEGER}
+        where id = #{userId,jdbcType=INTEGER}
     </update>
 
 </mapper>

@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tutuniao.tutuniao.mapper.UserMapper" >
-    <resultMap id="BaseResultMap" type="com.tutuniao.tutuniao.entity.User" >
+<mapper namespace="com.tutuniao.tutuniao.mapper.GuoMeiTemplateMapper" >
+    <resultMap id="BaseResultMap" type="com.tutuniao.tutuniao.entity.GuoMeiTemplate" >
         <id column="id" property="id" jdbcType="INTEGER" />
-        <result column="user_name" property="userName" jdbcType="VARCHAR" />
-        <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+        <result column="number_id" property="numberId" jdbcType="INTEGER" />
+        <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+        <result column="nationality" property="nationality" jdbcType="VARCHAR" />
+        <result column="nation" property="nation" jdbcType="VARCHAR" />
+        <result column="gender" property="gender" jdbcType="VARCHAR" />
+        <result column="birth_date" property="birthDate" jdbcType="TIMESTAMP" />
+        <result column="certificate_number" property="certificateNumber" jdbcType="VARCHAR" />
+        <result column="profession" property="profession" jdbcType="VARCHAR" />
+        <result column="declare_level" property="declareLevel" jdbcType="VARCHAR" />
+        <result column="examination_level" property="examinationLevel" jdbcType="VARCHAR" />
+        <result column="original_level" property="originalLevel" jdbcType="VARCHAR" />
+        <result column="native_place" property="nativePlace" jdbcType="VARCHAR" />
+        <result column="exam_date" property="examDate" jdbcType="TIMESTAMP" />
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+        <result column="create_user" property="createUser" jdbcType="VARCHAR" />
     </resultMap>
     <sql id="Base_Column_List" >
-        id, user_name, user_password
+        id, number_id, student_name, nationality, nation, gender, birth_date, certificate_number, profession, declare_level,
+        examination_level, original_level, native_place, exam_date, create_date, create_user
     </sql>
 
     <sql id="Base_Where_Clause">
@@ -16,62 +30,171 @@
             <if test="id != null">
                 and id = #{id,jdbcType=INTEGER}
             </if>
-            <if test="userName != null and userName ! = ''">
-                and user_name = #{userName,jdbcType=VARCHAR}
+            <if test="numberId != null and numberId ! = ''">
+                and number_id = #{numberId,jdbcType=INTEGER}
             </if>
-            <if test="userPassword != null and userPassword ! = ''">
-                and user_password = #{userPassword,jdbcType=VARCHAR}
+            <if test="studentName != null and studentName ! = ''">
+                and student_name = #{studentName,jdbcType=VARCHAR}
+            </if>
+            <if test="nationality != null and nationality ! = ''">
+                and nationality = #{nationality,jdbcType=VARCHAR}
+            </if>
+            <if test="nation != null and nation ! = ''">
+                and nation = #{nation,jdbcType=VARCHAR}
+            </if>
+            <if test="gender != null and gender ! = ''">
+                and gender = #{gender,jdbcType=VARCHAR}
+            </if>
+            <if test="birthDate != null">
+                and birth_date = #{birthDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="certificateNumber != null and certificateNumber ! = ''">
+                and certificate_number = #{certificateNumber,jdbcType=VARCHAR}
+            </if>
+            <if test="declareLevel != null and declareLevel ! = ''">
+                and declare_level = #{declareLevel,jdbcType=VARCHAR}
+            </if>
+            <if test="examinationLevel != null and examinationLevel ! = ''">
+                and examination_level = #{examinationLevel,jdbcType=VARCHAR}
+            </if>
+            <if test="originalLevel != null and originalLevel ! = ''">
+                and original_level = #{originalLevel,jdbcType=VARCHAR}
+            </if>
+            <if test="nativePlace != null and nativePlace ! = ''">
+                and native_place = #{nativePlace,jdbcType=VARCHAR}
+            </if>
+            <if test="examDate != null">
+                and exam_date = #{examDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createUser != null and createUser ! = ''">
+                and create_user = #{createUser,jdbcType=VARCHAR}
             </if>
         </where>
     </sql>
 
-    <select id="queryUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <!--<select id="queryUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
         select
         <include refid="Base_Column_List" />
         from t_user
         where id = #{userId,jdbcType=INTEGER}
-    </select>
+    </select>-->
 
-    <select id="queryUserList" resultMap="BaseResultMap"
-            parameterType="com.tutuniao.tutuniao.entity.User">
+    <select id="queryGuoMeiTemplateList" resultMap="BaseResultMap"
+            parameterType="com.tutuniao.tutuniao.entity.GuoMeiTemplate">
         select
         <include refid="Base_Column_List"/>
-        from nidc_contract_resource
+        from t_guomei_template
         <include refid="Base_Where_Clause"/>
     </select>
 
-    <delete id="deleteUser" parameterType="java.lang.Integer" >
-        delete from t_user
-        where id = #{userId,jdbcType=INTEGER}
+    <delete id="deleteGuoMeiTemplateById" parameterType="java.lang.Integer" >
+        delete from t_guomei_template
+        where id = #{gmId,jdbcType=INTEGER}
     </delete>
 
-    <insert id="insertUser" parameterType="com.tutuniao.tutuniao.entity.User" >
-        insert into t_user
+    <insert id="insertGuoMeiTemplate" parameterType="com.tutuniao.tutuniao.entity.GuoMeiTemplate" >
+        insert into t_guomei_template
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="id != null" >
                 id,
             </if>
-            <if test="userName != null and userName ! = ''" >
-                user_name,
+            <if test="numberId != null and numberId ! = ''">
+                number_id,
             </if>
-            <if test="userPassword != null and userPassword ! = ''" >
-                user_password,
+            <if test="studentName != null and studentName ! = ''">
+                student_name,
+            </if>
+            <if test="nationality != null and nationality ! = ''">
+                nationality,
+            </if>
+            <if test="nation != null and nation ! = ''">
+                nation,
+            </if>
+            <if test="gender != null and gender ! = ''">
+                gender,
+            </if>
+            <if test="birthDate != null">
+                birth_date,
+            </if>
+            <if test="certificateNumber != null and certificateNumber ! = ''">
+                certificate_number,
+            </if>
+            <if test="declareLevel != null and declareLevel ! = ''">
+                declare_level,
+            </if>
+            <if test="examinationLevel != null and examinationLevel ! = ''">
+                examination_level,
+            </if>
+            <if test="originalLevel != null and originalLevel ! = ''">
+                original_level,
+            </if>
+            <if test="nativePlace != null and nativePlace ! = ''">
+                native_place,
+            </if>
+            <if test="examDate != null">
+                exam_date,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="createUser != null and createUser ! = ''">
+                create_user,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="userName != null and userName ! = ''" >
-                #{userName,jdbcType=VARCHAR},
+            <if test="numberId != null and numberId ! = ''">
+                #{numberId,jdbcType=INTEGER},
             </if>
-            <if test="userPassword != null and userPassword ! = ''" >
-                #{userPassword,jdbcType=VARCHAR},
+            <if test="studentName != null and studentName ! = ''">
+                #{studentName,jdbcType=VARCHAR},
+            </if>
+            <if test="nationality != null and nationality ! = ''">
+                #{nationality,jdbcType=VARCHAR},
+            </if>
+            <if test="nation != null and nation ! = ''">
+                #{nation,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null and gender ! = ''">
+                #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="birthDate != null">
+                #{birthDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="certificateNumber != null and certificateNumber ! = ''">
+                #{certificateNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="declareLevel != null and declareLevel ! = ''">
+                #{declareLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="examinationLevel != null and examinationLevel ! = ''">
+                #{examinationLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="originalLevel != null and originalLevel ! = ''">
+                #{originalLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="nativePlace != null and nativePlace ! = ''">
+                #{nativePlace,jdbcType=VARCHAR},
+            </if>
+            <if test="examDate != null">
+                #{examDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null and createUser ! = ''">
+                #{createUser,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
-    <update id="updateUser" parameterType="com.tutuniao.tutuniao.entity.User" >
-        update t_user
+
+    <update id="updateGuoMeiTemplateById" parameterType="com.tutuniao.tutuniao.entity.GuoMeiTemplate" >
+        update t_guomei_template
         <set >
             <if test="userName != null and userName ! = ''" >
                 user_name = #{userName,jdbcType=VARCHAR},
@@ -79,8 +202,50 @@
             <if test="userPassword != null and userPassword ! = ''" >
                 user_password = #{userPassword,jdbcType=VARCHAR},
             </if>
+            <if test="numberId != null and numberId ! = ''">
+                number_id = #{numberId,jdbcType=INTEGER},
+            </if>
+            <if test="studentName != null and studentName ! = ''">
+                student_name = #{studentName,jdbcType=VARCHAR},
+            </if>
+            <if test="nationality != null and nationality ! = ''">
+                nationality = #{nationality,jdbcType=VARCHAR},
+            </if>
+            <if test="nation != null and nation ! = ''">
+                nation = #{nation,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null and gender ! = ''">
+                gender = #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="birthDate != null">
+                birth_date = #{birthDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="certificateNumber != null and certificateNumber ! = ''">
+                certificate_number = #{certificateNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="declareLevel != null and declareLevel ! = ''">
+                declare_level = #{declareLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="examinationLevel != null and examinationLevel ! = ''">
+                examination_level = #{examinationLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="originalLevel != null and originalLevel ! = ''">
+                original_level = #{originalLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="nativePlace != null and nativePlace ! = ''">
+                native_place = #{nativePlace,jdbcType=VARCHAR},
+            </if>
+            <if test="examDate != null">
+                exam_date = #{examDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null and createUser ! = ''">
+                create_user = #{createUser,jdbcType=VARCHAR},
+            </if>
         </set>
-        where id = #{id,jdbcType=INTEGER}
+        where id = #{gmId,jdbcType=INTEGER}
     </update>
 
 </mapper>

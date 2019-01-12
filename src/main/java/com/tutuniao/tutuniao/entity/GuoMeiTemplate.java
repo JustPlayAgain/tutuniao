@@ -39,6 +39,6 @@ public class GuoMeiTemplate implements Serializable {
     private Date examDate;
     /** 插入数据库时间 **/
     private Date createDate;
-    /** 插入数据库时间 **/
-    private Date createUser;
+    /** 插入数据库用户 **/
+    private String createUser;
 }

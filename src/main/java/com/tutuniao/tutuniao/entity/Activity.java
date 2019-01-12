@@ -18,7 +18,7 @@ public class Activity implements Serializable {
     /**
      * 活动名称
      */
-    private String avtivityName;
+    private String activityName;
 
     /**
      * 活动code

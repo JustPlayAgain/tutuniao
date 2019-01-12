@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tutuniao.tutuniao.mapper.UserMapper" >
-    <resultMap id="BaseResultMap" type="com.tutuniao.tutuniao.entity.User" >
+<mapper namespace="com.tutuniao.tutuniao.mapper.ActivityMapper" >
+    <resultMap id="BaseResultMap" type="com.tutuniao.tutuniao.entity.Activity" >
         <id column="id" property="id" jdbcType="INTEGER" />
-        <result column="user_name" property="userName" jdbcType="VARCHAR" />
-        <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+        <result column="activity_name" property="activityName" jdbcType="VARCHAR" />
+        <result column="activity_code" property="activityCode" jdbcType="VARCHAR" />
+        <result column="activity_date" property="activityDate" jdbcType="TIMESTAMP" />
+        <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
     </resultMap>
     <sql id="Base_Column_List" >
-        id, user_name, user_password
+        id, activity_name, activity_code, activity_date, create_user, create_date, update_user, update_date
     </sql>
 
     <sql id="Base_Where_Clause">
@@ -16,62 +21,108 @@
             <if test="id != null">
                 and id = #{id,jdbcType=INTEGER}
             </if>
-            <if test="userName != null and userName ! = ''">
-                and user_name = #{userName,jdbcType=VARCHAR}
+            <if test="activityName != null and activityName ! = ''">
+                and activity_name = #{activityName,jdbcType=VARCHAR}
             </if>
-            <if test="userPassword != null and userPassword ! = ''">
-                and user_password = #{userPassword,jdbcType=VARCHAR}
+            <if test="activityCode != null and activityCode ! = ''">
+                and activity_code = #{activityCode,jdbcType=VARCHAR}
+            </if>
+            <if test="activityDate != null">
+                and activity_date = #{activityDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createUser != null and createUser ! = ''">
+                and create_user = #{createUser,jdbcType=VARCHAR}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateUser != null and updateUser ! = ''">
+                and update_user = #{updateUser,jdbcType=VARCHAR}
+            </if>
+            <if test="updateDate != null">
+                and update_date = #{updateDate,jdbcType=TIMESTAMP}
             </if>
         </where>
     </sql>
 
-    <select id="queryUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <!--<select id="queryUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
         select
         <include refid="Base_Column_List" />
         from t_user
         where id = #{userId,jdbcType=INTEGER}
-    </select>
+    </select>-->
 
-    <select id="queryUserList" resultMap="BaseResultMap"
+    <select id="queryActivityList" resultMap="BaseResultMap"
             parameterType="com.tutuniao.tutuniao.entity.User">
         select
         <include refid="Base_Column_List"/>
-        from nidc_contract_resource
+        from t_activity
         <include refid="Base_Where_Clause"/>
     </select>
 
-    <delete id="deleteUser" parameterType="java.lang.Integer" >
-        delete from t_user
-        where id = #{userId,jdbcType=INTEGER}
+    <delete id="deleteActivityById" parameterType="java.lang.Integer" >
+        delete from t_activity
+        where id = #{activityId,jdbcType=INTEGER}
     </delete>
 
-    <insert id="insertUser" parameterType="com.tutuniao.tutuniao.entity.User" >
-        insert into t_user
+    <insert id="insertActivity" parameterType="com.tutuniao.tutuniao.entity.Activity" >
+        insert into t_activity
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="id != null" >
                 id,
             </if>
-            <if test="userName != null and userName ! = ''" >
-                user_name,
+            <if test="activityName != null and activityName ! = ''">
+                activity_name,
             </if>
-            <if test="userPassword != null and userPassword ! = ''" >
-                user_password,
+            <if test="activityCode != null and activityCode ! = ''">
+                activity_code,
+            </if>
+            <if test="activityDate != null">
+                activity_date,
+            </if>
+            <if test="createUser != null and createUser ! = ''">
+                create_user,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateUser != null and updateUser ! = ''">
+                update_user,
+            </if>
+            <if test="updateDate != null">
+                update_date,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="userName != null and userName ! = ''" >
-                #{userName,jdbcType=VARCHAR},
+            <if test="activityName != null and activityName ! = ''">
+                #{activityName,jdbcType=VARCHAR},
             </if>
-            <if test="userPassword != null and userPassword ! = ''" >
-                #{userPassword,jdbcType=VARCHAR},
+            <if test="activityCode != null and activityCode ! = ''">
+                #{activityCode,jdbcType=VARCHAR},
+            </if>
+            <if test="activityDate != null">
+                #{activityDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null and createUser ! = ''">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null and updateUser ! = ''">
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
-    <update id="updateUser" parameterType="com.tutuniao.tutuniao.entity.User" >
-        update t_user
+
+    <update id="updateActivityById" parameterType="com.tutuniao.tutuniao.entity.Activity" >
+        update t_activity
         <set >
             <if test="userName != null and userName ! = ''" >
                 user_name = #{userName,jdbcType=VARCHAR},
@@ -79,8 +130,29 @@
             <if test="userPassword != null and userPassword ! = ''" >
                 user_password = #{userPassword,jdbcType=VARCHAR},
             </if>
+            <if test="activityName != null and activityName ! = ''">
+                activity_name = #{activityName,jdbcType=VARCHAR},
+            </if>
+            <if test="activityCode != null and activityCode ! = ''">
+                activity_code = #{activityCode,jdbcType=VARCHAR},
+            </if>
+            <if test="activityDate != null">
+                activity_date = #{activityDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null and createUser ! = ''">
+                create_user = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null and updateUser ! = ''">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
         </set>
-        where id = #{id,jdbcType=INTEGER}
+        where id = #{activityId,jdbcType=INTEGER}
     </update>
 
 </mapper>

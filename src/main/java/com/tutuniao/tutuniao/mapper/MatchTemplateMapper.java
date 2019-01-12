@@ -17,17 +17,17 @@ public interface MatchTemplateMapper {
 
     /**
      * 删除活动
-     * @param activityId 主键id
+     * @param mtId 主键id
      * @return
      */
-    int deleteMatchTemplateById(Integer activityId);
+    int deleteMatchTemplateById(Integer mtId);
 
     /**
      * 修改活动
-     * @param activityId
+     * @param mtId
      * @return
      */
-    int updateMatchTemplateById(Integer activityId);
+    int updateMatchTemplateById(Integer mtId);
 
     /**
      * 查询活动 支持模糊查询

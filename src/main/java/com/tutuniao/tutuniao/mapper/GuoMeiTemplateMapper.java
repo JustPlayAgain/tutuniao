@@ -16,17 +16,17 @@ public interface GuoMeiTemplateMapper {
 
     /**
      * 删除活动
-     * @param activityId 主键id
+     * @param gmId 主键id
      * @return
      */
-    int deleteGuoMeiTemplateById(Integer activityId);
+    int deleteGuoMeiTemplateById(Integer gmId);
 
     /**
      * 修改活动
-     * @param activityId
+     * @param gmId
      * @return
      */
-    int updateGuoMeiTemplateById(Integer activityId);
+    int updateGuoMeiTemplateById(Integer gmId);
 
     /**
      * 查询活动 支持模糊查询

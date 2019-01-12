@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tutuniao.tutuniao.mapper.UserMapper" >
-    <resultMap id="BaseResultMap" type="com.tutuniao.tutuniao.entity.User" >
+<mapper namespace="com.tutuniao.tutuniao.mapper.MatchTemplateMapper" >
+    <resultMap id="BaseResultMap" type="com.tutuniao.tutuniao.entity.MatchTemplate" >
         <id column="id" property="id" jdbcType="INTEGER" />
-        <result column="user_name" property="userName" jdbcType="VARCHAR" />
-        <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+        <result column="number_id" property="numberId" jdbcType="INTEGER" />
+        <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+        <result column="birth_date" property="birthDate" jdbcType="TIMESTAMP" />
+        <result column="gender" property="gender" jdbcType="VARCHAR" />
+        <result column="profession" property="profession" jdbcType="VARCHAR" />
+        <result column="group_level" property="groupLevel" jdbcType="VARCHAR" />
+        <result column="works_name" property="worksName" jdbcType="VARCHAR" />
+        <result column="tutor" property="tutor" jdbcType="VARCHAR" />
+        <result column="results" property="results" jdbcType="VARCHAR" />
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     </resultMap>
     <sql id="Base_Column_List" >
-        id, user_name, user_password
+        id, number_id, student_name, birth_date, gender, profession, group_level, works_name, tutor, results, create_date
     </sql>
 
     <sql id="Base_Where_Clause">
@@ -16,71 +24,160 @@
             <if test="id != null">
                 and id = #{id,jdbcType=INTEGER}
             </if>
-            <if test="userName != null and userName ! = ''">
-                and user_name = #{userName,jdbcType=VARCHAR}
+            <if test="numberId != null and numberId ! = ''">
+                and number_id = #{numberId,jdbcType=INTEGER}
             </if>
-            <if test="userPassword != null and userPassword ! = ''">
-                and user_password = #{userPassword,jdbcType=VARCHAR}
+            <if test="studentName != null and studentName ! = ''">
+                and student_name = #{studentName,jdbcType=VARCHAR}
+            </if>
+            <if test="birthDate != null and birthDate ! = ''">
+                and birth_date = #{birthDate,jdbcType=INTEGER}
+            </if>
+            <if test="gender != null and gender ! = ''">
+                and gender = #{gender,jdbcType=VARCHAR}
+            </if>
+            <if test="profession != null and profession ! = ''">
+                and profession = #{profession,jdbcType=INTEGER}
+            </if>
+            <if test="groupLevel != null and groupLevel ! = ''">
+                and group_level = #{groupLevel,jdbcType=VARCHAR}
+            </if>
+            <if test="worksName != null and worksName ! = ''">
+                and works_name = #{worksName,jdbcType=INTEGER}
+            </if>
+            <if test="tutor != null and tutor ! = ''">
+                and tutor = #{tutor,jdbcType=VARCHAR}
+            </if>
+            <if test="results != null and results ! = ''">
+                and results = #{results,jdbcType=VARCHAR}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate,jdbcType=TIMESTAMP}
             </if>
         </where>
     </sql>
 
-    <select id="queryUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-        select
-        <include refid="Base_Column_List" />
-        from t_user
-        where id = #{userId,jdbcType=INTEGER}
-    </select>
-
-    <select id="queryUserList" resultMap="BaseResultMap"
-            parameterType="com.tutuniao.tutuniao.entity.User">
+    <select id="queryMatchTemplateList" resultMap="BaseResultMap"
+            parameterType="com.tutuniao.tutuniao.entity.MatchTemplate">
         select
         <include refid="Base_Column_List"/>
-        from nidc_contract_resource
+        from t_match_template
         <include refid="Base_Where_Clause"/>
     </select>
 
-    <delete id="deleteUser" parameterType="java.lang.Integer" >
-        delete from t_user
-        where id = #{userId,jdbcType=INTEGER}
+    <delete id="deleteMatchTemplateById" parameterType="java.lang.Integer" >
+        delete from t_match_template
+        where id = #{mtId,jdbcType=INTEGER}
     </delete>
 
-    <insert id="insertUser" parameterType="com.tutuniao.tutuniao.entity.User" >
-        insert into t_user
+    <insert id="insertMatchTemplate" parameterType="com.tutuniao.tutuniao.entity.MatchTemplate" >
+        insert into t_match_template
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="id != null" >
                 id,
             </if>
-            <if test="userName != null and userName ! = ''" >
-                user_name,
+            <if test="numberId != null and numberId ! = ''" >
+                number_id,
             </if>
-            <if test="userPassword != null and userPassword ! = ''" >
-                user_password,
+            <if test="studentName != null and studentName ! = ''" >
+                student_name,
+            </if>
+            <if test="birthDate != null" >
+                birth_date,
+            </if>
+            <if test="gender != null and gender ! = ''" >
+                gender,
+            </if>
+            <if test="profession != null and profession ! = ''" >
+                profession,
+            </if>
+            <if test="groupLevel != null and groupLevel ! = ''" >
+                group_level,
+            </if>
+            <if test="worksName != null and worksName ! = ''" >
+                works_name,
+            </if>
+            <if test="tutor != null and tutor ! = ''" >
+                tutor,
+            </if>
+            <if test="results != null and results ! = ''" >
+                results,
+            </if>
+            <if test="createDate != null" >
+                create_date,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="userName != null and userName ! = ''" >
-                #{userName,jdbcType=VARCHAR},
+            <if test="numberId != null and numberId ! = ''" >
+                #{numberId,jdbcType=INTEGER},
             </if>
-            <if test="userPassword != null and userPassword ! = ''" >
-                #{userPassword,jdbcType=VARCHAR},
+            <if test="studentName != null and studentName ! = ''" >
+                #{studentName,jdbcType=VARCHAR},
+            </if>
+            <if test="birthDate != null" >
+                #{birthDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gender != null and gender ! = ''" >
+                #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="profession != null and profession ! = ''" >
+                #{profession,jdbcType=VARCHAR},
+            </if>
+            <if test="groupLevel != null and groupLevel ! = ''" >
+                #{groupLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="worksName != null and worksName ! = ''" >
+                #{worksName,jdbcType=VARCHAR},
+            </if>
+            <if test="tutor != null and tutor ! = ''" >
+                #{tutor,jdbcType=VARCHAR},
+            </if>
+            <if test="results != null and results ! = ''" >
+                #{results,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null" >
+                #{createDate,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
-    <update id="updateUser" parameterType="com.tutuniao.tutuniao.entity.User" >
+    <update id="updateMatchTemplateById" parameterType="com.tutuniao.tutuniao.entity.MatchTemplate" >
         update t_user
         <set >
-            <if test="userName != null and userName ! = ''" >
-                user_name = #{userName,jdbcType=VARCHAR},
+            <if test="numberId != null and numberId ! = ''" >
+                number_id = #{numberId,jdbcType=INTEGER},
             </if>
-            <if test="userPassword != null and userPassword ! = ''" >
-                user_password = #{userPassword,jdbcType=VARCHAR},
+            <if test="studentName != null and studentName ! = ''" >
+                student_name = #{studentName,jdbcType=VARCHAR},
+            </if>
+            <if test="birthDate != null" >
+                birth_date = #{birthDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gender != null and gender ! = ''" >
+                gender = #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="profession != null and profession ! = ''" >
+                profession = #{profession,jdbcType=VARCHAR},
+            </if>
+            <if test="groupLevel != null and groupLevel ! = ''" >
+                group_level = #{groupLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="worksName != null and worksName ! = ''" >
+                works_name = #{worksName,jdbcType=VARCHAR},
+            </if>
+            <if test="tutor != null and tutor ! = ''" >
+                tutor = #{tutor,jdbcType=VARCHAR},
+            </if>
+            <if test="results != null and results ! = ''" >
+                results = #{results,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null" >
+                create_date = #{createDate,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where id = #{id,jdbcType=INTEGER}
+        where id = #{mtId,jdbcType=INTEGER}
     </update>
 
 </mapper>
