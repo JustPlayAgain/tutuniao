@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @MTable(name = "t_activity")
-public class Activity implements Serializable {
+public class Activity extends BaseEntity implements Serializable {
 
     /**
      * 主键id

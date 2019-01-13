@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @MTable(name = "t_guomei_template")
-public class GuoMeiTemplate implements Serializable {
+public class GuoMeiTemplate extends BaseEntity implements Serializable {
     /** 主键id **/
     private Integer id;
     /** 序号 **/

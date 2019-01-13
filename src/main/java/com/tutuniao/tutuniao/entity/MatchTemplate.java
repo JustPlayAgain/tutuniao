@@ -12,7 +12,7 @@ import java.util.Date;
 
 @Data
 @MTable(name = "t_match_template")
-public class MatchTemplate implements Serializable {
+public class MatchTemplate extends BaseEntity implements Serializable {
     /** 主键id **/
     private Integer id;
     /** 序号 **/

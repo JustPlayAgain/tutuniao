@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 @MTable(name = "t_user")
-public class User implements Serializable {
+public class User extends BaseEntity implements Serializable {
     private Integer id;
     private String userName;
     private String userPassword;

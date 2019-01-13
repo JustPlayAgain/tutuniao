@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 @MTable(name = "t_news")
-public class News {
+public class News extends BaseEntity {
 
     /**
      * 主键id
