@@ -22,25 +22,25 @@
             <if test="id != null">
                 and id = #{id,jdbcType=INTEGER}
             </if>
-            <if test="newsUrl != null and newsUrl ! = ''">
+            <if test="newsUrl != null and newsUrl !=''">
                 and news_url = #{newsUrl,jdbcType=VARCHAR}
             </if>
-            <if test="newsPic != null and newsPic ! = ''">
+            <if test="newsPic != null and newsPic !=''">
                 and news_pic = #{newsPic,jdbcType=VARCHAR}
             </if>
-            <if test="newsTitle != null and newsTitle ! = ''">
+            <if test="newsTitle != null and newsTitle !=''">
                 and news_title = #{newsTitle,jdbcType=VARCHAR}
             </if>
-            <if test="newsIsAble != null and newsIsAble ! = ''">
+            <if test="newsIsAble != null and newsIsAble !=''">
                 and news_is_able = #{newsIsAble,jdbcType=INTEGER}
             </if>
-            <if test="createUser != null and createUser ! = ''">
+            <if test="createUser != null and createUser !=''">
                 and create_user = #{createUser,jdbcType=VARCHAR}
             </if>
             <if test="createDate != null">
                 and create_date = #{createDate,jdbcType=TIMESTAMP}
             </if>
-            <if test="updateUser != null and updateUser ! = ''">
+            <if test="updateUser != null and updateUser !=''">
                 and update_user = #{updateUser,jdbcType=VARCHAR}
             </if>
             <if test="updateDate != null">
@@ -76,25 +76,25 @@
             <if test="id != null" >
                 id,
             </if>
-            <if test="newsUrl != null and newsUrl ! = ''">
+            <if test="newsUrl != null and newsUrl !=''">
                 news_url,
             </if>
-            <if test="newsPic != null and newsPic ! = ''">
+            <if test="newsPic != null and newsPic !=''">
                 news_pic,
             </if>
-            <if test="newsTitle != null and newsTitle ! = ''">
+            <if test="newsTitle != null and newsTitle !=''">
                 news_title,
             </if>
-            <if test="newsIsAble != null and newsIsAble ! = ''">
+            <if test="newsIsAble != null and newsIsAble !=''">
                 news_is_able,
             </if>
-            <if test="createUser != null and createUser ! = ''">
+            <if test="createUser != null and createUser !=''">
                 create_user,
             </if>
             <if test="createDate != null">
                 create_date,
             </if>
-            <if test="updateUser != null and updateUser ! = ''">
+            <if test="updateUser != null and updateUser !=''">
                 update_user,
             </if>
             <if test="updateDate != null">
@@ -105,25 +105,25 @@
             <if test="id != null" >
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="newsUrl != null and newsUrl ! = ''">
+            <if test="newsUrl != null and newsUrl !=''">
                 #{newsUrl,jdbcType=VARCHAR}
             </if>
-            <if test="newsPic != null and newsPic ! = ''">
+            <if test="newsPic != null and newsPic !=''">
                 #{newsPic,jdbcType=VARCHAR}
             </if>
-            <if test="newsTitle != null and newsTitle ! = ''">
+            <if test="newsTitle != null and newsTitle !=''">
                 #{newsTitle,jdbcType=VARCHAR}
             </if>
-            <if test="newsIsAble != null and newsIsAble ! = ''">
+            <if test="newsIsAble != null and newsIsAble !=''">
                 #{newsIsAble,jdbcType=INTEGER}
             </if>
-            <if test="createUser != null and createUser ! = ''">
+            <if test="createUser != null and createUser !=''">
                 #{createUser,jdbcType=VARCHAR}
             </if>
             <if test="createDate != null">
                 #{createDate,jdbcType=TIMESTAMP}
             </if>
-            <if test="updateUser != null and updateUser ! = ''">
+            <if test="updateUser != null and updateUser !=''">
                 #{updateUser,jdbcType=VARCHAR}
             </if>
             <if test="updateDate != null">

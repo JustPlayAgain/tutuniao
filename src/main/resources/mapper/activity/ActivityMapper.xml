@@ -21,22 +21,22 @@
             <if test="id != null">
                 and id = #{id,jdbcType=INTEGER}
             </if>
-            <if test="activityName != null and activityName ! = ''">
+            <if test="activityName != null and activityName !=''">
                 and activity_name = #{activityName,jdbcType=VARCHAR}
             </if>
-            <if test="activityCode != null and activityCode ! = ''">
+            <if test="activityCode != null and activityCode !=''">
                 and activity_code = #{activityCode,jdbcType=VARCHAR}
             </if>
             <if test="activityDate != null">
                 and activity_date = #{activityDate,jdbcType=TIMESTAMP}
             </if>
-            <if test="createUser != null and createUser ! = ''">
+            <if test="createUser != null and createUser !=''">
                 and create_user = #{createUser,jdbcType=VARCHAR}
             </if>
             <if test="createDate != null">
                 and create_date = #{createDate,jdbcType=TIMESTAMP}
             </if>
-            <if test="updateUser != null and updateUser ! = ''">
+            <if test="updateUser != null and updateUser !=''">
                 and update_user = #{updateUser,jdbcType=VARCHAR}
             </if>
             <if test="updateDate != null">
@@ -71,22 +71,22 @@
             <if test="id != null" >
                 id,
             </if>
-            <if test="activityName != null and activityName ! = ''">
+            <if test="activityName != null and activityName !=''">
                 activity_name,
             </if>
-            <if test="activityCode != null and activityCode ! = ''">
+            <if test="activityCode != null and activityCode !=''">
                 activity_code,
             </if>
             <if test="activityDate != null">
                 activity_date,
             </if>
-            <if test="createUser != null and createUser ! = ''">
+            <if test="createUser != null and createUser !=''">
                 create_user,
             </if>
             <if test="createDate != null">
                 create_date,
             </if>
-            <if test="updateUser != null and updateUser ! = ''">
+            <if test="updateUser != null and updateUser !=''">
                 update_user,
             </if>
             <if test="updateDate != null">
@@ -97,22 +97,22 @@
             <if test="id != null" >
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="activityName != null and activityName ! = ''">
+            <if test="activityName != null and activityName !=''">
                 #{activityName,jdbcType=VARCHAR},
             </if>
-            <if test="activityCode != null and activityCode ! = ''">
+            <if test="activityCode != null and activityCode !=''">
                 #{activityCode,jdbcType=VARCHAR},
             </if>
             <if test="activityDate != null">
                 #{activityDate,jdbcType=TIMESTAMP},
             </if>
-            <if test="createUser != null and createUser ! = ''">
+            <if test="createUser != null and createUser !=''">
                 #{createUser,jdbcType=VARCHAR},
             </if>
             <if test="createDate != null">
                 #{createDate,jdbcType=TIMESTAMP},
             </if>
-            <if test="updateUser != null and updateUser ! = ''">
+            <if test="updateUser != null and updateUser !=''">
                 #{updateUser,jdbcType=VARCHAR},
             </if>
             <if test="updateDate != null">
@@ -124,28 +124,28 @@
     <update id="updateActivityById" parameterType="com.tutuniao.tutuniao.entity.Activity" >
         update t_activity
         <set >
-            <if test="userName != null and userName ! = ''" >
+            <if test="userName != null and userName !=''" >
                 user_name = #{userName,jdbcType=VARCHAR},
             </if>
-            <if test="userPassword != null and userPassword ! = ''" >
+            <if test="userPassword != null and userPassword !=''" >
                 user_password = #{userPassword,jdbcType=VARCHAR},
             </if>
-            <if test="activityName != null and activityName ! = ''">
+            <if test="activityName != null and activityName !=''">
                 activity_name = #{activityName,jdbcType=VARCHAR},
             </if>
-            <if test="activityCode != null and activityCode ! = ''">
+            <if test="activityCode != null and activityCode !=''">
                 activity_code = #{activityCode,jdbcType=VARCHAR},
             </if>
             <if test="activityDate != null">
                 activity_date = #{activityDate,jdbcType=TIMESTAMP},
             </if>
-            <if test="createUser != null and createUser ! = ''">
+            <if test="createUser != null and createUser !=''">
                 create_user = #{createUser,jdbcType=VARCHAR},
             </if>
             <if test="createDate != null">
                 create_date = #{createDate,jdbcType=TIMESTAMP},
             </if>
-            <if test="updateUser != null and updateUser ! = ''">
+            <if test="updateUser != null and updateUser !=''">
                 update_user = #{updateUser,jdbcType=VARCHAR},
             </if>
             <if test="updateDate != null">

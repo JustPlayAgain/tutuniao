@@ -24,31 +24,31 @@
             <if test="id != null">
                 and id = #{id,jdbcType=INTEGER}
             </if>
-            <if test="numberId != null and numberId ! = ''">
+            <if test="numberId != null and numberId !=''">
                 and number_id = #{numberId,jdbcType=INTEGER}
             </if>
-            <if test="studentName != null and studentName ! = ''">
+            <if test="studentName != null and studentName !=''">
                 and student_name = #{studentName,jdbcType=VARCHAR}
             </if>
-            <if test="birthDate != null and birthDate ! = ''">
+            <if test="birthDate != null and birthDate !=''">
                 and birth_date = #{birthDate,jdbcType=INTEGER}
             </if>
-            <if test="gender != null and gender ! = ''">
+            <if test="gender != null and gender !=''">
                 and gender = #{gender,jdbcType=VARCHAR}
             </if>
-            <if test="profession != null and profession ! = ''">
+            <if test="profession != null and profession !=''">
                 and profession = #{profession,jdbcType=INTEGER}
             </if>
-            <if test="groupLevel != null and groupLevel ! = ''">
+            <if test="groupLevel != null and groupLevel !=''">
                 and group_level = #{groupLevel,jdbcType=VARCHAR}
             </if>
-            <if test="worksName != null and worksName ! = ''">
+            <if test="worksName != null and worksName !=''">
                 and works_name = #{worksName,jdbcType=INTEGER}
             </if>
-            <if test="tutor != null and tutor ! = ''">
+            <if test="tutor != null and tutor !=''">
                 and tutor = #{tutor,jdbcType=VARCHAR}
             </if>
-            <if test="results != null and results ! = ''">
+            <if test="results != null and results !=''">
                 and results = #{results,jdbcType=VARCHAR}
             </if>
             <if test="createDate != null">
@@ -76,31 +76,31 @@
             <if test="id != null" >
                 id,
             </if>
-            <if test="numberId != null and numberId ! = ''" >
+            <if test="numberId != null and numberId !=''" >
                 number_id,
             </if>
-            <if test="studentName != null and studentName ! = ''" >
+            <if test="studentName != null and studentName !=''" >
                 student_name,
             </if>
             <if test="birthDate != null" >
                 birth_date,
             </if>
-            <if test="gender != null and gender ! = ''" >
+            <if test="gender != null and gender !=''" >
                 gender,
             </if>
-            <if test="profession != null and profession ! = ''" >
+            <if test="profession != null and profession !=''" >
                 profession,
             </if>
-            <if test="groupLevel != null and groupLevel ! = ''" >
+            <if test="groupLevel != null and groupLevel !=''" >
                 group_level,
             </if>
-            <if test="worksName != null and worksName ! = ''" >
+            <if test="worksName != null and worksName !=''" >
                 works_name,
             </if>
-            <if test="tutor != null and tutor ! = ''" >
+            <if test="tutor != null and tutor !=''" >
                 tutor,
             </if>
-            <if test="results != null and results ! = ''" >
+            <if test="results != null and results !=''" >
                 results,
             </if>
             <if test="createDate != null" >
@@ -111,31 +111,31 @@
             <if test="id != null" >
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="numberId != null and numberId ! = ''" >
+            <if test="numberId != null and numberId !=''" >
                 #{numberId,jdbcType=INTEGER},
             </if>
-            <if test="studentName != null and studentName ! = ''" >
+            <if test="studentName != null and studentName !=''" >
                 #{studentName,jdbcType=VARCHAR},
             </if>
             <if test="birthDate != null" >
                 #{birthDate,jdbcType=TIMESTAMP},
             </if>
-            <if test="gender != null and gender ! = ''" >
+            <if test="gender != null and gender !=''" >
                 #{gender,jdbcType=VARCHAR},
             </if>
-            <if test="profession != null and profession ! = ''" >
+            <if test="profession != null and profession !=''" >
                 #{profession,jdbcType=VARCHAR},
             </if>
-            <if test="groupLevel != null and groupLevel ! = ''" >
+            <if test="groupLevel != null and groupLevel !=''" >
                 #{groupLevel,jdbcType=VARCHAR},
             </if>
-            <if test="worksName != null and worksName ! = ''" >
+            <if test="worksName != null and worksName !=''" >
                 #{worksName,jdbcType=VARCHAR},
             </if>
-            <if test="tutor != null and tutor ! = ''" >
+            <if test="tutor != null and tutor !=''" >
                 #{tutor,jdbcType=VARCHAR},
             </if>
-            <if test="results != null and results ! = ''" >
+            <if test="results != null and results !=''" >
                 #{results,jdbcType=VARCHAR},
             </if>
             <if test="createDate != null" >
@@ -146,31 +146,31 @@
     <update id="updateMatchTemplateById" parameterType="com.tutuniao.tutuniao.entity.MatchTemplate" >
         update t_user
         <set >
-            <if test="numberId != null and numberId ! = ''" >
+            <if test="numberId != null and numberId !=''" >
                 number_id = #{numberId,jdbcType=INTEGER},
             </if>
-            <if test="studentName != null and studentName ! = ''" >
+            <if test="studentName != null and studentName !=''" >
                 student_name = #{studentName,jdbcType=VARCHAR},
             </if>
             <if test="birthDate != null" >
                 birth_date = #{birthDate,jdbcType=TIMESTAMP},
             </if>
-            <if test="gender != null and gender ! = ''" >
+            <if test="gender != null and gender !=''" >
                 gender = #{gender,jdbcType=VARCHAR},
             </if>
-            <if test="profession != null and profession ! = ''" >
+            <if test="profession != null and profession !=''" >
                 profession = #{profession,jdbcType=VARCHAR},
             </if>
-            <if test="groupLevel != null and groupLevel ! = ''" >
+            <if test="groupLevel != null and groupLevel !=''" >
                 group_level = #{groupLevel,jdbcType=VARCHAR},
             </if>
-            <if test="worksName != null and worksName ! = ''" >
+            <if test="worksName != null and worksName !=''" >
                 works_name = #{worksName,jdbcType=VARCHAR},
             </if>
-            <if test="tutor != null and tutor ! = ''" >
+            <if test="tutor != null and tutor !=''" >
                 tutor = #{tutor,jdbcType=VARCHAR},
             </if>
-            <if test="results != null and results ! = ''" >
+            <if test="results != null and results !=''" >
                 results = #{results,jdbcType=VARCHAR},
             </if>
             <if test="createDate != null" >
