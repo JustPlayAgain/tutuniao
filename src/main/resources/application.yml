@@ -22,3 +22,5 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+  rowBoundsWithCount: true
+  offsetAsPageNum: true

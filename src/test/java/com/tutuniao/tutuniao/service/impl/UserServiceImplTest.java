@@ -34,7 +34,7 @@ public class UserServiceImplTest {
     public void quertyUserList() {
         User user = new User();
         user.setPageIndex(1);
-        user.setPageSize(1);
+        user.setPageSize(2);
         PageVO<User> pageVO = userService.queryUserList(user);
         log.info("登录用户信息:======== {}", pageVO);
     }
