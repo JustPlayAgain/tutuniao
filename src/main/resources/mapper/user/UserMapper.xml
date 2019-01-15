@@ -16,10 +16,10 @@
             <if test="id != null">
                 and id = #{id,jdbcType=INTEGER}
             </if>
-            <if test="userName != null and userName ! = ''">
+            <if test="userName != null and userName !=''">
                 and user_name = #{userName,jdbcType=VARCHAR}
             </if>
-            <if test="userPassword != null and userPassword ! = ''">
+            <if test="userPassword != null and userPassword !=''">
                 and user_password = #{userPassword,jdbcType=VARCHAR}
             </if>
         </where>

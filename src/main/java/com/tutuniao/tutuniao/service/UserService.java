@@ -1,6 +1,7 @@
 package com.tutuniao.tutuniao.service;
 
 import com.tutuniao.tutuniao.entity.User;
+import com.tutuniao.tutuniao.vo.PageVO;
 
 import java.util.List;
 
@@ -18,5 +19,5 @@ public interface UserService {
      * @param user
      * @return
      */
-    List<User> queryUserList(User user);
+    PageVO<User> queryUserList(User user);
 }
