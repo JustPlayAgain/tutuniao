@@ -49,13 +49,11 @@
         </where>
     </sql>
 
-    <select id="queryNewsById" resultMap="BaseResultMap"
-            parameterType="com.tutuniao.tutuniao.entity.News">
+    <select id="queryNewsById" resultMap="BaseResultMap" parameterType="com.tutuniao.tutuniao.entity.News">
         select
         <include refid="Base_Column_List"/>
         from t_news
-        <include refid="Base_Where_Clause"/>
-        limit 1
+        where id = #{id,jdbcType=INTEGER}
     </select>
 
 

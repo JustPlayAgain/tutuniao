@@ -22,10 +22,10 @@
                 and id = #{id,jdbcType=INTEGER}
             </if>
             <if test="activityName != null and activityName !=''">
-                and activity_name = #{activityName,jdbcType=VARCHAR}
+                and activity_name like CONCAT('%',#{activityName,jdbcType=VARCHAR},'%')
             </if>
             <if test="activityCode != null and activityCode !=''">
-                and activity_code = #{activityCode,jdbcType=VARCHAR}
+                and activity_code like CONCAT('%',#{activityCode,jdbcType=VARCHAR},'%')
             </if>
             <if test="activityDate != null">
                 and activity_date = #{activityDate,jdbcType=TIMESTAMP}
@@ -45,15 +45,14 @@
         </where>
     </sql>
 
-    <!--<select id="queryUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <select id="queryActivityById" resultMap="BaseResultMap" parameterType="com.tutuniao.tutuniao.entity.Activity">
         select
-        <include refid="Base_Column_List" />
-        from t_user
-        where id = #{userId,jdbcType=INTEGER}
-    </select>-->
+        <include refid="Base_Column_List"/>
+        from t_activity
+        where id = #{id,jdbcType=INTEGER}
+    </select>
 
-    <select id="queryActivityList" resultMap="BaseResultMap"
-            parameterType="com.tutuniao.tutuniao.entity.User">
+    <select id="queryActivityList" resultMap="BaseResultMap" parameterType="com.tutuniao.tutuniao.entity.Activity">
         select
         <include refid="Base_Column_List"/>
         from t_activity
@@ -62,10 +61,10 @@
 
     <delete id="deleteActivityById" parameterType="java.lang.Integer" >
         delete from t_activity
-        where id = #{activityId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
     </delete>
 
-    <insert id="insertActivity" parameterType="com.tutuniao.tutuniao.entity.Activity" >
+    <insert id="insertActivity" parameterType="com.tutuniao.tutuniao.entity.Activity" useGeneratedKeys="true" keyProperty="id">
         insert into t_activity
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -124,12 +123,6 @@
     <update id="updateActivityById" parameterType="com.tutuniao.tutuniao.entity.Activity" >
         update t_activity
         <set >
-            <if test="userName != null and userName !=''" >
-                user_name = #{userName,jdbcType=VARCHAR},
-            </if>
-            <if test="userPassword != null and userPassword !=''" >
-                user_password = #{userPassword,jdbcType=VARCHAR},
-            </if>
             <if test="activityName != null and activityName !=''">
                 activity_name = #{activityName,jdbcType=VARCHAR},
             </if>
@@ -139,12 +132,6 @@
             <if test="activityDate != null">
                 activity_date = #{activityDate,jdbcType=TIMESTAMP},
             </if>
-            <if test="createUser != null and createUser !=''">
-                create_user = #{createUser,jdbcType=VARCHAR},
-            </if>
-            <if test="createDate != null">
-                create_date = #{createDate,jdbcType=TIMESTAMP},
-            </if>
             <if test="updateUser != null and updateUser !=''">
                 update_user = #{updateUser,jdbcType=VARCHAR},
             </if>
@@ -152,7 +139,7 @@
                 update_date = #{updateDate,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where id = #{activityId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
     </update>
 
 </mapper>

@@ -34,7 +34,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public PageVO<News> queryNewsList(News news) {
+    public PageVO<List<News>> queryNewsList(News news) {
         Page<PageInfo> pageInfo = null;
         boolean flag = false;
         if (Utils.isNotNull(news.getPageIndex()) && Utils.isNotNull(news.getPageSize())) {
@@ -42,26 +42,20 @@ public class NewsServiceImpl implements NewsService {
             flag = true;
         }
 
-        log.info("查询【用户数据】开始 参数为:{}", Jackson2Helper.toJsonString(news));
+        log.info("查询【文章数据】开始 参数为:{}", Jackson2Helper.toJsonString(news));
         List<News> newsList = newsMapper.queryNewsList(news);
-        log.info("查询【用户数据】结束 结果为:{}", Jackson2Helper.toJsonString(newsList));
+        log.info("查询【文章数据】结束 结果为:{}", Jackson2Helper.toJsonString(newsList));
 
-        return new PageVO(flag ? (int) pageInfo.getTotal() : newsList.size(), newsList);
+        return new PageVO<>(flag ? (int) pageInfo.getTotal() : newsList.size(), newsList);
     }
 
     @Override
     public News queryNewById(News news) {
-        if(Utils.isNotNull(news.getId())){
-            return newsMapper.queryNewsById(news);
-        }
-        return null;
+        return newsMapper.queryNewsById(news);
     }
 
     @Override
     public int updateNewsById(News news) {
-        if(Utils.isNotNull(news.getId()) && Utils.isNotNull(news.getNewsUrl()) && Utils.isNotNull(news.getNewsPic()) && Utils.isNotNull(news.getNewsIsAble()) && Utils.isNotNull(news.getNewsTitle())) {
-            return newsMapper.updateNewsById(news);
-        }
-        return 0;
+        return newsMapper.updateNewsById(news);
     }
 }

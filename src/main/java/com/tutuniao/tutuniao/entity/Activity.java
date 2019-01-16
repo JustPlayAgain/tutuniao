@@ -1,7 +1,10 @@
 package com.tutuniao.tutuniao.entity;
 
 import com.alibaba.druid.support.monitor.annotation.MTable;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -28,6 +31,8 @@ public class Activity extends BaseEntity implements Serializable {
     /**
      * 活动日期
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date activityDate;
 
     /**
@@ -38,6 +43,7 @@ public class Activity extends BaseEntity implements Serializable {
     /**
      * 创建时间
      */
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date createDate;
 
     /**
@@ -48,5 +54,6 @@ public class Activity extends BaseEntity implements Serializable {
     /**
      * 修改时间
      */
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date updateDate;
 }

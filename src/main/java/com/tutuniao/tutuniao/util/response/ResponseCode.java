@@ -11,6 +11,7 @@ public enum ResponseCode {
     START_FAILD("1007", "system_error", "启动失败，任务已启动"),
     STOP_FAILD("1008", "system_error", "停止失败，任务已停止"),
     CHECKFAILD("1009", "param_error", "角色名称重复，请重新输入"),
+    USER_PASSWORD_NULL("1010", "param_error", "用户名，密码为空"),
     COMPLETEFAILD("10086", "complete_faild", "完成失败,有部分带宽用量尚未上传或驳回后尚未再次提交"),
     UPDATEFAILD("10087", "update_faild", "完成失败,修改带宽主表状态失败"),
 

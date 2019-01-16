@@ -12,21 +12,22 @@ import com.tutuniao.tutuniao.util.response.ResponseUtil;
 import com.tutuniao.tutuniao.vo.PageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 
 @RestController
+@RequestMapping("/news")
 public class NewsController {
     @Autowired
     private NewsService newsService;
 
-    @RequestMapping(value="newList",method= RequestMethod.GET)
-    public Response<PageVO<News>> queryNewsList(News news){
+    @RequestMapping("/queryNewsList")
+    public Response<PageVO<List<News>>> queryNewsList(News news){
 
-        PageVO<News> newsPageVO = newsService.queryNewsList(news);
+        PageVO<List<News>> newsPageVO = newsService.queryNewsList(news);
         return ResponseUtil.buildResponse(newsPageVO);
     }
 
@@ -36,22 +37,21 @@ public class NewsController {
      * @param request
      * @return
      */
-    @RequestMapping(value="insertNew",method= RequestMethod.GET)
-    public Response<String> inserNew(News news, HttpServletRequest request){
+    @RequestMapping("/insertNews")
+    public Response<String> insertNews(News news, HttpServletRequest request){
         User user = CookieUtils.userVerification(request);
-        if(Utils.isNotNull(user)){
-            if(Utils.isNotNull(news.getNewsUrl()) && Utils.isNotNull(news.getNewsPic()) && Utils.isNotNull(news.getNewsIsAble()) && Utils.isNotNull(news.getNewsTitle())) {
-                news.setCreateUser(user.getUserName());
-                news.setCreateDate(new Date());
-                news.setUpdateUser(user.getUserName());
-                news.setUpdateDate(new Date());
-                int i = newsService.insertNews(news);
-                if (i != 0) {
-                    return ResponseUtil.buildSuccessResponse();
-                }
-            }
-        }else{
+        if(Utils.isNull(user)) {
             return ResponseUtil.buildErrorResponse(ResponseCode.NEED_LOGIN);
+        }
+        if(Utils.isNotNull(news.getNewsUrl()) && Utils.isNotNull(news.getNewsPic()) && Utils.isNotNull(news.getNewsIsAble()) && Utils.isNotNull(news.getNewsTitle())) {
+            news.setCreateUser(user.getUserName());
+            news.setCreateDate(new Date());
+            news.setUpdateUser(user.getUserName());
+            news.setUpdateDate(new Date());
+            int i = newsService.insertNews(news);
+            if (i != 0) {
+                return ResponseUtil.buildSuccessResponse();
+            }
         }
         return ResponseUtil.buildErrorResponse(ErrorEnum.INSERT_DATA_ERROR);
     }
@@ -62,15 +62,17 @@ public class NewsController {
      * @param request
      * @return
      */
-    @RequestMapping(value="querNewsById",method= RequestMethod.GET)
-    public Response<News> querNewsById(News news, HttpServletRequest request){
-        if(CookieUtils.userVerification(request) != null){
+    @RequestMapping("/queryNewsById")
+    public Response<News> queryNewsById(News news, HttpServletRequest request){
+        User user = CookieUtils.userVerification(request);
+        if(Utils.isNull(user)) {
+            return ResponseUtil.buildErrorResponse(ResponseCode.NEED_LOGIN);
+        }
+        if( Utils.isNotNull(news) && Utils.isNotNull(news.getId()) ){
             News tmpNews = newsService.queryNewById(news);
             if(Utils.isNotNull(tmpNews)){
                 return ResponseUtil.buildResponse(tmpNews);
             }
-        }else{
-            return ResponseUtil.buildErrorResponse(ResponseCode.NEED_LOGIN);
         }
         return ResponseUtil.buildErrorResponse(ErrorEnum.SELECT_DATA_ERROR);
     }
@@ -81,18 +83,17 @@ public class NewsController {
      * @param request
      * @return
      */
-    @RequestMapping(value="updateNews",method= RequestMethod.GET)
-    public Response<String> updateNew(News news, HttpServletRequest request){
+    @RequestMapping("/updateNews")
+    public Response<String> updateNews(News news, HttpServletRequest request){
         User user = CookieUtils.userVerification(request);
-        if(Utils.isNotNull(user)){
-            if(Utils.isNotNull(news.getId()) && Utils.isNotNull(news.getNewsUrl()) && Utils.isNotNull(news.getNewsPic()) && Utils.isNotNull(news.getNewsIsAble()) && Utils.isNotNull(news.getNewsTitle())) {
-                news.setUpdateUser(user.getUserName());
-                news.setUpdateDate(new Date());
-                newsService.updateNewsById(news);
-                return ResponseUtil.buildSuccessResponse();
-            }
-        }else{
+        if(Utils.isNull(user)) {
             return ResponseUtil.buildErrorResponse(ResponseCode.NEED_LOGIN);
+        }
+        if(Utils.isNotNull(news.getId()) && Utils.isNotNull(news.getNewsUrl()) && Utils.isNotNull(news.getNewsPic()) && Utils.isNotNull(news.getNewsIsAble()) && Utils.isNotNull(news.getNewsTitle())) {
+            news.setUpdateUser(user.getUserName());
+            news.setUpdateDate(new Date());
+            newsService.updateNewsById(news);
+            return ResponseUtil.buildSuccessResponse();
         }
         return ResponseUtil.buildErrorResponse(ErrorEnum.UPDATE_DATA_ERROR);
     }

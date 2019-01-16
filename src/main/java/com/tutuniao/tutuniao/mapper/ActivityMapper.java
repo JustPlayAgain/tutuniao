@@ -20,14 +20,14 @@ public interface ActivityMapper {
      * @param activityId 主键id
      * @return
      */
-    int deleteActivityById(Integer activityId);
+    int deleteActivityById(Activity activityId);
 
     /**
      * 修改活动
      * @param activityId
      * @return
      */
-    int updateActivityById(Integer activityId);
+    int updateActivityById(Activity activityId);
 
     /**
      * 查询活动 支持模糊查询
@@ -35,4 +35,12 @@ public interface ActivityMapper {
      * @return
      */
     List<Activity> queryActivityList(Activity activity);
+
+
+    /**
+     * 根据ID 查询活动
+     * @param activity
+     * @return
+     */
+    Activity queryActivityById(Activity activity);
 }
