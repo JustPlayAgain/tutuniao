@@ -36,7 +36,7 @@ public class CookieUtils {
         }
     }
 
-    public static boolean userVerification(HttpServletRequest request){
+    public static User userVerification(HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie: cookies) {
             if(cookie.getName().equals(CookieEnum.USER.getKey())){
@@ -50,18 +50,18 @@ public class CookieUtils {
                             if(user != null && Utils.isNotNull(user.getUserName()) && Utils.isNotNull(user.getUserPassword()) ){
                                 String userMd5 = md5User(user);
                                 if(userMd5.equals(split[1])){
-                                    return true;
+                                    return user;
                                 }
                             }
                         }catch (Exception e ){
                             log.error("",e);
-                            return false;
+                            return null;
                         }
                     }
                 }
             }
         }
-        return false;
+        return null;
     }
 
     public static String md5User(User user) {

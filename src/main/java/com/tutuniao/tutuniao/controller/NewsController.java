@@ -1,8 +1,10 @@
 package com.tutuniao.tutuniao.controller;
 
 import com.tutuniao.tutuniao.entity.News;
+import com.tutuniao.tutuniao.entity.User;
 import com.tutuniao.tutuniao.service.NewsService;
 import com.tutuniao.tutuniao.util.CookieUtils;
+import com.tutuniao.tutuniao.util.Utils;
 import com.tutuniao.tutuniao.util.response.Response;
 import com.tutuniao.tutuniao.util.response.ResponseCode;
 import com.tutuniao.tutuniao.util.response.ResponseUtil;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 @RestController
 public class NewsController {
@@ -28,16 +31,50 @@ public class NewsController {
 
     @RequestMapping(value="insertNew",method= RequestMethod.GET)
     public Response<String> inserNew(News news, HttpServletRequest request){
-        if(CookieUtils.userVerification(request)){
-            int i = newsService.insertNews(news);
-            if (i != 0){
-                return ResponseUtil.buildResponse("新增新闻成功");
-            }else{
-                return ResponseUtil.buildErrorResponse(ResponseCode.PARAM_ERROR, "新增新闻失败");
+        User user = CookieUtils.userVerification(request);
+        if(user != null){
+            if(Utils.isNotNull(news.getNewsUrl()) && Utils.isNotNull(news.getNewsPic()) && Utils.isNotNull(news.getNewsIsAble()) && Utils.isNotNull(news.getNewsTitle())) {
+                news.setCreateUser(user.getUserName());
+                news.setCreateDate(new Date());
+                news.setUpdateUser(user.getUserName());
+                news.setUpdateDate(new Date());
+                int i = newsService.insertNews(news);
+                if (i != 0) {
+                    return ResponseUtil.buildResponse("新增新闻成功");
+                }
             }
         }else{
             return ResponseUtil.buildErrorResponse(ResponseCode.NEED_LOGIN);
         }
-
+        return ResponseUtil.buildErrorResponse(ResponseCode.PARAM_ERROR, "新增新闻失败, 请检查输入参数是否正确");
     }
+    @RequestMapping(value="querNewsById",method= RequestMethod.GET)
+    public Response<News> querNewsById(News news, HttpServletRequest request){
+        if(CookieUtils.userVerification(request) != null){
+            News tmpNews = newsService.queryNewById(news);
+            if (tmpNews != null){
+                return ResponseUtil.buildResponse(tmpNews);
+            }
+        }else{
+            return ResponseUtil.buildErrorResponse(ResponseCode.NEED_LOGIN);
+        }
+        return ResponseUtil.buildErrorResponse(ResponseCode.PARAM_ERROR, "查询新闻失败");
+    }
+
+    @RequestMapping(value="updateNews",method= RequestMethod.GET)
+    public Response<String> updateNew(News news, HttpServletRequest request){
+        User user = CookieUtils.userVerification(request);
+        if(user != null){
+            if(Utils.isNotNull(news.getId()) && Utils.isNotNull(news.getNewsUrl()) && Utils.isNotNull(news.getNewsPic()) && Utils.isNotNull(news.getNewsIsAble()) && Utils.isNotNull(news.getNewsTitle())) {
+                news.setUpdateUser(user.getUserName());
+                news.setUpdateDate(new Date());
+                newsService.updateNewsById(news);
+                return ResponseUtil.buildSuccessResponse();
+            }
+        }else{
+            return ResponseUtil.buildErrorResponse(ResponseCode.NEED_LOGIN);
+        }
+        return ResponseUtil.buildErrorResponse(ResponseCode.PARAM_ERROR, "修改新闻失败, 请检查输入参数是否正确");
+    }
+
 }

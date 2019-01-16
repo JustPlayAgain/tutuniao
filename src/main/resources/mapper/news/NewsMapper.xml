@@ -49,16 +49,15 @@
         </where>
     </sql>
 
-    <!--<select id="queryUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <select id="queryNewsById" resultMap="BaseResultMap"
+            parameterType="com.tutuniao.tutuniao.entity.News">
         select
-        <include refid="Base_Column_List" />
-        from t_user
-        where id = #{userId,jdbcType=INTEGER}
+        <include refid="Base_Column_List"/>
+        from t_news
+        <include refid="Base_Where_Clause"/>
+        limit 1
     </select>
-    <delete id="queryNewsList" parameterType="java.lang.Integer" >
-        delete from t_news
-        where id = #{userId,jdbcType=INTEGER}
-    </delete>-->
+
 
     <select id="queryNewsList" resultMap="BaseResultMap"
             parameterType="com.tutuniao.tutuniao.entity.News">
@@ -131,17 +130,31 @@
             </if>
         </trim>
     </insert>
-    <!--<update id="updateUser" parameterType="com.tutuniao.tutuniao.entity.User" >
-        update t_user
+
+    <update id="updateNewsById"  parameterType="com.tutuniao.tutuniao.entity.News">
+        update t_news
         <set >
-            <if test="userName != null and userName ! = ''" >
-                user_name = #{userName,jdbcType=VARCHAR},
+            <if test="newsUrl != null and newsUrl !=''">
+                news_url = #{newsUrl,jdbcType=VARCHAR},
             </if>
-            <if test="userPassword != null and userPassword ! = ''" >
-                user_password = #{userPassword,jdbcType=VARCHAR},
+            <if test="newsPic != null and newsPic !=''">
+                news_pic = #{newsPic,jdbcType=VARCHAR},
+            </if>
+            <if test="newsTitle != null and newsTitle !=''">
+                news_title = #{newsTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="newsIsAble != null">
+                news_is_able = #{newsIsAble,jdbcType=INTEGER},
+            </if>
+            <if test="updateUser != null and updateUser !=''">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>-->
+         where id = #{id,jdbcType=INTEGER}
+    </update>
+
 
 </mapper>

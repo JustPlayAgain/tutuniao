@@ -20,4 +20,18 @@ public interface NewsMapper {
      * @return
      */
     List<News> queryNewsList(News news);
+
+    /**
+     * 查询文章根据ID
+     * @param news
+     * @return
+     */
+    News queryNewsById(News news);
+
+    /**
+     * 更具文章ID 更新文章
+     * @param news
+     * @return
+     */
+    int updateNewsById(News news);
 }

@@ -18,4 +18,18 @@ public interface NewsService {
      * @return
      */
     PageVO<News> queryNewsList(News news);
+
+    /**
+     * 根据文章ID 查询文章
+     * @param news
+     * @return
+     */
+    News queryNewById(News news);
+
+    /**
+     * 更具文章ID 更新文章
+     * @param news
+     * @return
+     */
+    int updateNewsById(News news);
 }

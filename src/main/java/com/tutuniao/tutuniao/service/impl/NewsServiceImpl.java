@@ -4,7 +4,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tutuniao.tutuniao.entity.News;
-import com.tutuniao.tutuniao.entity.User;
 import com.tutuniao.tutuniao.mapper.NewsMapper;
 import com.tutuniao.tutuniao.service.NewsService;
 import com.tutuniao.tutuniao.util.Jackson2Helper;
@@ -52,5 +51,19 @@ public class NewsServiceImpl implements NewsService {
         log.info("查询【用户数据】结束 结果为:{}", Jackson2Helper.toJsonString(newsList));
 
         return new PageVO(flag ? (int) pageInfo.getTotal() : newsList.size(), newsList);
+    }
+
+    @Override
+    public News queryNewById(News news) {
+        if(Utils.isNotNull(news.getId())){
+            return newsMapper.queryNewsById(news);
+        }
+        return null;
+    }
+
+    @Override
+    public int updateNewsById(News news) {
+        newsMapper.updateNewsById(news);
+        return 0;
     }
 }
