@@ -12,7 +12,7 @@ public interface NewsMapper {
      * @param news
      * @return
      */
-    News insertNews(News news);
+    int insertNews(News news);
 
     /**
      * 查询文章列表

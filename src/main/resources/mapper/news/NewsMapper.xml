@@ -70,7 +70,7 @@
 
 
 
-    <insert id="insertNews" parameterType="com.tutuniao.tutuniao.entity.News" >
+    <insert id="insertNews" parameterType="com.tutuniao.tutuniao.entity.News" useGeneratedKeys="true" keyProperty="id">
         insert into t_news
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -85,7 +85,7 @@
             <if test="newsTitle != null and newsTitle !=''">
                 news_title,
             </if>
-            <if test="newsIsAble != null and newsIsAble !=''">
+            <if test="newsIsAble != null">
                 news_is_able,
             </if>
             <if test="createUser != null and createUser !=''">
@@ -106,28 +106,28 @@
                 #{id,jdbcType=INTEGER},
             </if>
             <if test="newsUrl != null and newsUrl !=''">
-                #{newsUrl,jdbcType=VARCHAR}
+                #{newsUrl,jdbcType=VARCHAR},
             </if>
             <if test="newsPic != null and newsPic !=''">
-                #{newsPic,jdbcType=VARCHAR}
+                #{newsPic,jdbcType=VARCHAR},
             </if>
             <if test="newsTitle != null and newsTitle !=''">
-                #{newsTitle,jdbcType=VARCHAR}
+                #{newsTitle,jdbcType=VARCHAR},
             </if>
-            <if test="newsIsAble != null and newsIsAble !=''">
-                #{newsIsAble,jdbcType=INTEGER}
+            <if test="newsIsAble != null">
+                #{newsIsAble,jdbcType=INTEGER},
             </if>
             <if test="createUser != null and createUser !=''">
-                #{createUser,jdbcType=VARCHAR}
+                #{createUser,jdbcType=VARCHAR},
             </if>
             <if test="createDate != null">
-                #{createDate,jdbcType=TIMESTAMP}
+                #{createDate,jdbcType=TIMESTAMP},
             </if>
             <if test="updateUser != null and updateUser !=''">
-                #{updateUser,jdbcType=VARCHAR}
+                #{updateUser,jdbcType=VARCHAR},
             </if>
             <if test="updateDate != null">
-                #{updateDate,jdbcType=TIMESTAMP}
+                #{updateDate,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>

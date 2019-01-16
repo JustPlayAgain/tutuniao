@@ -1,8 +1,7 @@
 package com.tutuniao.tutuniao.service;
 
 import com.tutuniao.tutuniao.entity.News;
-
-import java.util.List;
+import com.tutuniao.tutuniao.vo.PageVO;
 
 public interface NewsService {
 
@@ -11,12 +10,12 @@ public interface NewsService {
      * @param news
      * @return
      */
-    News insertNews(News news);
+    int insertNews(News news);
 
     /**
      * 查询文章列表
      * @param news
      * @return
      */
-    List<News> queryNewsList(News news);
+    PageVO<News> queryNewsList(News news);
 }

@@ -1,7 +1,7 @@
 package com.tutuniao.tutuniao.common.cookie;
 
 public enum CookieEnum {
-    USER("UserEntity");
+    USER("_id");
     private String key;
 
     CookieEnum(String key) {
