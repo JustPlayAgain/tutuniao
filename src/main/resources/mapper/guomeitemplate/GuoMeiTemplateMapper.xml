@@ -35,7 +35,7 @@
                 and number_id = #{numberId,jdbcType=INTEGER}
             </if>
             <if test="studentName != null and studentName !=''">
-                and student_name = #{studentName,jdbcType=VARCHAR}
+                and student_name = like CONCAT('%',#{studentName,jdbcType=VARCHAR},'%')
             </if>
             <if test="nationality != null and nationality !=''">
                 and nationality = #{nationality,jdbcType=VARCHAR}
@@ -50,7 +50,7 @@
                 and birth_date = #{birthDate,jdbcType=TIMESTAMP}
             </if>
             <if test="certificateNumber != null and certificateNumber !=''">
-                and certificate_number = #{certificateNumber,jdbcType=VARCHAR}
+                and certificate_number = like CONCAT('%',#{certificateNumber,jdbcType=VARCHAR},'%')
             </if>
             <if test="declareLevel != null and declareLevel !=''">
                 and declare_level = #{declareLevel,jdbcType=VARCHAR}
