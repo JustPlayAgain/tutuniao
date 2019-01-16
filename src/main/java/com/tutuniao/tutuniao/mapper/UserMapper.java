@@ -43,4 +43,11 @@ public interface UserMapper {
      */
     User queryUserById(Integer userId);
 
+    /**
+     * 根据账户密码查询用户
+     * @param user
+     * @return
+     */
+    User queryUserByPassword(User user);
+
 }

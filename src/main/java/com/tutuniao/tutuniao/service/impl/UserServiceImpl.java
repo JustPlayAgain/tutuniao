@@ -42,4 +42,9 @@ public class UserServiceImpl implements UserService {
 
         return new PageVO(flag ? (int) pageInfo.getTotal() : userList.size(), userList);
     }
+
+    @Override
+    public User queryUserByPassword(User user) {
+        return userMapper.queryUserByPassword(user);
+    }
 }

@@ -83,4 +83,12 @@
         where id = #{userId,jdbcType=INTEGER}
     </update>
 
+    <select id="queryUserByPassword" resultMap="BaseResultMap"
+            parameterType="com.tutuniao.tutuniao.entity.User">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        <include refid="Base_Where_Clause"/>
+    </select>
+
 </mapper>
