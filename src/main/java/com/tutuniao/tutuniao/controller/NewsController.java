@@ -1,5 +1,6 @@
 package com.tutuniao.tutuniao.controller;
 
+import com.tutuniao.tutuniao.common.enums.ErrorEnum;
 import com.tutuniao.tutuniao.entity.News;
 import com.tutuniao.tutuniao.entity.User;
 import com.tutuniao.tutuniao.service.NewsService;
@@ -29,6 +30,12 @@ public class NewsController {
         return ResponseUtil.buildResponse(newsPageVO);
     }
 
+    /**
+     * 新增文章
+     * @param news
+     * @param request
+     * @return
+     */
     @RequestMapping(value="insertNew",method= RequestMethod.GET)
     public Response<String> inserNew(News news, HttpServletRequest request){
         User user = CookieUtils.userVerification(request);
@@ -40,14 +47,21 @@ public class NewsController {
                 news.setUpdateDate(new Date());
                 int i = newsService.insertNews(news);
                 if (i != 0) {
-                    return ResponseUtil.buildResponse("新增新闻成功");
+                    return ResponseUtil.buildSuccessResponse();
                 }
             }
         }else{
             return ResponseUtil.buildErrorResponse(ResponseCode.NEED_LOGIN);
         }
-        return ResponseUtil.buildErrorResponse(ResponseCode.PARAM_ERROR, "新增新闻失败, 请检查输入参数是否正确");
+        return ResponseUtil.buildErrorResponse(ErrorEnum.INSERT_DATA_ERROR);
     }
+
+    /**
+     * 根据ID 查询文章
+     * @param news
+     * @param request
+     * @return
+     */
     @RequestMapping(value="querNewsById",method= RequestMethod.GET)
     public Response<News> querNewsById(News news, HttpServletRequest request){
         if(CookieUtils.userVerification(request) != null){
@@ -58,9 +72,15 @@ public class NewsController {
         }else{
             return ResponseUtil.buildErrorResponse(ResponseCode.NEED_LOGIN);
         }
-        return ResponseUtil.buildErrorResponse(ResponseCode.PARAM_ERROR, "查询新闻失败");
+        return ResponseUtil.buildErrorResponse(ErrorEnum.SELECT_DATA_ERROR);
     }
 
+    /**
+     * 根据ID 更新文章
+     * @param news
+     * @param request
+     * @return
+     */
     @RequestMapping(value="updateNews",method= RequestMethod.GET)
     public Response<String> updateNew(News news, HttpServletRequest request){
         User user = CookieUtils.userVerification(request);
@@ -74,7 +94,7 @@ public class NewsController {
         }else{
             return ResponseUtil.buildErrorResponse(ResponseCode.NEED_LOGIN);
         }
-        return ResponseUtil.buildErrorResponse(ResponseCode.PARAM_ERROR, "修改新闻失败, 请检查输入参数是否正确");
+        return ResponseUtil.buildErrorResponse(ErrorEnum.UPDATE_DATA_ERROR);
     }
 
 }
