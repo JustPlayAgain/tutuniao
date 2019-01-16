@@ -1,7 +1,9 @@
 package com.tutuniao.tutuniao.service;
 
 import com.tutuniao.tutuniao.entity.GuoMeiTemplate;
+import com.tutuniao.tutuniao.util.response.Response;
 
+import java.io.File;
 import java.util.List;
 
 public interface GuoMeiTemplateService {
@@ -33,4 +35,10 @@ public interface GuoMeiTemplateService {
      * @return
      */
     List<GuoMeiTemplate> queryGuoMeiTemplateList(GuoMeiTemplate activity);
+
+    /**
+     * excel导入国美证书信息
+     * @param file
+     */
+    Response importGuoMeiData(File file);
 }

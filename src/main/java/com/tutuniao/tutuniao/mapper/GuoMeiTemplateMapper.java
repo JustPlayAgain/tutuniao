@@ -9,10 +9,10 @@ import java.util.List;
 public interface GuoMeiTemplateMapper {
     /**
      * 新增活动
-     * @param activity
+     * @param guoMeiTgemplate
      * @return
      */
-    int insertGuoMeiTemplate(GuoMeiTemplate activity);
+    int insertGuoMeiTemplate(GuoMeiTemplate guoMeiTgemplate);
 
     /**
      * 删除活动
@@ -30,8 +30,8 @@ public interface GuoMeiTemplateMapper {
 
     /**
      * 查询活动 支持模糊查询
-     * @param activity
+     * @param guoMeiTgemplate
      * @return
      */
-    List<GuoMeiTemplate> queryGuoMeiTemplateList(GuoMeiTemplate activity);
+    List<GuoMeiTemplate> queryGuoMeiTemplateList(GuoMeiTemplate guoMeiTgemplate);
 }

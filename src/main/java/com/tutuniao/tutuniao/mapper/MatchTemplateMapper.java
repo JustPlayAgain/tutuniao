@@ -10,10 +10,10 @@ public interface MatchTemplateMapper {
 
     /**
      * 新增活动
-     * @param activity
+     * @param matchTemplate
      * @return
      */
-    int insertMatchTemplate(MatchTemplate activity);
+    int insertMatchTemplate(MatchTemplate matchTemplate);
 
     /**
      * 删除活动
@@ -31,8 +31,8 @@ public interface MatchTemplateMapper {
 
     /**
      * 查询活动 支持模糊查询
-     * @param activity
+     * @param matchTemplate
      * @return
      */
-    List<MatchTemplate> queryMatchTemplateList(MatchTemplate activity);
+    List<MatchTemplate> queryMatchTemplateList(MatchTemplate matchTemplate);
 }
