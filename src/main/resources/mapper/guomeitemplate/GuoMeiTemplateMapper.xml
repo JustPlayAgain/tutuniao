@@ -76,12 +76,20 @@
         </where>
     </sql>
 
-    <!--<select id="queryUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <select id="queryGuoMeiTemplate" resultMap="BaseResultMap" parameterType="com.tutuniao.tutuniao.entity.GuoMeiTemplate" >
         select
         <include refid="Base_Column_List" />
-        from t_user
-        where id = #{userId,jdbcType=INTEGER}
-    </select>-->
+        from t_guomei_template
+        where  certificate_number = #{certificateNumber,jdbcType=VARCHAR}
+        and student_name = #{studentName,jdbcType=VARCHAR}
+    </select>
+
+    <select id="queryGuoMeiTemplateById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from t_guomei_template
+        where id = #{gmId,jdbcType=INTEGER}
+    </select>
 
     <select id="queryGuoMeiTemplateList" resultMap="BaseResultMap"
             parameterType="com.tutuniao.tutuniao.entity.GuoMeiTemplate">

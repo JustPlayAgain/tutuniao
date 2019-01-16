@@ -9,32 +9,46 @@ import java.util.List;
 public interface GuoMeiTemplateService {
 
     /**
-     * 新增活动
-     * @param activity
+     * 用户接口查询国美证书列表 证书编号+姓名
+     * @param guoMeiTemplate
      * @return
      */
-    int insertGuoMeiTemplate(GuoMeiTemplate activity);
+    GuoMeiTemplate queryGuoMeiTemplate(GuoMeiTemplate guoMeiTemplate);
+
+    /**
+     * 新增活动
+     * @param guoMeiTemplate
+     * @return
+     */
+    int insertGuoMeiTemplate(GuoMeiTemplate guoMeiTemplate);
 
     /**
      * 删除活动
-     * @param activityId 主键id
+     * @param gmId 主键id
      * @return
      */
-    int deleteGuoMeiTemplateById(Integer activityId);
+    int deleteGuoMeiTemplateById(Integer gmId);
 
     /**
      * 修改活动
-     * @param activityId
+     * @param guoMeiTemplate
      * @return
      */
-    int updateGuoMeiTemplateById(Integer activityId);
+    int updateGuoMeiTemplateById(GuoMeiTemplate guoMeiTemplate);
 
     /**
      * 查询活动 支持模糊查询
-     * @param activity
+     * @param guoMeiTemplate
      * @return
      */
-    List<GuoMeiTemplate> queryGuoMeiTemplateList(GuoMeiTemplate activity);
+    List<GuoMeiTemplate> queryGuoMeiTemplateList(GuoMeiTemplate guoMeiTemplate);
+
+    /**
+     * 根据id查询国美证书
+     * @param gmId
+     * @return
+     */
+    GuoMeiTemplate queryGuoMeiTemplateById(Integer gmId);
 
     /**
      * excel导入国美证书信息

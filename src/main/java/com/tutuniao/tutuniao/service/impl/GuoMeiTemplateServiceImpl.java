@@ -1,9 +1,11 @@
 package com.tutuniao.tutuniao.service.impl;
 
+import com.tutuniao.tutuniao.common.enums.ErrorEnum;
 import com.tutuniao.tutuniao.entity.GuoMeiTemplate;
 import com.tutuniao.tutuniao.mapper.GuoMeiTemplateMapper;
 import com.tutuniao.tutuniao.service.GuoMeiTemplateService;
 import com.tutuniao.tutuniao.util.ExcelUtils;
+import com.tutuniao.tutuniao.util.Utils;
 import com.tutuniao.tutuniao.util.response.Response;
 import com.tutuniao.tutuniao.util.response.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +16,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -33,23 +34,52 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
     private GuoMeiTemplateMapper guoMeiTemplateMapper;
 
     @Override
-    public int insertGuoMeiTemplate(GuoMeiTemplate activity) {
-        return 0;
+    public GuoMeiTemplate queryGuoMeiTemplate(GuoMeiTemplate guoMeiTemplate) {
+        GuoMeiTemplate template = guoMeiTemplateMapper.queryGuoMeiTemplate(guoMeiTemplate);
+        if (Utils.isNull(template)) { // 未查到该数据
+            return null;
+        }
+        return template;
     }
 
     @Override
-    public int deleteGuoMeiTemplateById(Integer activityId) {
-        return 0;
+    public int insertGuoMeiTemplate(GuoMeiTemplate guoMeiTemplate) {
+        log.info("新增国美证书数据: ========== {}", guoMeiTemplate);
+        int i = guoMeiTemplateMapper.insertGuoMeiTemplate(guoMeiTemplate);
+        log.info("新增国美证书数据受影响行数: ========== {}", i);
+        return i;
     }
 
     @Override
-    public int updateGuoMeiTemplateById(Integer activityId) {
-        return 0;
+    public int deleteGuoMeiTemplateById(Integer gmId) {
+        // 逻辑删除 根据主键修改 valid为 1
+        int num = 0;
+        GuoMeiTemplate guoMeiTemplate = guoMeiTemplateMapper.queryGuoMeiTemplateById(gmId);
+        if (Utils.isNotNull(guoMeiTemplate)) {
+            log.info("删除国美证书数据信息: ============= {}", guoMeiTemplate);
+            num = guoMeiTemplateMapper.updateGuoMeiTemplateById(guoMeiTemplate);
+            log.info("删除国美证书数据信息行数: ============= {}", num);
+            return num;
+        }
+        return num;
     }
 
     @Override
-    public List<GuoMeiTemplate> queryGuoMeiTemplateList(GuoMeiTemplate activity) {
+    public int updateGuoMeiTemplateById(GuoMeiTemplate guoMeiTemplate) {
+        log.info("修改国美证书数据信息: ============= {}", guoMeiTemplate);
+        int i = guoMeiTemplateMapper.updateGuoMeiTemplateById(guoMeiTemplate);
+        log.info("修改国美证书数据信息行数: ============= {}", i);
+        return i;
+    }
+
+    @Override
+    public List<GuoMeiTemplate> queryGuoMeiTemplateList(GuoMeiTemplate guoMeiTemplate) {
         return null;
+    }
+
+    @Override
+    public GuoMeiTemplate queryGuoMeiTemplateById(Integer gmId) {
+        return guoMeiTemplateMapper.queryGuoMeiTemplateById(gmId);
     }
 
     @Override
