@@ -39,7 +39,7 @@ public class NewsController {
     @RequestMapping(value="insertNew",method= RequestMethod.GET)
     public Response<String> inserNew(News news, HttpServletRequest request){
         User user = CookieUtils.userVerification(request);
-        if(user != null){
+        if(Utils.isNotNull(user)){
             if(Utils.isNotNull(news.getNewsUrl()) && Utils.isNotNull(news.getNewsPic()) && Utils.isNotNull(news.getNewsIsAble()) && Utils.isNotNull(news.getNewsTitle())) {
                 news.setCreateUser(user.getUserName());
                 news.setCreateDate(new Date());
@@ -66,7 +66,7 @@ public class NewsController {
     public Response<News> querNewsById(News news, HttpServletRequest request){
         if(CookieUtils.userVerification(request) != null){
             News tmpNews = newsService.queryNewById(news);
-            if (tmpNews != null){
+            if(Utils.isNotNull(tmpNews)){
                 return ResponseUtil.buildResponse(tmpNews);
             }
         }else{
@@ -84,7 +84,7 @@ public class NewsController {
     @RequestMapping(value="updateNews",method= RequestMethod.GET)
     public Response<String> updateNew(News news, HttpServletRequest request){
         User user = CookieUtils.userVerification(request);
-        if(user != null){
+        if(Utils.isNotNull(user)){
             if(Utils.isNotNull(news.getId()) && Utils.isNotNull(news.getNewsUrl()) && Utils.isNotNull(news.getNewsPic()) && Utils.isNotNull(news.getNewsIsAble()) && Utils.isNotNull(news.getNewsTitle())) {
                 news.setUpdateUser(user.getUserName());
                 news.setUpdateDate(new Date());
