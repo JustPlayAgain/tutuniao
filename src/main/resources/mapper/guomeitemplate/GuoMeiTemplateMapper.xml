@@ -18,15 +18,16 @@
         <result column="exam_date" property="examDate" jdbcType="TIMESTAMP" />
         <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
         <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+        <result column="valid" property="valid" jdbcType="INTEGER" />
     </resultMap>
     <sql id="Base_Column_List" >
         id, number_id, student_name, nationality, nation, gender, birth_date, certificate_number, profession, declare_level,
-        examination_level, original_level, native_place, exam_date, create_date, create_user
+        examination_level, original_level, native_place, exam_date, create_date, create_user, valid
     </sql>
 
     <sql id="Base_Where_Clause">
         <where>
-            1=1
+            valid=0
             <if test="id != null">
                 and id = #{id,jdbcType=INTEGER}
             </if>

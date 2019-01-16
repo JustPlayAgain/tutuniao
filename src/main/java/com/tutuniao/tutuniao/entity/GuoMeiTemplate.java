@@ -41,4 +41,6 @@ public class GuoMeiTemplate extends BaseEntity implements Serializable {
     private Date createDate;
     /** 插入数据库用户 **/
     private String createUser;
+    /**是否删除 0：否 1：是**/
+    private int valid;
 }
