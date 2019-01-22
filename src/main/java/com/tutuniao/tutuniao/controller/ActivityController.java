@@ -1,6 +1,7 @@
 package com.tutuniao.tutuniao.controller;
 
 import com.tutuniao.tutuniao.common.enums.ErrorEnum;
+import com.tutuniao.tutuniao.common.filter.CommonFilter;
 import com.tutuniao.tutuniao.entity.Activity;
 import com.tutuniao.tutuniao.entity.User;
 import com.tutuniao.tutuniao.service.ActivityService;
@@ -20,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/activity")
-public class ActivityController {
+public class ActivityController extends CommonFilter {
     @Autowired
     private ActivityService activityService;
 

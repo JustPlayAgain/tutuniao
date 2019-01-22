@@ -1,6 +1,6 @@
 package com.tutuniao.tutuniao.controller;
 
-import com.tutuniao.tutuniao.common.enums.ErrorEnum;
+import com.tutuniao.tutuniao.common.filter.CommonFilter;
 import com.tutuniao.tutuniao.entity.User;
 import com.tutuniao.tutuniao.service.UserService;
 import com.tutuniao.tutuniao.util.CookieUtils;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/login")
-public class UserController {
+public class UserController extends CommonFilter {
     @Autowired
     private UserService userService;
 
@@ -27,7 +27,7 @@ public class UserController {
         User tmpUser = userService.queryUserByPassword(user);
         if(tmpUser != null){
             CookieUtils.addUserCookie(response, tmpUser);
-            return ResponseUtil.buildSuccessResponse();
+            return ResponseUtil.buildResponse(tmpUser.getUserName());
         }
 
         return ResponseUtil.buildErrorResponse(ResponseCode.SAMPLE_USER_NOT_EXIST);
