@@ -26,8 +26,11 @@ public class UserController extends CommonFilter {
         }
         User tmpUser = userService.queryUserByPassword(user);
         if(tmpUser != null){
-            CookieUtils.addUserCookie(response, tmpUser);
-            return ResponseUtil.buildResponse(tmpUser.getUserName());
+//            CookieUtils.addUserCookie(response, tmpUser);
+            String md5User = CookieUtils.md5User(user);
+            tmpUser.setUuid(tmpUser.getId()+"&"+ md5User);
+            tmpUser.setUserPassword("");
+            return ResponseUtil.buildResponse(tmpUser);
         }
 
         return ResponseUtil.buildErrorResponse(ResponseCode.SAMPLE_USER_NOT_EXIST);
