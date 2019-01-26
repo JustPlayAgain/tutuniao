@@ -12,6 +12,7 @@ public enum ErrorEnum {
     SELECT_DATA_ERROR("110003", "查询数据失败"),
 
     GUOMEITEMPLATE_NULL("120000", "当前编号或姓名不存在，请确认后查询"),
+    MATCHTEMPLATE_NULL("120002", "当前身份证或姓名不存在，请确认后查询"),
     GUOMEITEMPLATE_ERROR("120001", "查询信息为空，请确认");
 
 

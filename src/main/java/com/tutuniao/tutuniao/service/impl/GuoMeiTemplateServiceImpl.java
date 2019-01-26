@@ -1,13 +1,17 @@
 package com.tutuniao.tutuniao.service.impl;
 
-import com.tutuniao.tutuniao.common.enums.ErrorEnum;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.tutuniao.tutuniao.entity.GuoMeiTemplate;
 import com.tutuniao.tutuniao.mapper.GuoMeiTemplateMapper;
 import com.tutuniao.tutuniao.service.GuoMeiTemplateService;
 import com.tutuniao.tutuniao.util.ExcelUtils;
+import com.tutuniao.tutuniao.util.Jackson2Helper;
 import com.tutuniao.tutuniao.util.Utils;
 import com.tutuniao.tutuniao.util.response.Response;
 import com.tutuniao.tutuniao.util.response.ResponseUtil;
+import com.tutuniao.tutuniao.vo.PageVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -56,6 +60,7 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
         int num = 0;
         GuoMeiTemplate guoMeiTemplate = guoMeiTemplateMapper.queryGuoMeiTemplateById(gmId);
         if (Utils.isNotNull(guoMeiTemplate)) {
+            guoMeiTemplate.setValid(1);
             log.info("删除国美证书数据信息: ============= {}", guoMeiTemplate);
             num = guoMeiTemplateMapper.updateGuoMeiTemplateById(guoMeiTemplate);
             log.info("删除国美证书数据信息行数: ============= {}", num);
@@ -73,8 +78,17 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
     }
 
     @Override
-    public List<GuoMeiTemplate> queryGuoMeiTemplateList(GuoMeiTemplate guoMeiTemplate) {
-        return null;
+    public PageVO<List<GuoMeiTemplate>> queryGuoMeiTemplateList(GuoMeiTemplate guoMeiTemplate) {
+        Page<PageInfo> pageInfo = null;
+        boolean flag = false;
+        if (Utils.isNotNull(guoMeiTemplate.getPageIndex()) && Utils.isNotNull(guoMeiTemplate.getPageSize())) {
+            pageInfo = PageHelper.startPage(guoMeiTemplate.getPageIndex(), guoMeiTemplate.getPageSize());
+            flag = true;
+        }
+        log.info("查询【国美证书】开始 参数为:{}", Jackson2Helper.toJsonString(guoMeiTemplate));
+        List<GuoMeiTemplate> guoMeiTemplateList = guoMeiTemplateMapper.queryGuoMeiTemplateList(guoMeiTemplate);
+        log.info("查询【国美证书】结束 结果为:{}", Jackson2Helper.toJsonString(guoMeiTemplateList));
+        return new PageVO<>(flag ? (int) pageInfo.getTotal() : guoMeiTemplateList.size(), guoMeiTemplateList);
     }
 
     @Override

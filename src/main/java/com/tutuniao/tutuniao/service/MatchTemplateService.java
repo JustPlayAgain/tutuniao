@@ -2,6 +2,7 @@ package com.tutuniao.tutuniao.service;
 
 import com.tutuniao.tutuniao.entity.MatchTemplate;
 import com.tutuniao.tutuniao.util.response.Response;
+import com.tutuniao.tutuniao.vo.PageVO;
 
 import java.io.File;
 import java.util.List;
@@ -9,32 +10,39 @@ import java.util.List;
 public interface MatchTemplateService {
 
     /**
-     * 新增活动
-     * @param activity
+     * 根据id查询图图鸟证书
+     * @param mtId
      * @return
      */
-    int insertMatchTemplate(MatchTemplate activity);
+    MatchTemplate queryMatchTemplateById(Integer mtId);
 
     /**
-     * 删除活动
-     * @param activityId 主键id
+     * 新增图图鸟证书
+     * @param matchTemplate
      * @return
      */
-    int deleteMatchTemplateById(Integer activityId);
+    int insertMatchTemplate(MatchTemplate matchTemplate);
 
     /**
-     * 修改活动
-     * @param activityId
+     * 删除图图鸟证书
+     * @param mtId 主键id
      * @return
      */
-    int updateMatchTemplateById(Integer activityId);
+    int deleteMatchTemplateById(Integer mtId);
 
     /**
-     * 查询活动 支持模糊查询
-     * @param activity
+     * 修改图图鸟证书
+     * @param matchTemplate
      * @return
      */
-    List<MatchTemplate> queryMatchTemplateList(MatchTemplate activity);
+    int updateMatchTemplateById(MatchTemplate matchTemplate);
+
+    /**
+     * 查询图图鸟证书 支持模糊查询
+     * @param matchTemplate
+     * @return
+     */
+    PageVO<List<MatchTemplate>> queryMatchTemplateList(MatchTemplate matchTemplate);
 
     /**
      * excel导入比赛证书信息

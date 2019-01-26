@@ -2,6 +2,7 @@ package com.tutuniao.tutuniao.service;
 
 import com.tutuniao.tutuniao.entity.GuoMeiTemplate;
 import com.tutuniao.tutuniao.util.response.Response;
+import com.tutuniao.tutuniao.vo.PageVO;
 
 import java.io.File;
 import java.util.List;
@@ -41,7 +42,7 @@ public interface GuoMeiTemplateService {
      * @param guoMeiTemplate
      * @return
      */
-    List<GuoMeiTemplate> queryGuoMeiTemplateList(GuoMeiTemplate guoMeiTemplate);
+    PageVO<List<GuoMeiTemplate>> queryGuoMeiTemplateList(GuoMeiTemplate guoMeiTemplate);
 
     /**
      * 根据id查询国美证书

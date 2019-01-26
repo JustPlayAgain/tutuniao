@@ -5,6 +5,7 @@
         <id column="id" property="id" jdbcType="INTEGER" />
         <result column="number_id" property="numberId" jdbcType="INTEGER" />
         <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+        <result column="id_card" property="idCard" jdbcType="VARCHAR" />
         <result column="birth_date" property="birthDate" jdbcType="TIMESTAMP" />
         <result column="gender" property="gender" jdbcType="VARCHAR" />
         <result column="profession" property="profession" jdbcType="VARCHAR" />
@@ -15,7 +16,7 @@
         <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     </resultMap>
     <sql id="Base_Column_List" >
-        id, number_id, student_name, birth_date, gender, profession, group_level, works_name, tutor, results, create_date
+        id, number_id, student_name, id_card, birth_date, gender, profession, group_level, works_name, tutor, results, create_date
     </sql>
 
     <sql id="Base_Where_Clause">
@@ -29,6 +30,9 @@
             </if>
             <if test="studentName != null and studentName !=''">
                 and student_name = #{studentName,jdbcType=VARCHAR}
+            </if>
+            <if test="idCard != null and idCard !=''">
+                and id_card = #{idCard,jdbcType=VARCHAR}
             </if>
             <if test="birthDate != null and birthDate !=''">
                 and birth_date = #{birthDate,jdbcType=INTEGER}
@@ -65,6 +69,13 @@
         <include refid="Base_Where_Clause"/>
     </select>
 
+    <select id="queryMatchTemplateById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from t_match_template
+        where id = #{mtId,jdbcType=INTEGER}
+    </select>
+
     <delete id="deleteMatchTemplateById" parameterType="java.lang.Integer" >
         delete from t_match_template
         where id = #{mtId,jdbcType=INTEGER}
@@ -81,6 +92,9 @@
             </if>
             <if test="studentName != null and studentName !=''" >
                 student_name,
+            </if>
+            <if test="idCard != null and idCard !=''" >
+                id_card,
             </if>
             <if test="birthDate != null" >
                 birth_date,
@@ -117,6 +131,9 @@
             <if test="studentName != null and studentName !=''" >
                 #{studentName,jdbcType=VARCHAR},
             </if>
+            <if test="idCard != null and idCard !=''" >
+                #{idCard,jdbcType=VARCHAR},
+            </if>
             <if test="birthDate != null" >
                 #{birthDate,jdbcType=TIMESTAMP},
             </if>
@@ -144,13 +161,16 @@
         </trim>
     </insert>
     <update id="updateMatchTemplateById" parameterType="com.tutuniao.tutuniao.entity.MatchTemplate" >
-        update t_user
+        update t_match_template
         <set >
             <if test="numberId != null and numberId !=''" >
                 number_id = #{numberId,jdbcType=INTEGER},
             </if>
             <if test="studentName != null and studentName !=''" >
                 student_name = #{studentName,jdbcType=VARCHAR},
+            </if>
+            <if test="idCard != null and idCard !=''" >
+                id_card = #{idCard,jdbcType=VARCHAR},
             </if>
             <if test="birthDate != null" >
                 birth_date = #{birthDate,jdbcType=TIMESTAMP},
@@ -177,7 +197,7 @@
                 create_date = #{createDate,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where id = #{mtId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
     </update>
 
 </mapper>

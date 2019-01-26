@@ -1,5 +1,8 @@
 package com.tutuniao.tutuniao.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.tutuniao.tutuniao.entity.MatchTemplate;
 import com.tutuniao.tutuniao.mapper.MatchTemplateMapper;
 import com.tutuniao.tutuniao.service.MatchTemplateService;
@@ -7,6 +10,7 @@ import com.tutuniao.tutuniao.util.ExcelUtils;
 import com.tutuniao.tutuniao.util.Utils;
 import com.tutuniao.tutuniao.util.response.Response;
 import com.tutuniao.tutuniao.util.response.ResponseUtil;
+import com.tutuniao.tutuniao.vo.PageVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -20,7 +24,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static com.tutuniao.tutuniao.common.enums.ErrorEnum.EXCEL_ERROR;
@@ -33,23 +36,47 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
     private MatchTemplateMapper matchTemplateMapper;
 
     @Override
-    public int insertMatchTemplate(MatchTemplate activity) {
-        return 0;
+    public MatchTemplate queryMatchTemplateById(Integer mtId) {
+        log.info("查询图图鸟活动证书: ============= {}", mtId);
+        MatchTemplate matchTemplate = matchTemplateMapper.queryMatchTemplateById(mtId);
+        log.info("查询图图鸟活动证书: ============= {}", matchTemplate);
+        return matchTemplate;
     }
 
     @Override
-    public int deleteMatchTemplateById(Integer activityId) {
-        return 0;
+    public int insertMatchTemplate(MatchTemplate matchTemplate) {
+        log.info("插入图图鸟活动证书: ============= {}", matchTemplate);
+        int num = matchTemplateMapper.insertMatchTemplate(matchTemplate);
+        log.info("插入图图鸟活动证书结果: ============= {}", num);
+        return num;
     }
 
     @Override
-    public int updateMatchTemplateById(Integer activityId) {
-        return 0;
+    public int deleteMatchTemplateById(Integer mtId) {
+        log.info("删除图图鸟活动证书: ============= {}", mtId);
+        int num = matchTemplateMapper.deleteMatchTemplateById(mtId);
+        log.info("删除图图鸟活动证书结果: ============= {}", num);
+        return num;
     }
 
     @Override
-    public List<MatchTemplate> queryMatchTemplateList(MatchTemplate activity) {
-        return null;
+    public int updateMatchTemplateById(MatchTemplate matchTemplate) {
+        log.info("修改图图鸟活动证书: ============= {}", matchTemplate);
+        int num = matchTemplateMapper.updateMatchTemplateById(matchTemplate);
+        log.info("修改图图鸟活动证书结果: ============= {}", num);
+        return num;
+    }
+
+    @Override
+    public PageVO<List<MatchTemplate>> queryMatchTemplateList(MatchTemplate matchTemplate) {
+        Page<PageInfo> pageInfo = null;
+        boolean flag = false;
+        if (Utils.isNotNull(matchTemplate.getPageIndex()) && Utils.isNotNull(matchTemplate.getPageSize())) {
+            pageInfo = PageHelper.startPage(matchTemplate.getPageIndex(), matchTemplate.getPageSize());
+            flag = true;
+        }
+        List<MatchTemplate> matchTemplateList = matchTemplateMapper.queryMatchTemplateList(matchTemplate);
+        return new PageVO<>(flag ? (int) pageInfo.getTotal() : matchTemplateList.size(), matchTemplateList);
     }
 
 

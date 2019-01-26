@@ -19,6 +19,8 @@ public class MatchTemplate extends BaseEntity implements Serializable {
     private Integer numberId;
     /** 名字 **/
     private String studentName;
+    /** 身份证 **/
+    private String idCard;
     /** 出生日期 **/
     private Date birthDate;
     /**  性别 **/

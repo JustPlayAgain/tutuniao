@@ -9,28 +9,35 @@ import java.util.List;
 public interface MatchTemplateMapper {
 
     /**
-     * 新增活动
+     * 根据id查询图图鸟证书
+     * @param mtId
+     * @return
+     */
+    MatchTemplate queryMatchTemplateById(Integer mtId);
+
+    /**
+     * 新增图图鸟证书
      * @param matchTemplate
      * @return
      */
     int insertMatchTemplate(MatchTemplate matchTemplate);
 
     /**
-     * 删除活动
+     * 删除图图鸟证书
      * @param mtId 主键id
      * @return
      */
     int deleteMatchTemplateById(Integer mtId);
 
     /**
-     * 修改活动
-     * @param mtId
+     * 修改图图鸟证书
+     * @param matchTemplate
      * @return
      */
-    int updateMatchTemplateById(Integer mtId);
+    int updateMatchTemplateById(MatchTemplate matchTemplate);
 
     /**
-     * 查询活动 支持模糊查询
+     * 查询图图鸟证书 支持模糊查询
      * @param matchTemplate
      * @return
      */
