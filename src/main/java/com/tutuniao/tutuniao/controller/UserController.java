@@ -8,9 +8,11 @@ import com.tutuniao.tutuniao.util.response.Response;
 import com.tutuniao.tutuniao.util.response.ResponseCode;
 import com.tutuniao.tutuniao.util.response.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
@@ -20,7 +22,7 @@ public class UserController extends CommonFilter {
     private UserService userService;
 
     @RequestMapping("/login")
-    public Response<Object> userLoging(User user, HttpServletResponse response){
+    public Response<Object> userLoging(@RequestBody User user, HttpServletResponse response, HttpServletRequest request){
         if(user == null || user.getUserName() == null || user.getUserPassword() == null ){
             return ResponseUtil.buildErrorResponse(ResponseCode.USER_PASSWORD_NULL);
         }
