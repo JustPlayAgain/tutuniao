@@ -66,7 +66,7 @@ public class MatchTemplateController {
         return ResponseUtil.buildSuccessResponse();
     }
 
-    @PostMapping("/querymatchtemplatelist")
+    @RequestMapping("/querymatchtemplatelist")
     public Response queryMatchTemplateList(MatchTemplate matchTemplate) {
         if (Utils.isNull(matchTemplate)) {
             return ResponseUtil.buildErrorResponse(ErrorEnum.PARAM_TYPE);
