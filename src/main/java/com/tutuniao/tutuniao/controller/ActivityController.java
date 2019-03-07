@@ -63,7 +63,6 @@ public class ActivityController extends CommonFilter {
 
     /**
      * 根据ID 查询活动
-     * @param activity
      * @param request
      * @return
      */
