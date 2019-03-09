@@ -25,7 +25,7 @@ public class GuoMeiTemplateController {
      * @param guoMeiTemplate
      * @return
      */
-    @PostMapping("/queryguomeitemplate")
+    @RequestMapping("/queryguomeitemplate")
     public Response queryGuoMeiTemplate(GuoMeiTemplate guoMeiTemplate){
         if (Utils.isNull(guoMeiTemplate)
                 && Utils.isEmpty(guoMeiTemplate.getCertificateNumber())
@@ -54,7 +54,7 @@ public class GuoMeiTemplateController {
      * @param guoMeiTemplate
      * @return
      */
-    @PostMapping("/insertguomeitemplate")
+    @RequestMapping("/insertguomeitemplate")
     public Response insertGuoMeiTemplate(GuoMeiTemplate guoMeiTemplate){
         if (Utils.isNull(guoMeiTemplate)) {
             return ResponseUtil.buildErrorResponse(ErrorEnum.PARAM_TYPE);
@@ -67,7 +67,7 @@ public class GuoMeiTemplateController {
      * @param guoMeiTemplate
      * @return
      */
-    @PostMapping("/updateguomeitemplatebyid")
+    @RequestMapping("/updateguomeitemplatebyid")
     public Response updateGuoMeiTemplateById(GuoMeiTemplate guoMeiTemplate){
         if (Utils.isNull(guoMeiTemplate)) {
             return ResponseUtil.buildErrorResponse(ErrorEnum.PARAM_TYPE);
@@ -80,7 +80,7 @@ public class GuoMeiTemplateController {
      * @param gmId
      * @return
      */
-    @PostMapping("/deleteguomeitemplatebyid")
+    @RequestMapping("/deleteguomeitemplatebyid")
     public Response deleteGuoMeiTemplateById(Integer gmId){
         if (Utils.isNull(gmId)) {
             return ResponseUtil.buildErrorResponse(ErrorEnum.PARAM_TYPE);
@@ -97,7 +97,7 @@ public class GuoMeiTemplateController {
      * @param gmId
      * @return
      */
-    @PostMapping("/queryguomeitemplatebyid")
+    @RequestMapping("/queryguomeitemplatebyid")
     public Response queryGuoMeiTemplateById(Integer gmId){
         if (Utils.isNull(gmId)) {
             return ResponseUtil.buildErrorResponse(ErrorEnum.PARAM_TYPE);
@@ -110,7 +110,7 @@ public class GuoMeiTemplateController {
      * @param file
      * @return
      */
-    @PostMapping("/importguomeidata")
+    @RequestMapping("/importguomeidata")
     public Response importGuoMeiData(@RequestParam("file") MultipartFile file){
         if (Utils.isNull(file)) {
             return ResponseUtil.buildErrorResponse(ErrorEnum.PARAM_TYPE);

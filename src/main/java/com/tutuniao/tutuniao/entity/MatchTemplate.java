@@ -1,7 +1,9 @@
 package com.tutuniao.tutuniao.entity;
 
 import com.alibaba.druid.support.monitor.annotation.MTable;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,6 +24,8 @@ public class MatchTemplate extends BaseEntity implements Serializable {
     /** 身份证 **/
     private String idCard;
     /** 出生日期 **/
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date birthDate;
     /**  性别 **/
     private String gender;

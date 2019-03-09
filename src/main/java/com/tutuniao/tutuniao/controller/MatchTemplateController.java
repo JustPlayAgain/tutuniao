@@ -1,24 +1,24 @@
 package com.tutuniao.tutuniao.controller;
 
 import com.tutuniao.tutuniao.common.enums.ErrorEnum;
+import com.tutuniao.tutuniao.common.filter.CommonFilter;
 import com.tutuniao.tutuniao.entity.MatchTemplate;
 import com.tutuniao.tutuniao.service.MatchTemplateService;
 import com.tutuniao.tutuniao.util.Utils;
 import com.tutuniao.tutuniao.util.response.Response;
 import com.tutuniao.tutuniao.util.response.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/match")
-public class MatchTemplateController {
+public class MatchTemplateController extends CommonFilter {
 
     @Autowired
     private MatchTemplateService matchTemplateService;
 
-    @PostMapping("/querymatchtemplatebyid")
+    @RequestMapping("/querymatchtemplatebyid")
     public Response queryMatchTemplateById(Integer mtId) {
         if (Utils.isNull(mtId)) {
             return ResponseUtil.buildErrorResponse(ErrorEnum.PARAM_TYPE);
@@ -26,7 +26,7 @@ public class MatchTemplateController {
         return ResponseUtil.buildResponse(matchTemplateService.queryMatchTemplateById(mtId));
     }
 
-    @PostMapping("/insertmatchtemplate")
+    @RequestMapping("/insertmatchtemplate")
     public Response insertMatchTemplate(MatchTemplate matchTemplate) {
         if (Utils.isNull(matchTemplate)) {
             return ResponseUtil.buildErrorResponse(ErrorEnum.PARAM_TYPE);
@@ -42,7 +42,7 @@ public class MatchTemplateController {
         return ResponseUtil.buildSuccessResponse();
     }
 
-    @PostMapping("/deletematchtemplatebyid")
+    @RequestMapping("/deletematchtemplatebyid")
     public Response deleteMatchTemplateById(Integer mtId) {
         if (Utils.isNull(mtId)) {
             return ResponseUtil.buildErrorResponse(ErrorEnum.PARAM_TYPE);
@@ -54,8 +54,8 @@ public class MatchTemplateController {
         return ResponseUtil.buildSuccessResponse();
     }
 
-    @PostMapping("/updatematchtemplatebyid")
-    public Response updateMatchTemplateById(MatchTemplate matchTemplate) {
+    @RequestMapping("/updatematchtemplatebyid")
+    public Response<String> updateMatchTemplateById(MatchTemplate matchTemplate) {
         if (Utils.isNull(matchTemplate)) {
             return ResponseUtil.buildErrorResponse(ErrorEnum.PARAM_TYPE);
         }
