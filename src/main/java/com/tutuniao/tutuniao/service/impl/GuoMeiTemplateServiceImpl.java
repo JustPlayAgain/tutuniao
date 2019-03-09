@@ -113,7 +113,7 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
         }
         //获取第一张表
         Sheet sheet = wb.getSheetAt(0);
-        for (int i = 0; i <= sheet.getLastRowNum(); i++) {
+        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);//获取索引为i的行，以0开始
             int j = 0;
             GuoMeiTemplate guoMeiTemplate = new GuoMeiTemplate();
