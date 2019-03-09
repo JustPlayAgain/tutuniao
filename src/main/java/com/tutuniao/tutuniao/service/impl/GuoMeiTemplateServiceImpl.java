@@ -21,9 +21,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -97,14 +96,14 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
     }
 
     @Override
-    public Response importGuoMeiData(File file) {
+    public Response importGuoMeiData(InputStream file, String name) {
         Workbook wb = null;
         List<GuoMeiTemplate> guoMeiTemplateList = new ArrayList();
         try {
-            if (ExcelUtils.isExcel2007(file.getPath())) {
-                wb = new XSSFWorkbook(new FileInputStream(file));
+            if (ExcelUtils.isExcel2007(name)) {
+                wb = new XSSFWorkbook(file);
             } else {
-                wb = new HSSFWorkbook(new FileInputStream(file));
+                wb = new HSSFWorkbook(file);
             }
         }
         catch (IOException e) {

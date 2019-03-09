@@ -4,7 +4,7 @@ import com.tutuniao.tutuniao.entity.GuoMeiTemplate;
 import com.tutuniao.tutuniao.util.response.Response;
 import com.tutuniao.tutuniao.vo.PageVO;
 
-import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 public interface GuoMeiTemplateService {
@@ -55,5 +55,5 @@ public interface GuoMeiTemplateService {
      * excel导入国美证书信息
      * @param file
      */
-    Response importGuoMeiData(File file);
+    Response importGuoMeiData(InputStream file, String name);
 }

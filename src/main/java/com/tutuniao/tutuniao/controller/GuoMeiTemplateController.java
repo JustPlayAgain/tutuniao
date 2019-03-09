@@ -7,12 +7,11 @@ import com.tutuniao.tutuniao.util.Utils;
 import com.tutuniao.tutuniao.util.response.Response;
 import com.tutuniao.tutuniao.util.response.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 @RestController
 @RequestMapping("/guomei")
@@ -112,10 +111,18 @@ public class GuoMeiTemplateController {
      * @return
      */
     @PostMapping("/importguomeidata")
-    public Response importGuoMeiData(File file){
+    public Response importGuoMeiData(@RequestParam("file") MultipartFile file){
         if (Utils.isNull(file)) {
             return ResponseUtil.buildErrorResponse(ErrorEnum.PARAM_TYPE);
         }
-        return ResponseUtil.buildResponse(guoMeiTemplateService.importGuoMeiData(file));
+        String name = file.getOriginalFilename();
+        InputStream inputStream = null;
+        try {
+            inputStream = file.getInputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return ResponseUtil.buildResponse(guoMeiTemplateService.importGuoMeiData(inputStream,name));
     }
 }
