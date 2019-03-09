@@ -110,7 +110,7 @@ public class GuoMeiTemplateController {
      * @param file
      * @return
      */
-    @RequestMapping("/importguomeidata")
+    @PostMapping("/importguomeidata")
     public Response importGuoMeiData(@RequestParam("file") MultipartFile file){
         if (Utils.isNull(file)) {
             return ResponseUtil.buildErrorResponse(ErrorEnum.PARAM_TYPE);

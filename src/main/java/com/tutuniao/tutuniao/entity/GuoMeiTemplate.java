@@ -2,6 +2,7 @@ package com.tutuniao.tutuniao.entity;
 
 import com.alibaba.druid.support.monitor.annotation.MTable;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,6 +23,7 @@ public class GuoMeiTemplate extends BaseEntity implements Serializable {
     /** 性别 **/
     private String gender;
     /** 出生日期 **/
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date birthDate;
     /** 证书编号 **/
     private String certificateNumber;
@@ -36,6 +38,7 @@ public class GuoMeiTemplate extends BaseEntity implements Serializable {
     /** 所在地 **/
     private String nativePlace;
     /** 考试时间 **/
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date examDate;
     /** 插入数据库时间 **/
     private Date createDate;
