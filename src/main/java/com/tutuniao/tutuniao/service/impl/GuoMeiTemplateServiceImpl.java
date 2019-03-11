@@ -88,7 +88,7 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
         log.info("查询【国美证书】开始 参数为:{}", Jackson2Helper.toJsonString(guoMeiTemplate));
         List<GuoMeiTemplate> guoMeiTemplateList = guoMeiTemplateMapper.queryGuoMeiTemplateList(guoMeiTemplate);
         log.info("查询【国美证书】结束 结果为:{}", Jackson2Helper.toJsonString(guoMeiTemplateList));
-        return new PageVO<>(flag ? (int) pageInfo.getTotal() : guoMeiTemplateList.size(), guoMeiTemplateList);
+        return new PageVO<>(flag ? (int) pageInfo.getTotal() : guoMeiTemplateList.size(), guoMeiTemplateList, pageInfo.getPageSize());
     }
 
     @Override

@@ -28,7 +28,7 @@
                 and activity_code like CONCAT('%',#{activityCode,jdbcType=VARCHAR},'%')
             </if>
             <if test="activityDate != null">
-                and activity_date = #{activityDate,jdbcType=TIMESTAMP}
+                and activity_date = #{activityDate,jdbcType=DATE}
             </if>
             <if test="createUser != null and createUser !=''">
                 and create_user = #{createUser,jdbcType=VARCHAR}

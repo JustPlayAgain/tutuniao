@@ -1,6 +1,7 @@
 package com.tutuniao.tutuniao.entity;
 
 import com.alibaba.druid.support.monitor.annotation.MTable;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,6 +40,7 @@ public class GuoMeiTemplate extends BaseEntity implements Serializable {
     private String nativePlace;
     /** 考试时间 **/
     @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date examDate;
     /** 插入数据库时间 **/
     private Date createDate;

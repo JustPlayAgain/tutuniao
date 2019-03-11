@@ -46,7 +46,7 @@ public class NewsServiceImpl implements NewsService {
         List<News> newsList = newsMapper.queryNewsList(news);
         log.info("查询【文章数据】结束 结果为:{}", Jackson2Helper.toJsonString(newsList));
 
-        return new PageVO<>(flag ? (int) pageInfo.getTotal() : newsList.size(), newsList);
+        return new PageVO<>(flag ? (int) pageInfo.getTotal() : newsList.size(), newsList, pageInfo.getPageSize());
     }
 
     @Override

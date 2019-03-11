@@ -3,6 +3,7 @@ package com.tutuniao.tutuniao.entity;
 import com.alibaba.druid.support.monitor.annotation.MTable;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -43,6 +44,7 @@ public class News extends BaseEntity {
     /**
      * 创建时间
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date createDate;
 
@@ -54,6 +56,7 @@ public class News extends BaseEntity {
     /**
      * 修改时间
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date updateDate;
 }

@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class PageVO<T> implements Serializable {
     private static final long serialVersionUID = 1L;
     private int total;
+    private int pageSize;
     private T t;
 
     public PageVO() {
@@ -16,10 +17,11 @@ public class PageVO<T> implements Serializable {
 
     ;
 
-    public PageVO(int total, T t) {
+    public PageVO(int total, T t, int pageSize) {
         super();
         this.total = total;
         this.t = t;
+        this.pageSize = pageSize;
     }
 
 
@@ -39,4 +41,11 @@ public class PageVO<T> implements Serializable {
         this.t = t;
     }
 
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
 }

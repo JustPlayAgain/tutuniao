@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
         List<User> userList = userMapper.queryUserList(user);
         log.info("查询【用户数据】结束 结果为:{}", Jackson2Helper.toJsonString(userList));
 
-        return new PageVO(flag ? (int) pageInfo.getTotal() : userList.size(), userList);
+        return new PageVO(flag ? (int) pageInfo.getTotal() : userList.size(), userList, pageInfo.getPageSize());
     }
 
     @Override

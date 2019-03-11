@@ -14,7 +14,7 @@ spring:
     show-sql: true
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
+    time-zone: UTC
 mybatis:
   type-aliases-package: com.tutuniao.tutuniao.entity
   mapper-locations: classpath:mapper/**/*.xml
@@ -26,3 +26,6 @@ pagehelper:
   params: count=countSql
   rowBoundsWithCount: true
   offsetAsPageNum: true
+logging:
+  level:
+    com.tutuniao.tutuniao.mapper: debug

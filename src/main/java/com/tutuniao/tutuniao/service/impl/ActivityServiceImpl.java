@@ -51,7 +51,7 @@ public class ActivityServiceImpl implements ActivityService {
         List<Activity> activityList = activityMapper.queryActivityList(activity);
         log.info("查询【活动数据】结束 结果为:{}", Jackson2Helper.toJsonString(activityList));
 
-        return new PageVO<>(flag ? (int) pageInfo.getTotal() : activityList.size(), activityList);
+        return new PageVO<>(flag ? (int) pageInfo.getTotal() : activityList.size(), activityList, pageInfo.getPageSize());
     }
 
     @Override

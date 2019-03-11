@@ -76,7 +76,7 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
             flag = true;
         }
         List<MatchTemplate> matchTemplateList = matchTemplateMapper.queryMatchTemplateList(matchTemplate);
-        return new PageVO<>(flag ? (int) pageInfo.getTotal() : matchTemplateList.size(), matchTemplateList);
+        return new PageVO<>(flag ? (int) pageInfo.getTotal() : matchTemplateList.size(), matchTemplateList, pageInfo.getPageSize());
     }
 
 
