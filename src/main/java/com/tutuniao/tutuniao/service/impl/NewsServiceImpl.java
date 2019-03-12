@@ -1,7 +1,6 @@
 package com.tutuniao.tutuniao.service.impl;
 
 import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tutuniao.tutuniao.entity.News;
 import com.tutuniao.tutuniao.mapper.NewsMapper;
@@ -35,18 +34,13 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public PageVO<List<News>> queryNewsList(News news) {
-        Page<PageInfo> pageInfo = null;
-        boolean flag = false;
-        if (Utils.isNotNull(news.getPageIndex()) && Utils.isNotNull(news.getPageSize())) {
-            pageInfo = PageHelper.startPage(news.getPageIndex(), news.getPageSize());
-            flag = true;
-        }
+        Page<PageInfo> pageInfo = news.getPageInfos(news);
 
         log.info("查询【文章数据】开始 参数为:{}", Jackson2Helper.toJsonString(news));
         List<News> newsList = newsMapper.queryNewsList(news);
         log.info("查询【文章数据】结束 结果为:{}", Jackson2Helper.toJsonString(newsList));
 
-        return new PageVO<>(flag ? (int) pageInfo.getTotal() : newsList.size(), newsList, pageInfo.getPageSize());
+        return new PageVO<>((int) pageInfo.getTotal() , newsList, pageInfo.getPageSize());
     }
 
     @Override

@@ -1,13 +1,11 @@
 package com.tutuniao.tutuniao.service.impl;
 
 import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tutuniao.tutuniao.entity.MatchTemplate;
 import com.tutuniao.tutuniao.mapper.MatchTemplateMapper;
 import com.tutuniao.tutuniao.service.MatchTemplateService;
 import com.tutuniao.tutuniao.util.ExcelUtils;
-import com.tutuniao.tutuniao.util.Utils;
 import com.tutuniao.tutuniao.util.response.Response;
 import com.tutuniao.tutuniao.util.response.ResponseUtil;
 import com.tutuniao.tutuniao.vo.PageVO;
@@ -69,14 +67,10 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
 
     @Override
     public PageVO<List<MatchTemplate>> queryMatchTemplateList(MatchTemplate matchTemplate) {
-        Page<PageInfo> pageInfo = null;
-        boolean flag = false;
-        if (Utils.isNotNull(matchTemplate.getPageIndex()) && Utils.isNotNull(matchTemplate.getPageSize())) {
-            pageInfo = PageHelper.startPage(matchTemplate.getPageIndex(), matchTemplate.getPageSize());
-            flag = true;
-        }
+        Page<PageInfo> pageInfo = matchTemplate.getPageInfos(matchTemplate);
+
         List<MatchTemplate> matchTemplateList = matchTemplateMapper.queryMatchTemplateList(matchTemplate);
-        return new PageVO<>(flag ? (int) pageInfo.getTotal() : matchTemplateList.size(), matchTemplateList, pageInfo.getPageSize());
+        return new PageVO<>((int) pageInfo.getTotal(), matchTemplateList, pageInfo.getPageSize());
     }
 
 

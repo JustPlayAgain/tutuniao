@@ -4,6 +4,11 @@
 package com.tutuniao.tutuniao.entity;
 
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.tutuniao.tutuniao.util.Utils;
+
 import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
@@ -77,5 +82,15 @@ public class BaseEntity implements Serializable {
 
     public void setOrderFields(String orderFields) {
         this.orderFields = orderFields;
+    }
+
+    public Page<PageInfo> getPageInfos(BaseEntity baseEntity) {
+        Page<PageInfo> pageInfo;
+        if (Utils.isNotNull(baseEntity.getPageIndex()) && Utils.isNotNull(baseEntity.getPageSize())) {
+            pageInfo = PageHelper.startPage(baseEntity.getPageIndex(), baseEntity.getPageSize());
+        }else{
+            pageInfo = PageHelper.startPage(0, 10);
+        }
+        return pageInfo;
     }
 }
