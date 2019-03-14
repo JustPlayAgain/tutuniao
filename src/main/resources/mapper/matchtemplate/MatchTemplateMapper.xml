@@ -67,6 +67,7 @@
         <include refid="Base_Column_List"/>
         from t_match_template
         <include refid="Base_Where_Clause"/>
+        order by id desc
     </select>
 
     <select id="queryMatchTemplateById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

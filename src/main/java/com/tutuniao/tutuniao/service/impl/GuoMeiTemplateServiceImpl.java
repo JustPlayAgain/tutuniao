@@ -20,6 +20,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -77,7 +78,7 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
     }
 
     @Override
-    public PageVO<List<GuoMeiTemplate>> queryGuoMeiTemplateList(GuoMeiTemplate guoMeiTemplate) {
+    public PageVO<List<GuoMeiTemplate>> queryGuoMeiTemplateList(@RequestBody GuoMeiTemplate guoMeiTemplate) {
         Page<PageInfo> pageInfo = guoMeiTemplate.getPageInfos(guoMeiTemplate);
 
         log.info("查询【国美证书】开始 参数为:{}", Jackson2Helper.toJsonString(guoMeiTemplate));

@@ -57,6 +57,7 @@
         <include refid="Base_Column_List"/>
         from t_activity
         <include refid="Base_Where_Clause"/>
+        order by id desc
     </select>
 
     <delete id="deleteActivityById" parameterType="java.lang.Integer" >

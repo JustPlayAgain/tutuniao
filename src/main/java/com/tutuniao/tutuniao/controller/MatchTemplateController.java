@@ -8,8 +8,11 @@ import com.tutuniao.tutuniao.util.Utils;
 import com.tutuniao.tutuniao.util.response.Response;
 import com.tutuniao.tutuniao.util.response.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 @RestController
 @RequestMapping("/match")
@@ -67,12 +70,32 @@ public class MatchTemplateController extends CommonFilter {
     }
 
     @RequestMapping("/querymatchtemplatelist")
-    public Response queryMatchTemplateList(MatchTemplate matchTemplate) {
+    public Response queryMatchTemplateList(@RequestBody MatchTemplate matchTemplate) {
         if (Utils.isNull(matchTemplate)) {
             return ResponseUtil.buildErrorResponse(ErrorEnum.PARAM_TYPE);
         }
         return ResponseUtil.buildResponse(matchTemplateService.queryMatchTemplateList(matchTemplate));
     }
 
+    /**
+     * 导入国美证书信息
+     * @param file
+     * @return
+     */
+    @PostMapping("/importMatchData")
+    public Response importMatchData(@RequestParam("file") MultipartFile file){
+        if (Utils.isNull(file)) {
+            return ResponseUtil.buildErrorResponse(ErrorEnum.PARAM_TYPE);
+        }
+        String name = file.getOriginalFilename();
+        InputStream inputStream = null;
+        try {
+            inputStream = file.getInputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return ResponseUtil.buildResponse(matchTemplateService.importMatchData(inputStream,name));
+    }
 
 }

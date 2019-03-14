@@ -63,6 +63,7 @@
         <include refid="Base_Column_List"/>
         from t_news
         <include refid="Base_Where_Clause"/>
+        order by id desc
     </select>
 
 

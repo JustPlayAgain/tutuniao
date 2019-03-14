@@ -5,6 +5,7 @@ import com.tutuniao.tutuniao.util.response.Response;
 import com.tutuniao.tutuniao.vo.PageVO;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 public interface MatchTemplateService {
@@ -48,5 +49,5 @@ public interface MatchTemplateService {
      * excel导入比赛证书信息
      * @param file
      */
-    Response importMatchData(File file);
+    Response importMatchData(InputStream file, String name);
 }
