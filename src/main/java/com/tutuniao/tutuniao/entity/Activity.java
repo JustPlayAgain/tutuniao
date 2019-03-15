@@ -43,6 +43,7 @@ public class Activity extends BaseEntity implements Serializable {
     /**
      * 创建时间
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date createDate;
 
@@ -54,6 +55,7 @@ public class Activity extends BaseEntity implements Serializable {
     /**
      * 修改时间
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date updateDate;
 }

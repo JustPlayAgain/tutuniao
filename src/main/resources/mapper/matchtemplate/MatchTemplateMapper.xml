@@ -34,8 +34,8 @@
             <if test="idCard != null and idCard !=''">
                 and id_card = #{idCard,jdbcType=VARCHAR}
             </if>
-            <if test="birthDate != null and birthDate !=''">
-                and birth_date = #{birthDate,jdbcType=INTEGER}
+            <if test="birthDate != null">
+                and birth_date = #{birthDate,jdbcType=TIMESTAMP}
             </if>
             <if test="gender != null and gender !=''">
                 and gender = #{gender,jdbcType=VARCHAR}

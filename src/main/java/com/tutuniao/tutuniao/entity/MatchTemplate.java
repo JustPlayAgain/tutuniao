@@ -40,5 +40,7 @@ public class MatchTemplate extends BaseEntity implements Serializable {
     /**  获奖结果 **/
     private String results;
     /** 插入数据库时间 **/
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date createDate;
 }

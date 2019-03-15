@@ -25,6 +25,7 @@ public class GuoMeiTemplate extends BaseEntity implements Serializable {
     private String gender;
     /** 出生日期 **/
     @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date birthDate;
     /** 证书编号 **/
     private String certificateNumber;
