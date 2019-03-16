@@ -62,7 +62,7 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
     public int updateMatchTemplateById(MatchTemplate matchTemplate) {
         log.info("修改图图鸟活动证书: ============= {}", matchTemplate);
         int num = matchTemplateMapper.updateMatchTemplateById(matchTemplate);
-        log.info("修改图图鸟活动证书结果: ============= {}", num);
+        log.info("修改图图鸟活动证书结果: =============== {}", num);
         return num;
     }
 
