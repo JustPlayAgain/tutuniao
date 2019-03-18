@@ -11,6 +11,8 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * cookie工具类
@@ -22,6 +24,8 @@ public class CookieUtils {
     private UserService userService;
 
     private static UserService service;
+
+    private static SimpleDateFormat sim = new SimpleDateFormat("YYYY-MM-DD");
 
     @PostConstruct
     public void init() {
@@ -37,7 +41,7 @@ public class CookieUtils {
     public static void addUserCookie(HttpServletResponse response, User user){
         try {
             String md5User = md5User(user);
-            Cookie cookie = new Cookie(CookieEnum.USER.getKey(), user.getId()+"&"+ md5User);
+            Cookie cookie = new Cookie(CookieEnum.USER.getKey(), user.getId()+"&"+ md5User+ "&"+ sim.format(new Date()));
             cookie.setPath("/");
             cookie.setMaxAge(3600);
             response.addCookie(cookie);
@@ -55,19 +59,20 @@ public class CookieUtils {
         String uuid = request.getHeader("uuid");
         if(Utils.isNotEmpty(uuid)){
             String[] split = uuid.split("&");
-            if (split.length == 2){
+            if (split.length == 3){
                 try {
-                    Integer id = Integer.valueOf(split[0]);
-                    User user = service.quertyUserById(id);
-                    if(user != null && Utils.isNotNull(user.getUserName()) && Utils.isNotNull(user.getUserPassword()) ){
-                        String userMd5 = md5User(user);
-                        if(userMd5.equals(split[1])){
-                            return user;
+                    if(sim.format(new Date()).equals(split[2])){
+                        Integer id = Integer.valueOf(split[0]);
+                        User user = service.quertyUserById(id);
+                        if(user != null && Utils.isNotNull(user.getUserName()) && Utils.isNotNull(user.getUserPassword()) ){
+                            String userMd5 = md5User(user);
+                            if(userMd5.equals(split[1])){
+                                return user;
+                            }
                         }
                     }
                 }catch (Exception e ){
                     log.error("",e);
-                    return null;
                 }
             }
         }
