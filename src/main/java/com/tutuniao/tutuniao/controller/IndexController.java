@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -37,13 +38,23 @@ public class IndexController {
         }
         return indexObject;
     }
+    @RequestMapping("/activity")
+    public IndexObject activity(){
+
+        IndexObject indexObject = ScheduledService.indexObject;
+        if(indexObject == null || indexObject.getActivityList() == null ){
+            indexObject = new IndexObject();
+            setActivityList(indexObject);
+        }
+        return indexObject;
+    }
 
     @PostMapping("/search")
-    public IndexObject search(String username,String idCart, int activityId ){
-        System.out.println(username);
-        System.out.println(idCart);
-        System.out.println(activityId);
-        return null;
+    public HashMap search(String username,String idCart, int activityId ){
+        HashMap<String, String> map = new HashMap<>();
+        map.put("username",username);
+        map.put("idCart",idCart);
+        return map;
     }
 
     @RequestMapping("/refreshIndex")

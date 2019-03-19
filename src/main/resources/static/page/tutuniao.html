@@ -19,21 +19,39 @@
 
 </head>
 <body>
+<div class="header">
+    <div class="wrap clearfix">
+        <a target="_blank" href="/tutuniao/page/tutuniao.html" class="logo fl"><img src="../images/logo.png" alt=""></a>
+        <a target="_blank" href="/tutuniao/page/tutuniao.html" style="float: right;padding-top: 15px;">国美认证证书</a>
+    </div>
+</div>
 <div id="header"></div>
 <div id="content" style="width: 1048px; margin: 0 auto;"></div>
-<div id="footer" ></div>
+<div class="footer">
+    <div class="wrap">
+        <div class="logo-link">
+            <a  target="_blank"  href="http://caam.caa.edu.cn/"><img src="http://www.caa.edu.cn/images/f_98.png" alt="" /></a>
+            <a  target="_blank"  href="http://www.caa.edu.cn/zyxz/201702/U020170214505599533630.pdf"><img src="http://www.caa.edu.cn/images/fb_104.png" alt="" /></a>
+            <!--<a  target="_blank"  href="http://www.cidesignmuseum.org/"><img src="http://www.caa.edu.cn/images/f_97.png" alt="" /></a>-->
+            <a  target="_blank"  href="http://lib.caa.edu.cn/"><img src="http://www.caa.edu.cn/images/f_lib.png" alt="" /></a>
+            <a    href="JavaScript:void(0)"><img src="http://www.caa.edu.cn/images/f_100.png" alt="" /></a>
+            <a  target="_blank"  href="http://www.s-i-m-a.org/"><img src="http://www.caa.edu.cn/images/f_101.png" alt="" /></a>
+            <a  target="_blank"  href="http://www.caa.edu.cn/tzgg/201606/t20160623_62849.html"><img src="http://www.caa.edu.cn/images/f_102.png" alt="" /></a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 
 <script type="text/javascript">
     $(function() {
 
-        $.ajax({ url: "http://www.tutuniao.com:8008/tutuniao/index/index", success: function(s){
+        $.ajax({ url: "/tutuniao/index/index", success: function(s){
                 $("#header").append(s.banners);
 
 
                 var minContent="<div style='margin: 30px auto;height: 100px;width: 524px;'>\n" +
-                    "    <form action='../index/search'  onsubmit='return validate()' name='search' method='post'>\n" +
+                    "    <form action='success.html'  onsubmit='return validate()' name='search'>\n" +
                     "        <div class='input-prepend'>\n" +
                     "            <div class='btn-group'>\n" +
                     "                <select name='activityId' class='span1' style='width: 100px' id='zhengshu'>\n" ;
@@ -124,21 +142,6 @@
                 document.getElementsByTagName('head')[0].appendChild(_script3);
                 document.getElementsByTagName('head')[0].appendChild(_script2);
                 document.getElementsByTagName('head')[0].appendChild(_script);
-
-                var footer = "<div class=\"footer\">\n" +
-                    "        <div class=\"wrap\">\n" +
-                    "                <div class=\"logo-link\">\n" +
-                    "                        <a  target=\"_blank\"  href=\"http://caam.caa.edu.cn/\"><img src=\"http://www.caa.edu.cn/images/f_98.png\" alt=\"\" /></a>\n" +
-                    "                        <a  target=\"_blank\"  href=\"http://www.caa.edu.cn/zyxz/201702/U020170214505599533630.pdf\"><img src=\"http://www.caa.edu.cn/images/fb_104.png\" alt=\"\" /></a>\n" +
-                    "                        <!--<a  target=\"_blank\"  href=\"http://www.cidesignmuseum.org/\"><img src=\"http://www.caa.edu.cn/images/f_97.png\" alt=\"\" /></a>-->\n" +
-                    "                        <a  target=\"_blank\"  href=\"http://lib.caa.edu.cn/\"><img src=\"http://www.caa.edu.cn/images/f_lib.png\" alt=\"\" /></a>\n" +
-                    "                        <a    href=\"JavaScript:void(0)\"><img src=\"http://www.caa.edu.cn/images/f_100.png\" alt=\"\" /></a>\n" +
-                    "                        <a  target=\"_blank\"  href=\"http://www.s-i-m-a.org/\"><img src=\"http://www.caa.edu.cn/images/f_101.png\" alt=\"\" /></a>\n" +
-                    "                        <a  target=\"_blank\"  href=\"http://www.caa.edu.cn/tzgg/201606/t20160623_62849.html\"><img src=\"http://www.caa.edu.cn/images/f_102.png\" alt=\"\" /></a>\n" +
-                    "                </div>\n" +
-                    "        </div>\n" +
-                    "</div>";
-                $("#footer").append(footer);
             }, error: function () {
                 // history.go(0)
             }});
