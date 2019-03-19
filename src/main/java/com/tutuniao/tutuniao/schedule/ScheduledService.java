@@ -23,7 +23,7 @@ public class ScheduledService {
 
     public static IndexObject buildIndex(){
         try {
-            IndexObject indexObject = new IndexObject();
+            IndexObject tmpIndexObject = new IndexObject();
 
             String dataAsStringFromUrl = HttpClientUtils.get(academyArtUrl);
             if(null != dataAsStringFromUrl){
@@ -31,11 +31,12 @@ public class ScheduledService {
                 // 获取 banner
                 String banner = doc.getElementsByClass("banner").toString();
                 if(StringUtils.isNoneBlank(banner)){
-                    indexObject.setBanners(urlAddHttp(banner));
+                    tmpIndexObject.setBanners(urlAddHttp(banner));
                     String content = doc.getElementsByClass("container").toString();
                     if(StringUtils.isNoneBlank(content)) {
-                        indexObject.setContent(urlAddHttp(content));
-                        return indexObject;
+                        tmpIndexObject.setContent(urlAddHttp(content));
+                        indexObject = tmpIndexObject;
+                        return tmpIndexObject;
                     }
                 }
             }

@@ -9,5 +9,6 @@ import java.util.List;
 public class IndexObject implements Serializable {
     private String banners;
     private String content;
+    private List<News> newsList;
 
 }

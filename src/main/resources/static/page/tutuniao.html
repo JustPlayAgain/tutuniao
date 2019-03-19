@@ -8,15 +8,14 @@
     <link rel="stylesheet" href="../css/bootstrap-responsive.min.css">
     <link rel="stylesheet" href="../css/art.styles.css">
     <script src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/tangram.js"></script>
-    <script src="../js/jquery.anythingslider.min.js"></script>
-    <script src="../js/jquery.fancybox-1.3.4.js"></script>
-    <script src="../js/modernizr.custom.53451.js"></script>
-    <script src="../js/jquery.gallery.js"></script>
-    <script type="text/javascript" src="../js/6697.js"></script>
-    <script type="text/javascript" src="../js/view_base.js"></script>
-
-    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <!--<script type="text/javascript" src="../js/tangram.js"></script>-->
+    <!--<script src="../js/jquery.anythingslider.min.js"></script>-->
+    <!--<script src="../js/jquery.fancybox-1.3.4.js"></script>-->
+    <!--<script src="../js/modernizr.custom.53451.js"></script>-->
+    <!--<script src="../js/jquery.gallery.js"></script>-->
+    <!--<script type="text/javascript" src="../js/6697.js"></script>-->
+    <!--<script type="text/javascript" src="../js/view_base.js"></script>-->
+    <!--<script type="text/javascript" src="../js/bootstrap.min.js"></script>-->
 
 </head>
 <body>
@@ -30,6 +29,7 @@
 
         $.ajax({ url: "http://www.tutuniao.com:8008/tutuniao/index/index", success: function(s){
                 $("#header").append(s.banners);
+
 
                 var minContent="<div style=\"margin: 30px auto;height: 100px;width: 524px;\">\n" +
                     "        <div class=\"input-prepend\">\n" +
@@ -45,52 +45,78 @@
                     "        <div style=\"margin-left: 200px; margin-top: 15px\">\n" +
                     "            <button class=\"btn btn-danger\" type=\"submit\" style=\"width: 100px; height: 40px\">查询</button>\n" +
                     "        </div>\n" +
-                    "    </div>\n" +
-                    "    <div style=\"margin: 4px auto; width: 1048px;\">\n" +
-                    "        <div style=\"padding-left: 70px;width: 950px;height: 150px;\">\n" +
-                    "            <div class=\"row-fluid\">\n" +
-                    "                <ul class=\"thumbnails\">\n" +
-                    "                    <li class=\"span4\">\n" +
-                    "                        <div class=\"media\">\n" +
-                    "                            <a class=\"pull-left\" href=\"#\">\n" +
-                    "                                <img class=\"media-object\" data-src=\"holder.js/125x147\" alt=\"125x147\" src=\"data:image/png;base64,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\" style=\"width: 125px; height: 147px;\">\n" +
-                    "                            </a>\n" +
-                    "                            <div class=\"media-body\" style=\"margin-top: 10px; margin-left: 8px\">\n" +
-                    "                                <h4 class=\"media-heading\">****招生了</h4>\n" +
-                    "                            </div>\n" +
-                    "                        </div>\n" +
-                    "                    </li>\n" +
-                    "                    <li class=\"span4\">\n" +
-                    "                        <div class=\"media\">\n" +
-                    "                            <a class=\"pull-left\" href=\"#\">\n" +
-                    "                                <img class=\"media-object\" data-src=\"holder.js/125x147\" alt=\"125x147\" src=\"data:image/png;base64,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\" style=\"width: 125px; height: 147px;\">\n" +
-                    "                            </a>\n" +
-                    "                            <div class=\"media-body\" style=\"margin-top: 10px; margin-left: 8px\">\n" +
-                    "                                <h4 class=\"media-heading\">****招生了</h4>\n" +
-                    "                            </div>\n" +
-                    "                        </div>\n" +
-                    "                    </li>\n" +
-                    "                    <li class=\"span4\">\n" +
-                    "                        <div class=\"media\">\n" +
-                    "                            <a class=\"pull-left\" href=\"#\">\n" +
-                    "                                <img class=\"media-object\" data-src=\"holder.js/125x147\" alt=\"125x147\" src=\"data:image/png;base64,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\" style=\"width: 125px; height: 147px;\">\n" +
-                    "                            </a>\n" +
-                    "                            <div class=\"media-body\" style=\"margin-top: 10px; margin-left: 8px\">\n" +
-                    "                                <h4 class=\"media-heading\">****招生了</h4>\n" +
-                    "                            </div>\n" +
-                    "                        </div>\n" +
-                    "                    </li>\n" +
-                    "                </ul>\n" +
-                    "            </div>\n" +
-                    "        </div>\n" +
-                    "    </div>";
-                $("#content").append(minContent);
+                    "    </div>\n";
+                var news = "<div style=\"margin: 4px auto; width: 1048px;\">\n";
+                news+= "        <div style=\"padding-left: 70px;width: 950px;height: 150px;\">\n" ;
+                news+= "            <div class=\"row-fluid\">\n";
+                news+= "                <ul class=\"thumbnails\">\n";
+                for(var i = 0 ; i < s.newsList.length; i ++ ){
+                    var newList = s.newsList[i];
+                    news+= "                    <li class=\"span4\">\n";
+                    news+= "                        <div class=\"media\">\n";
+                    news+= "                            <a class=\"pull-left\" href=\""+newList.newsUrl+"\">\n";
+                    news+= "                                <img class=\"media-object\" src=\""+newList.newsPic+"\" style=\"width: 125px; height: 147px;\">\n";
+                    news+= "                            </a>\n";
+                    news+= "                            <div class=\"media-body\" style=\"margin-top: 10px; margin-left: 8px\">\n";
+                    news+= "                                <h4 class=\"media-heading\">"+newList.newsTitle+"</h4>\n";
+                    news+= "                            </div>\n";
+                    news+= "                        </div>\n";
+                    news+= "                    </li>\n";
+                }
+                news+= "                </ul>\n";
+                news+= "            </div>\n";
+                news+= "        </div>\n";
+                news+= "   </div>";
+                $("#content").append(minContent + news);
                 $("#content").append(s.content);
+
                 var _script=document.createElement('script');
-                _script.setAttribute('charset','gbk');
                 _script.setAttribute('type','text/javascript');
                 _script.setAttribute('src','../js/art.js');
+
+                var _script2=document.createElement('script');
+                _script2.setAttribute('type','text/javascript');
+                _script2.setAttribute('src','../js/view_base.js');
+
+                var _script3=document.createElement('script');
+                _script3.setAttribute('type','text/javascript');
+                _script3.setAttribute('src','../js/6697.js');
+
+                var _script5=document.createElement('script');
+                _script5.setAttribute('type','text/javascript');
+                _script5.setAttribute('src','../js/tangram.js');
+
+                var _script6=document.createElement('script');
+                _script6.setAttribute('type','text/javascript');
+                _script6.setAttribute('src','../js/jquery.anythingslider.min.js');
+
+                var _script7=document.createElement('script');
+                _script7.setAttribute('type','text/javascript');
+                _script7.setAttribute('src','../js/jquery.fancybox-1.3.4.js');
+
+                var _script8=document.createElement('script');
+                _script8.setAttribute('type','text/javascript');
+                _script8.setAttribute('src','../js/modernizr.custom.53451.js');
+
+                var _script9=document.createElement('script');
+                _script9.setAttribute('type','text/javascript');
+                _script9.setAttribute('src','../js/jquery.gallery.js');
+
+                var _script10=document.createElement('script');
+                _script10.setAttribute('type','text/javascript');
+                _script10.setAttribute('src','../js/bootstrap.min.js');
+
+                document.getElementsByTagName('head')[0].appendChild(_script5);
+                document.getElementsByTagName('head')[0].appendChild(_script6);
+                document.getElementsByTagName('head')[0].appendChild(_script7);
+                document.getElementsByTagName('head')[0].appendChild(_script8);
+                document.getElementsByTagName('head')[0].appendChild(_script8);
+                document.getElementsByTagName('head')[0].appendChild(_script9);
+                document.getElementsByTagName('head')[0].appendChild(_script10);
+                document.getElementsByTagName('head')[0].appendChild(_script3);
+                document.getElementsByTagName('head')[0].appendChild(_script2);
                 document.getElementsByTagName('head')[0].appendChild(_script);
+
             }, error: function () {
                 // history.go(0)
             }});
