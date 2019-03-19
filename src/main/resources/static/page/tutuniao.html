@@ -21,6 +21,7 @@
 <body>
 <div id="header"></div>
 <div id="content" style="width: 1048px; margin: 0 auto;"></div>
+<div id="footer" ></div>
 </body>
 </html>
 
@@ -31,34 +32,39 @@
                 $("#header").append(s.banners);
 
 
-                var minContent="<div style=\"margin: 30px auto;height: 100px;width: 524px;\">\n" +
-                    "        <div class=\"input-prepend\">\n" +
-                    "            <div class=\"btn-group\">\n" +
-                    "                <select class=\"span1\" style=\"width: 100px\">\n" +
-                    "                    <option>国美证书</option>\n" +
-                    "                    <option>结业证书</option>\n" +
-                    "                </select>\n" +
+                var minContent="<div style='margin: 30px auto;height: 100px;width: 524px;'>\n" +
+                    "    <form action='../index/search'  onsubmit='return validate()' name='search' method='post'>\n" +
+                    "        <div class='input-prepend'>\n" +
+                    "            <div class='btn-group'>\n" +
+                    "                <select name='activityId' class='span1' style='width: 100px' id='zhengshu'>\n" ;
+                for (var i = 0; i< s.activityList.length; i++ ){
+                    minContent+="                    <option value='"+s.activityList[i].id+"'>"+s.activityList[i].activityName+"</option>";
+                }
+                minContent+="                    <option value='-1'>结业证书</option>";
+                minContent+="                </select>\n" +
                     "            </div>\n" +
-                    "            <input type=\"text\" class=\"span2 search-query\" style=\"margin-left: 40px; width: 130px;\" placeholder=\"请输入您的姓名\">\n" +
-                    "            <input type=\"text\" class=\"span2 search-query\" style=\"margin-left: 20px; width: 220px\" placeholder=\"请输入您的身份证号\">\n" +
+                    "            <input name='username' type='text' class='span2 search-query' style='margin-left: 40px; width: 130px;' placeholder='请输入您的姓名'>\n" +
+                    "            <input name='idCart' type='text' class='span2 search-query' style='margin-left: 20px; width: 220px' placeholder='请输入您的身份证号'>\n" +
                     "        </div>\n" +
-                    "        <div style=\"margin-left: 200px; margin-top: 15px\">\n" +
-                    "            <button class=\"btn btn-danger\" type=\"submit\" style=\"width: 100px; height: 40px\">查询</button>\n" +
+                    "        <div style='margin-left: 200px; margin-top: 15px'>\n" +
+                    "            <button class='btn btn-danger' type='submit' style='width: 100px; height: 40px'>查询</button>\n" +
                     "        </div>\n" +
-                    "    </div>\n";
-                var news = "<div style=\"margin: 4px auto; width: 1048px;\">\n";
-                news+= "        <div style=\"padding-left: 70px;width: 950px;height: 150px;\">\n" ;
-                news+= "            <div class=\"row-fluid\">\n";
-                news+= "                <ul class=\"thumbnails\">\n";
+                    "    </form>\n" +
+                    "</div>\n";
+
+                var news = "<div style='margin: 4px auto; width: 1048px;'>\n";
+                news+= "        <div style='padding-left: 70px;width: 950px;height: 150px;'>\n" ;
+                news+= "            <div class='row-fluid'>\n";
+                news+= "                <ul class='thumbnails'>\n";
                 for(var i = 0 ; i < s.newsList.length; i ++ ){
                     var newList = s.newsList[i];
-                    news+= "                    <li class=\"span4\">\n";
-                    news+= "                        <div class=\"media\">\n";
-                    news+= "                            <a class=\"pull-left\" href=\""+newList.newsUrl+"\">\n";
-                    news+= "                                <img class=\"media-object\" src=\""+newList.newsPic+"\" style=\"width: 125px; height: 147px;\">\n";
+                    news+= "                    <li class='span4'>\n";
+                    news+= "                        <div class='media'>\n";
+                    news+= "                            <a class='pull-left' href='"+newList.newsUrl+"'>\n";
+                    news+= "                                <img class='media-object' src='"+newList.newsPic+"' style='width: 125px; height: 147px;'>\n";
                     news+= "                            </a>\n";
-                    news+= "                            <div class=\"media-body\" style=\"margin-top: 10px; margin-left: 8px\">\n";
-                    news+= "                                <h4 class=\"media-heading\">"+newList.newsTitle+"</h4>\n";
+                    news+= "                            <div class='media-body' style='margin-top: 25px; margin-left: 8px'>\n";
+                    news+= "                                <h4 class='media-heading'>"+newList.newsTitle+"</h4>\n";
                     news+= "                            </div>\n";
                     news+= "                        </div>\n";
                     news+= "                    </li>\n";
@@ -69,6 +75,8 @@
                 news+= "   </div>";
                 $("#content").append(minContent + news);
                 $("#content").append(s.content);
+
+
 
                 var _script=document.createElement('script');
                 _script.setAttribute('type','text/javascript');
@@ -117,8 +125,33 @@
                 document.getElementsByTagName('head')[0].appendChild(_script2);
                 document.getElementsByTagName('head')[0].appendChild(_script);
 
+                var footer = "<div class=\"footer\">\n" +
+                    "        <div class=\"wrap\">\n" +
+                    "                <div class=\"logo-link\">\n" +
+                    "                        <a  target=\"_blank\"  href=\"http://caam.caa.edu.cn/\"><img src=\"http://www.caa.edu.cn/images/f_98.png\" alt=\"\" /></a>\n" +
+                    "                        <a  target=\"_blank\"  href=\"http://www.caa.edu.cn/zyxz/201702/U020170214505599533630.pdf\"><img src=\"http://www.caa.edu.cn/images/fb_104.png\" alt=\"\" /></a>\n" +
+                    "                        <!--<a  target=\"_blank\"  href=\"http://www.cidesignmuseum.org/\"><img src=\"http://www.caa.edu.cn/images/f_97.png\" alt=\"\" /></a>-->\n" +
+                    "                        <a  target=\"_blank\"  href=\"http://lib.caa.edu.cn/\"><img src=\"http://www.caa.edu.cn/images/f_lib.png\" alt=\"\" /></a>\n" +
+                    "                        <a    href=\"JavaScript:void(0)\"><img src=\"http://www.caa.edu.cn/images/f_100.png\" alt=\"\" /></a>\n" +
+                    "                        <a  target=\"_blank\"  href=\"http://www.s-i-m-a.org/\"><img src=\"http://www.caa.edu.cn/images/f_101.png\" alt=\"\" /></a>\n" +
+                    "                        <a  target=\"_blank\"  href=\"http://www.caa.edu.cn/tzgg/201606/t20160623_62849.html\"><img src=\"http://www.caa.edu.cn/images/f_102.png\" alt=\"\" /></a>\n" +
+                    "                </div>\n" +
+                    "        </div>\n" +
+                    "</div>";
+                $("#footer").append(footer);
             }, error: function () {
                 // history.go(0)
             }});
     });
+    function validate() {
+        if(search.zhengshu.value == ""){
+            return false;
+        }else if(search.username.value == ""){
+            alert("请输入用户名");
+            return false;
+        }else if(search.idCart.value == ""){
+            alert("请输入身份证");
+            return false;
+        }else return true;
+    }
 </script>

@@ -1,11 +1,14 @@
 package com.tutuniao.tutuniao.controller;
 
+import com.tutuniao.tutuniao.entity.Activity;
 import com.tutuniao.tutuniao.entity.IndexObject;
 import com.tutuniao.tutuniao.entity.News;
 import com.tutuniao.tutuniao.schedule.ScheduledService;
+import com.tutuniao.tutuniao.service.ActivityService;
 import com.tutuniao.tutuniao.service.NewsService;
 import com.tutuniao.tutuniao.vo.PageVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +19,8 @@ import java.util.List;
 public class IndexController {
     @Autowired
     private NewsService newsService;
+    @Autowired
+    private ActivityService activityService;
 
     @RequestMapping("/index")
     public IndexObject index(){
@@ -28,8 +33,17 @@ public class IndexController {
         }
         if(indexObject!= null && indexObject.getNewsList() == null){
             setNewsList(indexObject);
+            setActivityList(indexObject);
         }
         return indexObject;
+    }
+
+    @PostMapping("/search")
+    public IndexObject search(String username,String idCart, int activityId ){
+        System.out.println(username);
+        System.out.println(idCart);
+        System.out.println(activityId);
+        return null;
     }
 
     @RequestMapping("/refreshIndex")
@@ -37,6 +51,8 @@ public class IndexController {
         IndexObject indexObject = ScheduledService.buildIndex();
             if(null != indexObject){
                 ScheduledService.indexObject = indexObject;
+                setNewsList(ScheduledService.indexObject);
+                setActivityList(ScheduledService.indexObject);
             }
     }
 
@@ -50,6 +66,16 @@ public class IndexController {
         setNewsList(ScheduledService.indexObject);
     }
 
+    @RequestMapping("/refreshActivity")
+    public void refreshActivity(){
+
+        IndexObject indexObject = ScheduledService.indexObject;
+        if(indexObject == null){
+            refreshIndex();
+        }
+        setActivityList(ScheduledService.indexObject);
+    }
+
     private void setNewsList(IndexObject indexObject) {
         News news = new News();
         news.setPageIndex(1);
@@ -61,6 +87,22 @@ public class IndexController {
                 if(indexObject == null)
                     indexObject = new IndexObject();
                 indexObject.setNewsList(t);
+            }
+
+        }
+    }
+
+    private void setActivityList(IndexObject indexObject) {
+        Activity activity = new Activity();
+        activity.setPageIndex(1);
+        activity.setPageSize(20);
+        PageVO<List<Activity>> listPageVO = activityService.queryActivityList(activity);
+        if (listPageVO != null){
+            List<Activity> t = listPageVO.getT();
+            if(t != null ){
+                if(indexObject == null)
+                    indexObject = new IndexObject();
+                indexObject.setActivityList(t);
             }
 
         }
