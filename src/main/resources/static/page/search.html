@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap-responsive.min.css">
     <script src="../js/jquery.min.js"></script>
+    <script src="../js/md5.js"></script>
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -69,6 +70,9 @@
         }else if(search.idCart.value == ""){
             alert("请输入身份证");
             return false;
-        }else return true;
+        }else {
+            search.idCart.value = hex_md5(search.idCart.value);
+            return true;
+        }
     }
 </script>
