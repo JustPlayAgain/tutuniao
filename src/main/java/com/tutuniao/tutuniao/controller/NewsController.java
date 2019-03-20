@@ -40,19 +40,20 @@ public class NewsController {
      */
     @RequestMapping("/insertNews")
     public Response<String> insertNews(News news, HttpServletRequest request){
-        User user = CookieUtils.userVerification(request);
+        /*User user = CookieUtils.userVerification(request);
         if(Utils.isNull(user)) {
             return ResponseUtil.buildErrorResponse(ResponseCode.NEED_LOGIN);
+        }*/
+        if (Utils.isNull(news)) {
+            return ResponseUtil.buildErrorResponse(ErrorEnum.INSERT_DATA_ERROR);
         }
-        if(Utils.isNotNull(news.getNewsUrl()) && Utils.isNotNull(news.getNewsPic()) && Utils.isNotNull(news.getNewsIsAble()) && Utils.isNotNull(news.getNewsTitle())) {
-            news.setCreateUser(user.getUserName());
-            news.setCreateDate(new Date());
-            news.setUpdateUser(user.getUserName());
-            news.setUpdateDate(new Date());
-            int i = newsService.insertNews(news);
-            if (i != 0) {
-                return ResponseUtil.buildSuccessResponse();
-            }
+        // news.setCreateUser(user.getUserName());
+        news.setCreateDate(new Date());
+        // news.setUpdateUser(user.getUserName());
+        news.setUpdateDate(new Date());
+        int i = newsService.insertNews(news);
+        if (i != 0) {
+            return ResponseUtil.buildSuccessResponse();
         }
         return ResponseUtil.buildErrorResponse(ErrorEnum.INSERT_DATA_ERROR);
     }

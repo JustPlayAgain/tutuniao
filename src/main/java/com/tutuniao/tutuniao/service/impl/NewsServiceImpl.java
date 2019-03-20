@@ -23,7 +23,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public int insertNews(News news) {
-        if(Utils.isNotNull(news.getNewsUrl()) && Utils.isNotNull(news.getNewsPic()) && Utils.isNotNull(news.getNewsIsAble()) && Utils.isNotNull(news.getNewsTitle()) && Utils.isNotNull(news.getCreateUser())){
+        if (Utils.isNotNull(news)) {
             news.setCreateDate(new Date());
             news.setUpdateUser(news.getCreateUser() );
             news.setUpdateDate(new Date());
