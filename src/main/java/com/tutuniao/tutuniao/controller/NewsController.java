@@ -11,6 +11,7 @@ import com.tutuniao.tutuniao.util.response.ResponseCode;
 import com.tutuniao.tutuniao.util.response.ResponseUtil;
 import com.tutuniao.tutuniao.vo.PageVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,7 @@ public class NewsController {
     private NewsService newsService;
 
     @RequestMapping("/queryNewsList")
-    public Response<PageVO<List<News>>> queryNewsList(News news){
+    public Response<PageVO<List<News>>> queryNewsList(@RequestBody News news){
 
         PageVO<List<News>> newsPageVO = newsService.queryNewsList(news);
         return ResponseUtil.buildResponse(newsPageVO);
@@ -85,17 +86,18 @@ public class NewsController {
      */
     @RequestMapping("/updateNews")
     public Response<String> updateNews(News news, HttpServletRequest request){
-        User user = CookieUtils.userVerification(request);
+        /*User user = CookieUtils.userVerification(request);
         if(Utils.isNull(user)) {
             return ResponseUtil.buildErrorResponse(ResponseCode.NEED_LOGIN);
+        }*/
+
+        if (Utils.isNull(news)) {
+            return ResponseUtil.buildErrorResponse(ErrorEnum.UPDATE_DATA_ERROR);
         }
-        if(Utils.isNotNull(news.getId()) && Utils.isNotNull(news.getNewsUrl()) && Utils.isNotNull(news.getNewsPic()) && Utils.isNotNull(news.getNewsIsAble()) && Utils.isNotNull(news.getNewsTitle())) {
-            news.setUpdateUser(user.getUserName());
-            news.setUpdateDate(new Date());
-            newsService.updateNewsById(news);
-            return ResponseUtil.buildSuccessResponse();
-        }
-        return ResponseUtil.buildErrorResponse(ErrorEnum.UPDATE_DATA_ERROR);
+        // news.setUpdateUser(user.getUserName());
+        news.setUpdateDate(new Date());
+        newsService.updateNewsById(news);
+        return ResponseUtil.buildSuccessResponse();
     }
 
 }

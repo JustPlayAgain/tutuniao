@@ -50,6 +50,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public int updateNewsById(News news) {
-        return newsMapper.updateNewsById(news);
+        log.info("修改【文章数据】开始 参数为:{}", Jackson2Helper.toJsonString(news));
+        int num = newsMapper.updateNewsById(news);
+        log.info("修改【文章数据】结束 结果为:{}", Jackson2Helper.toJsonString(num));
+        return num;
     }
 }
