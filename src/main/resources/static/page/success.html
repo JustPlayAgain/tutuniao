@@ -53,13 +53,17 @@
                     "username":username,
                     "activityId":activityId,
                 },function (s) {
+                 // 通过是：恭喜您：XXX 身份证：XXXX  您已通过XXX评测，取得XXX证书
+                 // 不通过是：很抱歉，您没有通过此次XXX评测
+                 // 很抱歉，查询不到您的证书
+
                     if(s != null && s.username != null && s.idCart != null){
                         $("#result").append(
                             "恭喜您：<h6 style='display: inline'>"+s.username+"</h6> 同学 身份证：<h6 style='display: inline'>"+s.idCart+"</h6>\n" +
                             "        <h3>您在2090年被北京大学录取</h3>"
                         );
                     }else{
-                        $("#result").append("未能查询到您的信息");
+                        $("#result").append("很抱歉，查询不到您的证书");
                     }
 
                 });
