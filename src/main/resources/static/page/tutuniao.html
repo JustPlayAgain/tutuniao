@@ -48,6 +48,9 @@
     $(function() {
 
         $.ajax({ url: "/tutuniao/index/index", success: function(s){
+                if(s = null && s.banners == null  && s.banners == '' && s.content == null && s.content == ''){
+                    window.location.href='search.html';
+                }
                 $("#header").append(s.banners);
 
 

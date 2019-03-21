@@ -9,12 +9,15 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RedisClusterUtil {
-
+    private static String CLUSTER = "97.64.36.211:7011";
     public static class JedisClusterMultiton{
 
         private static Map<String, JedisCluster> jedisClusterMap = new ConcurrentHashMap<>();
 
         public static JedisCluster getInstance(String cluster){
+            if(cluster == null ){
+                cluster = CLUSTER;
+            }
             if(jedisClusterMap.get(cluster) == null){
                 synchronized(JedisClusterMultiton.class){
                     if(jedisClusterMap.get(cluster) == null) {
@@ -96,6 +99,22 @@ public class RedisClusterUtil {
             throw new RedisClusterException(e);
         }
     }
+
+    public static String get(String key) {
+        String value = null ;
+        if(key != null){
+            JedisCluster jedisCluster = JedisClusterMultiton.getInstance(null);
+            try{
+                if ( jedisCluster.exists(key)){
+                    value = jedisCluster.get(key);
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return value;
+    }
+
     public static void set(String cluster, String key,String value) throws RedisClusterException {
         if(key == null){
             return ;
@@ -106,6 +125,19 @@ public class RedisClusterUtil {
 
         }catch(Exception e){
             throw new RedisClusterException(e);
+        }
+    }
+
+    public static void set(String key,String value) {
+        if(key == null){
+            return ;
+        }
+        JedisCluster jedisCluster = JedisClusterMultiton.getInstance(null);
+        try{
+            jedisCluster.set(key, value);
+
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 

@@ -2,8 +2,10 @@ package com.tutuniao.tutuniao.schedule;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.tutuniao.tutuniao.common.Constant;
 import com.tutuniao.tutuniao.entity.IndexObject;
 import com.tutuniao.tutuniao.util.HttpClientUtils;
+import com.tutuniao.tutuniao.util.RedisClusterUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,12 +17,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class ScheduledService {
     private static final String academyArtUrl = "http://www.caa.edu.cn/index.html";
-    public static IndexObject indexObject = null;
     @Scheduled(cron = "1 1 1 0/1 * *")
     public void scheduled(){
-        indexObject =  buildIndex();
+         buildIndex();
     }
-
+    public static IndexObject getIndexObject(String key){
+        IndexObject indexObject = JSONObject.parseObject(RedisClusterUtil.get(key), IndexObject.class);
+        if(indexObject == null ){
+            indexObject = ScheduledService.buildIndex();
+        }
+        return indexObject;
+    }
     public static IndexObject buildIndex(){
         try {
             IndexObject tmpIndexObject = new IndexObject();
@@ -35,7 +42,7 @@ public class ScheduledService {
                     String content = doc.getElementsByClass("container").toString();
                     if(StringUtils.isNoneBlank(content)) {
                         tmpIndexObject.setContent(urlAddHttp(content));
-                        indexObject = tmpIndexObject;
+                        RedisClusterUtil.set(Constant.Redis_Index,JSONObject.toJSONString(tmpIndexObject));
                         return tmpIndexObject;
                     }
                 }

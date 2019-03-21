@@ -1,11 +1,14 @@
 package com.tutuniao.tutuniao.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.tutuniao.tutuniao.common.Constant;
 import com.tutuniao.tutuniao.entity.Activity;
 import com.tutuniao.tutuniao.entity.IndexObject;
 import com.tutuniao.tutuniao.entity.News;
 import com.tutuniao.tutuniao.schedule.ScheduledService;
 import com.tutuniao.tutuniao.service.ActivityService;
 import com.tutuniao.tutuniao.service.NewsService;
+import com.tutuniao.tutuniao.util.RedisClusterUtil;
 import com.tutuniao.tutuniao.vo.PageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,14 +28,10 @@ public class IndexController {
 
     @RequestMapping("/index")
     public IndexObject index(){
-        IndexObject indexObject;
-        if( (indexObject = ScheduledService.indexObject) == null){
-            indexObject = ScheduledService.buildIndex();
-            if(null != indexObject){
-                ScheduledService.indexObject = indexObject;
-            }
-        }
+        IndexObject indexObject = ScheduledService.getIndexObject(Constant.Redis_Index);
         if(indexObject!= null && indexObject.getNewsList() == null){
+//            indexObject.setNewsList(news().getNewsList());
+//            indexObject.setActivityList(activity().getActivityList());
             setNewsList(indexObject);
             setActivityList(indexObject);
         }
@@ -40,11 +39,24 @@ public class IndexController {
     }
     @RequestMapping("/activity")
     public IndexObject activity(){
-
-        IndexObject indexObject = ScheduledService.indexObject;
+        IndexObject indexObject = ScheduledService.getIndexObject(Constant.Redis_Activity);
         if(indexObject == null || indexObject.getActivityList() == null ){
             indexObject = new IndexObject();
             setActivityList(indexObject);
+        }
+        return indexObject;
+    }
+
+    /**
+     * 先判断redis 是否有新闻 如果有 就
+     * @return
+     */
+    @RequestMapping("/news")
+    public IndexObject news(){
+        IndexObject indexObject = ScheduledService.getIndexObject(Constant.Redis_News);
+        if(indexObject == null || indexObject.getNewsList() == null ){
+            indexObject = new IndexObject();
+            setNewsList(indexObject);
         }
         return indexObject;
     }
@@ -57,36 +69,42 @@ public class IndexController {
         return map;
     }
 
+    /**
+     * 重新获取 首页信息
+     * @return
+     */
     @RequestMapping("/refreshIndex")
-    public void refreshIndex(){
+    public IndexObject refreshIndex(){
         IndexObject indexObject = ScheduledService.buildIndex();
-            if(null != indexObject){
-                ScheduledService.indexObject = indexObject;
-                setNewsList(ScheduledService.indexObject);
-                setActivityList(ScheduledService.indexObject);
-            }
+        return indexObject;
     }
 
+    /**
+     * 刷新新闻
+     * @return
+     */
     @RequestMapping("/refreshNews")
-    public void refreshNews(){
-
-        IndexObject indexObject = ScheduledService.indexObject;
-        if(indexObject == null){
-            refreshIndex();
-        }
-        setNewsList(ScheduledService.indexObject);
+    public IndexObject refreshNews(){
+        IndexObject indexObject = new IndexObject();
+        setNewsList(indexObject);
+        return indexObject;
     }
 
+    /**
+     * 刷新活动
+     * @return
+     */
     @RequestMapping("/refreshActivity")
-    public void refreshActivity(){
-
-        IndexObject indexObject = ScheduledService.indexObject;
-        if(indexObject == null){
-            refreshIndex();
-        }
-        setActivityList(ScheduledService.indexObject);
+    public IndexObject refreshActivity(){
+        IndexObject indexObject = new IndexObject();
+        setActivityList(indexObject);
+        return indexObject;
     }
 
+    /**
+     * 从数据库中取出 三条新闻 并放入Redis中
+     * @param indexObject
+     */
     private void setNewsList(IndexObject indexObject) {
         News news = new News();
         news.setPageIndex(1);
@@ -98,11 +116,16 @@ public class IndexController {
                 if(indexObject == null)
                     indexObject = new IndexObject();
                 indexObject.setNewsList(t);
+                RedisClusterUtil.set(Constant.Redis_News, JSONObject.toJSONString(indexObject));
             }
 
         }
     }
 
+    /**
+     * 从数据库中取出 20条活动 并放入Redis中
+     * @param indexObject
+     */
     private void setActivityList(IndexObject indexObject) {
         Activity activity = new Activity();
         activity.setPageIndex(1);
@@ -114,9 +137,10 @@ public class IndexController {
                 if(indexObject == null)
                     indexObject = new IndexObject();
                 indexObject.setActivityList(t);
+                RedisClusterUtil.set(Constant.Redis_Activity, JSONObject.toJSONString(indexObject));
             }
 
         }
     }
-
 }
+
