@@ -55,5 +55,5 @@ public interface GuoMeiTemplateService {
      * excel导入国美证书信息
      * @param file
      */
-    Response importGuoMeiData(InputStream file, String name);
+    Response importGuoMeiData(InputStream file, String name, int actId);
 }

@@ -93,7 +93,7 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
     }
 
     @Override
-    public Response importGuoMeiData(InputStream file, String name) {
+    public Response importGuoMeiData(InputStream file, String name, int actId) {
         Workbook wb = null;
         List<GuoMeiTemplate> guoMeiTemplateList = new ArrayList();
         try {
@@ -131,6 +131,7 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
             guoMeiTemplate.setExamDate(row.getCell(j++).getDateCellValue()); // 考试时间
             guoMeiTemplate.setCreateDate(new Date());
             guoMeiTemplate.setCreateUser("admin");
+            guoMeiTemplate.setActId(actId);
             guoMeiTemplateList.add(guoMeiTemplate);
         }
         for(GuoMeiTemplate guomei : guoMeiTemplateList) {

@@ -111,8 +111,8 @@ public class GuoMeiTemplateController {
      * @return
      */
     @PostMapping("/importguomeidata")
-    public Response importGuoMeiData(@RequestParam("file") MultipartFile file){
-        if (Utils.isNull(file)) {
+    public Response importGuoMeiData(@RequestParam("file") MultipartFile file,@RequestParam("actId") int actId){
+        if (Utils.isNull(file) && actId < 0) {
             return ResponseUtil.buildErrorResponse(ErrorEnum.PARAM_TYPE);
         }
         String name = file.getOriginalFilename();
@@ -123,6 +123,6 @@ public class GuoMeiTemplateController {
             e.printStackTrace();
         }
 
-        return ResponseUtil.buildResponse(guoMeiTemplateService.importGuoMeiData(inputStream,name));
+        return ResponseUtil.buildResponse(guoMeiTemplateService.importGuoMeiData(inputStream,name,actId));
     }
 }
