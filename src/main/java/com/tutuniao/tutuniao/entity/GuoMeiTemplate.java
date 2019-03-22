@@ -53,4 +53,7 @@ public class GuoMeiTemplate extends BaseEntity implements Serializable {
      * 关联活动id
      */
     private Integer actId;
+
+//    private Activity activity;
+    private String  activityName;
 }

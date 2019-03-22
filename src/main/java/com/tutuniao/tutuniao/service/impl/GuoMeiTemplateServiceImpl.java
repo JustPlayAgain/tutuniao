@@ -78,10 +78,13 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
     }
 
     @Override
-    public PageVO<List<GuoMeiTemplate>> queryGuoMeiTemplateList(@RequestBody GuoMeiTemplate guoMeiTemplate) {
+    public PageVO<List<GuoMeiTemplate>> queryGuoMeiTemplateList( GuoMeiTemplate guoMeiTemplate) {
+        if(guoMeiTemplate.getActId() == null ) guoMeiTemplate.setActId(-2);
+
         Page<PageInfo> pageInfo = guoMeiTemplate.getPageInfos(guoMeiTemplate);
 
         log.info("查询【国美证书】开始 参数为:{}", Jackson2Helper.toJsonString(guoMeiTemplate));
+
         List<GuoMeiTemplate> guoMeiTemplateList = guoMeiTemplateMapper.queryGuoMeiTemplateList(guoMeiTemplate);
         log.info("查询【国美证书】结束 结果为:{}", Jackson2Helper.toJsonString(guoMeiTemplateList));
         return new PageVO<>( (int) pageInfo.getTotal(), guoMeiTemplateList, pageInfo.getPageSize());

@@ -20,65 +20,85 @@
         <result column="create_user" property="createUser" jdbcType="VARCHAR" />
         <result column="valid" property="valid" jdbcType="INTEGER" />
         <result column="act_id" property="actId" jdbcType="INTEGER" />
+        <result column="activity_name" property="activityName" jdbcType="VARCHAR" />
+        <!--<association property="activity" javaType="com.tutuniao.tutuniao.entity.Activity" >-->
+            <!--<id column="id" property="id" jdbcType="INTEGER" />-->
+            <!--<result column="activity_name" property="activityName" jdbcType="VARCHAR" />-->
+            <!--<result column="activity_code" property="activityCode" jdbcType="VARCHAR" />-->
+            <!--<result column="activity_date" property="activityDate" jdbcType="TIMESTAMP" />-->
+            <!--<result column="create_user" property="createUser" jdbcType="VARCHAR" />-->
+            <!--<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />-->
+            <!--<result column="update_user" property="updateUser" jdbcType="VARCHAR" />-->
+            <!--<result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />-->
+        <!--</association>-->
+
     </resultMap>
     <sql id="Base_Column_List" >
         id, number_id, student_name, nationality, nation, gender, birth_date, certificate_number, profession, declare_level,
         examination_level, original_level, native_place, exam_date, create_date, create_user, valid, act_id
+    </sql>
+    <sql id="Base_Activity_GuoMei_List" >
+--      G.id, G.number_id, G.student_name, G.nationality, G.nation, G.gender, G.birth_date, G.certificate_number, G.profession, G.declare_level,
+--      G.examination_level, G.original_level, G.native_place, G.exam_date, G.create_date, G.create_user, G.valid, G.act_id,
+--      A.id, A.activity_name, A.activity_code, A.activity_date, A.create_user, A.create_date, A.update_user, A.update_date
+     G.id, G.number_id, G.student_name, G.nationality, G.nation, G.gender, G.birth_date, G.certificate_number, G.profession, G.declare_level,
+     G.examination_level, G.original_level, G.native_place, G.exam_date, G.create_date, G.create_user, G.valid, G.act_id,
+     A.activity_name
     </sql>
 
     <sql id="Base_Where_Clause">
         <where>
             valid=0
             <if test="id != null">
-                and id = #{id,jdbcType=INTEGER}
+                and G.id = #{id,jdbcType=INTEGER}
             </if>
             <if test="numberId != null and numberId !=''">
-                and number_id = #{numberId,jdbcType=INTEGER}
+                and G.number_id = #{numberId,jdbcType=INTEGER}
             </if>
             <if test="studentName != null and studentName !=''">
-                and student_name like CONCAT('%',#{studentName,jdbcType=VARCHAR},'%')
+                and G.student_name like CONCAT('%',#{studentName,jdbcType=VARCHAR},'%')
             </if>
             <if test="nationality != null and nationality !=''">
-                and nationality = #{nationality,jdbcType=VARCHAR}
+                and G.nationality = #{nationality,jdbcType=VARCHAR}
             </if>
             <if test="nation != null and nation !=''">
-                and nation = #{nation,jdbcType=VARCHAR}
+                and G.nation = #{nation,jdbcType=VARCHAR}
             </if>
             <if test="gender != null and gender !=''">
-                and gender = #{gender,jdbcType=VARCHAR}
+                and G.gender = #{gender,jdbcType=VARCHAR}
             </if>
             <if test="birthDate != null">
-                and birth_date = #{birthDate,jdbcType=TIMESTAMP}
+                and G.birth_date = #{birthDate,jdbcType=TIMESTAMP}
             </if>
             <if test="certificateNumber != null and certificateNumber !=''">
-                and certificate_number like CONCAT(#{certificateNumber,jdbcType=VARCHAR},'%')
+                and G.certificate_number like CONCAT(#{certificateNumber,jdbcType=VARCHAR},'%')
             </if>
             <if test="profession != null and profession !=''">
-                and profession like CONCAT('%',#{profession,jdbcType=VARCHAR},'%')
+                and G.profession like CONCAT('%',#{profession,jdbcType=VARCHAR},'%')
             </if>
             <if test="declareLevel != null and declareLevel !=''">
-                and declare_level = #{declareLevel,jdbcType=VARCHAR}
+                and G.declare_level = #{declareLevel,jdbcType=VARCHAR}
             </if>
             <if test="examinationLevel != null and examinationLevel !=''">
-                and examination_level = #{examinationLevel,jdbcType=VARCHAR}
+                and G.examination_level = #{examinationLevel,jdbcType=VARCHAR}
             </if>
             <if test="originalLevel != null and originalLevel !=''">
-                and original_level = #{originalLevel,jdbcType=VARCHAR}
+                and G.original_level = #{originalLevel,jdbcType=VARCHAR}
             </if>
             <if test="nativePlace != null and nativePlace !=''">
-                and native_place = #{nativePlace,jdbcType=VARCHAR}
+                and G.native_place = #{nativePlace,jdbcType=VARCHAR}
             </if>
             <if test="examDate != null">
-                and exam_date = #{examDate,jdbcType=TIMESTAMP}
+                and G.exam_date = #{examDate,jdbcType=TIMESTAMP}
             </if>
             <if test="createDate != null">
-                and create_date = #{createDate,jdbcType=TIMESTAMP}
+                and G.create_date = #{createDate,jdbcType=TIMESTAMP}
             </if>
             <if test="createUser != null and createUser !=''">
-                and create_user = #{createUser,jdbcType=VARCHAR}
+                and G.create_user = #{createUser,jdbcType=VARCHAR}
             </if>
             <if test="actId != null and actId !=''">
-                and act_id = #{actId,jdbcType=INTEGER}
+                and G.act_id = #{actId,jdbcType=INTEGER}
             </if>
         </where>
     </sql>
@@ -86,7 +106,7 @@
     <select id="queryGuoMeiTemplate" resultMap="BaseResultMap" parameterType="com.tutuniao.tutuniao.entity.GuoMeiTemplate" >
         select
         <include refid="Base_Column_List" />
-        from t_guomei_template
+        from t_guomei_template G
         where  certificate_number = #{certificateNumber,jdbcType=VARCHAR}
         and student_name = #{studentName,jdbcType=VARCHAR}
     </select>
@@ -94,17 +114,18 @@
     <select id="queryGuoMeiTemplateById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
         select
         <include refid="Base_Column_List" />
-        from t_guomei_template
+        from t_guomei_template G
         where id = #{gmId,jdbcType=INTEGER}
     </select>
 
     <select id="queryGuoMeiTemplateList" resultMap="BaseResultMap"
             parameterType="com.tutuniao.tutuniao.entity.GuoMeiTemplate">
         select
-        <include refid="Base_Column_List"/>
-        from t_guomei_template
+        <include refid="Base_Activity_GuoMei_List"/>
+        from t_guomei_template G
+        left join t_activity A on G.act_id = A.id
         <include refid="Base_Where_Clause"/>
-        order by id desc
+        order by G.id desc
     </select>
 
     <delete id="deleteGuoMeiTemplateById" parameterType="java.lang.Integer" >
