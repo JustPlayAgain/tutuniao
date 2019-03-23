@@ -13,6 +13,7 @@ public enum ErrorEnum {
 
     GUOMEITEMPLATE_NULL("120000", "当前编号或姓名不存在，请确认后查询"),
     MATCHTEMPLATE_NULL("120002", "当前身份证或姓名不存在，请确认后查询"),
+    GUOMEI_MATCH_NULL("120003", "您的比赛测评结果未通过"),
     GUOMEITEMPLATE_ERROR("120001", "查询信息为空，请确认");
 
 

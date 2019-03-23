@@ -14,7 +14,9 @@ import com.tutuniao.tutuniao.util.RedisUtil;
 import com.tutuniao.tutuniao.util.Utils;
 import com.tutuniao.tutuniao.util.response.Response;
 import com.tutuniao.tutuniao.util.response.ResponseUtil;
+import com.tutuniao.tutuniao.vo.GuoMeiTemplateVO;
 import com.tutuniao.tutuniao.vo.PageVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -103,9 +105,12 @@ public class IndexController {
             if (Utils.isNull(template)) { // 数据不存在
                 return ResponseUtil.buildErrorResponse(ErrorEnum.GUOMEITEMPLATE_NULL);
             }
-            String str = MD5Utils.MD5Encode(template.getIdCard(), "utf-8");
-            template.setIdCard(str);
-            return ResponseUtil.buildResponse(template);
+            if (Utils.isEmpty(template.getCertificateNumber())) { // 如果证书编号为空 说明没有考试结果
+                return ResponseUtil.buildErrorResponse(ErrorEnum.GUOMEI_MATCH_NULL);
+            }
+            GuoMeiTemplateVO vo = new GuoMeiTemplateVO();
+            BeanUtils.copyProperties(template, vo);
+            return ResponseUtil.buildResponse(vo);
         } else { // 否则查询结业证书情况
             MatchTemplate match = new MatchTemplate();
             match.setStudentName(username);
