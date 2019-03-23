@@ -72,6 +72,11 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
         return new PageVO<>((int) pageInfo.getTotal(), matchTemplateList, pageInfo.getPageSize());
     }
 
+    @Override
+    public List<MatchTemplate> matchTemplateList(MatchTemplate matchTemplate) {
+        return matchTemplateMapper.matchTemplateList(matchTemplate);
+    }
+
 
     @Override
     public Response importMatchData(InputStream file, String name){

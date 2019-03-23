@@ -42,4 +42,5 @@ public interface MatchTemplateMapper {
      * @return
      */
     List<MatchTemplate> queryMatchTemplateList(MatchTemplate matchTemplate);
+    List<MatchTemplate> matchTemplateList(MatchTemplate matchTemplate);
 }

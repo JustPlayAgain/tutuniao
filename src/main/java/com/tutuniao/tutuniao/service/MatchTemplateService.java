@@ -44,6 +44,8 @@ public interface MatchTemplateService {
      */
     PageVO<List<MatchTemplate>> queryMatchTemplateList(MatchTemplate matchTemplate);
 
+    List<MatchTemplate> matchTemplateList(MatchTemplate matchTemplate);
+
     /**
      * excel导入比赛证书信息
      * @param file

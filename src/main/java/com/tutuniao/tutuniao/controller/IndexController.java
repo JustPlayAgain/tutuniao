@@ -15,11 +15,10 @@ import com.tutuniao.tutuniao.util.response.Response;
 import com.tutuniao.tutuniao.util.response.ResponseUtil;
 import com.tutuniao.tutuniao.vo.PageVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
+import java.net.URLDecoder;
 import java.util.List;
 
 @RestController
@@ -72,24 +71,29 @@ public class IndexController {
         return indexObject;
     }
 
-    @PostMapping("/search")
-    public HashMap search(String username,String idCart, int activityId ){
-        HashMap<String, String> map = new HashMap<>();
-        map.put("username",username);
-        map.put("idCart",idCart);
-        return map;
-    }
+//    @PostMapping("/search")
+//    public HashMap search(String username,String idCart, int activityId ){
+//        HashMap<String, String> map = new HashMap<>();
+//        map.put("username",username);
+//        map.put("idCart",idCart);
+//        return map;
+//    }
 
     /**
      * 重新获取 首页信息
      * @return
      */
-    @RequestMapping("/refreshIndex")
-    public Response queryInfo(String username, String idCard, int activityId, int flag){
-        if (Utils.isEmpty(idCard) && Utils.isEmpty(username)) { // 验证数据
+    @RequestMapping("/search")
+    public Response queryInfo(String username, String idCard, int activityId){
+        if (Utils.isEmpty(idCard) || Utils.isEmpty(username)) { // 验证数据
             return ResponseUtil.buildErrorResponse(ErrorEnum.GUOMEITEMPLATE_ERROR);
         }
-        if (Utils.isNull(flag)) { // 如果flag为空 查询国美比赛测评
+        try {
+            username = URLDecoder.decode(username, "utf-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (activityId != -1) { // 如果flag为空 查询国美比赛测评
             GuoMeiTemplate guoMeiTemplate = new GuoMeiTemplate();
             guoMeiTemplate.setStudentName(username);
             guoMeiTemplate.setIdCard(idCard);
@@ -103,12 +107,11 @@ public class IndexController {
             MatchTemplate match = new MatchTemplate();
             match.setStudentName(username);
             match.setIdCard(idCard);
-            PageVO<List<MatchTemplate>> listPageVO = matchTemplateService.queryMatchTemplateList(match);
-            List<MatchTemplate> list = listPageVO.getT();
-            if (Utils.isNull(list) && list.size() == 0) { // 数据不存在
+            List<MatchTemplate> matchTemplates = matchTemplateService.matchTemplateList(match);
+            if (Utils.isNull(matchTemplates) || matchTemplates.size() == 0) { // 数据不存在
                 return ResponseUtil.buildErrorResponse(ErrorEnum.MATCHTEMPLATE_NULL);
             }
-            return ResponseUtil.buildResponse(list);
+            return ResponseUtil.buildResponse(matchTemplates);
         }
     }
 

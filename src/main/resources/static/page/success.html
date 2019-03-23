@@ -41,29 +41,41 @@
 
 <script type="text/javascript">
     $(function() {
-        var idCart = getQueryString("idCart");
+        var idCard = getQueryString("idCard");
         var username = getQueryString("username");
         var activityId = getQueryString("activityId");
-        if(activityId ==null && username == null && idCart == null){
+        if(activityId ==null && username == null && idCard == null){
             $("#result").append("未能查询到您的信息");
         }else{
             $.post("/tutuniao/index/search",
                 {
-                    "idCart":idCart,
+                    "idCard":idCard,
                     "username":username,
                     "activityId":activityId,
                 },function (s) {
-                 // 通过是：恭喜您：XXX 身份证：XXXX  您已通过XXX评测，取得XXX证书
-                 // 不通过是：很抱歉，您没有通过此次XXX评测
-                 // 很抱歉，查询不到您的证书
+                    // 通过是：恭喜您：XXX 身份证：XXXX  您已通过XXX评测，取得XXX证书
+                    // 不通过是：很抱歉，您没有通过此次XXX评测
+                    // 很抱歉，查询不到您的证书
+                    if (s.status != 'ok'){
+                        $("#result").append(s.message);
+                    }else {
+                        if(activityId == -1){
+                            var da = s.data[0];
+                            $("#result").append("恭喜您：<h6 style='display: inline'>"+da.studentName+"</h6> 同学 身份证：<h6 style='display: inline'>"+da.idCard+"</h6>\n" );
+                            for(var i = 0 ; i < s.data.length; i++){
+                                var da = s.data[i];
+                                $("#result").append("        <h4>"+ da.createDate+ " : "+da.results+"</h4>");
+                            }
 
-                    if(s != null && s.username != null && s.idCart != null){
-                        $("#result").append(
-                            "恭喜您：<h6 style='display: inline'>"+s.username+"</h6> 同学 身份证：<h6 style='display: inline'>"+s.idCart+"</h6>\n" +
-                            "        <h3>您在2090年被北京大学录取</h3>"
-                        );
-                    }else{
-                        $("#result").append("很抱歉，查询不到您的证书");
+                        }else {
+                            $("#result").append("恭喜您：<h6 style='display: inline'>"+s.data.studentName+"</h6> 同学 身份证：<h6 style='display: inline'>"+s.data.idCard+"</h6>\n" );
+                            if(s.data.certificateNumber != null){
+                                $("#result").append("        <h4>您已通过 \""+s.data.activityName+"\" 评测，取得 \""+s.data.activityName+"\" 证书</h4>");
+                            }else{
+                                $("#result").append("        <h4>很抱歉，您没有通过此次 \""+s.data.activityName+"\" 评测</h4>");
+                            }
+                        }
+
                     }
 
                 });

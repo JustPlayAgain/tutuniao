@@ -46,6 +46,11 @@
      G.examination_level, G.original_level, G.native_place, G.exam_date, G.create_date, G.create_user, G.valid, G.act_id, G.id_card,
      A.activity_name
     </sql>
+    <sql id="Base_Activity_GuoMei_show_List" >
+     G.student_name, G.certificate_number, G.create_date,
+     CONCAT(LEFT(G.id_card,3), '****' ,RIGHT(G.id_card,4)) id_card,
+     A.activity_name
+    </sql>
 
     <sql id="Base_Where_Clause">
         <where>
@@ -109,10 +114,12 @@
 
     <select id="queryGuoMeiTemplate" resultMap="BaseResultMap" parameterType="com.tutuniao.tutuniao.entity.GuoMeiTemplate" >
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Activity_GuoMei_show_List" />
         from t_guomei_template G
-        where  id_card = #{idCard,jdbcType=VARCHAR}
-        and student_name = #{studentName,jdbcType=VARCHAR}
+        left join t_activity A on G.act_id = A.id
+        where  md5(G.id_card) = #{idCard,jdbcType=VARCHAR}
+        and G.student_name = #{studentName,jdbcType=VARCHAR}
+        and G.act_id = #{actId,jdbcType=INTEGER}
     </select>
 
     <select id="queryGuoMeiTemplateById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

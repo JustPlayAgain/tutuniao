@@ -19,6 +19,10 @@
         id, number_id, student_name, id_card, birth_date, gender, profession, group_level, works_name, tutor, results, create_date
     </sql>
 
+    <sql id="Base_show_Column_List" >
+        student_name, CONCAT(LEFT(id_card,3), '****' ,RIGHT(id_card,4)) id_card, results, create_date
+    </sql>
+
     <sql id="Base_Where_Clause">
         <where>
             1=1
@@ -32,7 +36,7 @@
                 and student_name = #{studentName,jdbcType=VARCHAR}
             </if>
             <if test="idCard != null and idCard !=''">
-                and id_card = #{idCard,jdbcType=VARCHAR}
+                and md5(id_card) = #{idCard,jdbcType=VARCHAR}
             </if>
             <if test="birthDate != null">
                 and birth_date = #{birthDate,jdbcType=TIMESTAMP}
@@ -69,6 +73,15 @@
         <include refid="Base_Where_Clause"/>
         order by id desc
     </select>
+
+    <select id="matchTemplateList" resultMap="BaseResultMap" parameterType="com.tutuniao.tutuniao.entity.MatchTemplate">
+        select
+        <include refid="Base_show_Column_List"/>
+        from t_match_template
+        <include refid="Base_Where_Clause"/>
+        order by id desc
+    </select>
+
 
     <select id="queryMatchTemplateById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
         select
