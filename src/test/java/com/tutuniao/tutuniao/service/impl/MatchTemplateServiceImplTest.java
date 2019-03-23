@@ -24,13 +24,13 @@ public class MatchTemplateServiceImplTest {
     @Autowired
     private MatchTemplateService matchTemplateService;
 
-    @Test
+//    @Test
     public void queryMatchTemplateById() {
         MatchTemplate matchTemplate = matchTemplateService.queryMatchTemplateById(3);
         log.info("图图鸟证书: ========= {}",Jackson2Helper.toJsonStringNotNull(matchTemplate));
     }
 
-    @Test
+//    @Test
     public void insertMatchTemplate() {
         MatchTemplate matchTemplate = new MatchTemplate();
         matchTemplate.setNumberId(3333);
@@ -48,11 +48,11 @@ public class MatchTemplateServiceImplTest {
         log.info("插入证书结果: =========== {}", num);
     }
 
-    @Test
+//    @Test
     public void deleteMatchTemplateById() {
     }
 
-    @Test
+//    @Test
     public void updateMatchTemplateById() {
         MatchTemplate matchTemplate = new MatchTemplate();
         matchTemplate.setId(3);
@@ -62,7 +62,7 @@ public class MatchTemplateServiceImplTest {
         log.info("修改结果: ============ {}", num);
     }
 
-    @Test
+//    @Test
     public void queryMatchTemplateList() {
         MatchTemplate matchTemplate = new MatchTemplate();
         matchTemplate.setPageIndex(1);

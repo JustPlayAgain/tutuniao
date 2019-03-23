@@ -8,7 +8,7 @@ import com.tutuniao.tutuniao.entity.News;
 import com.tutuniao.tutuniao.schedule.ScheduledService;
 import com.tutuniao.tutuniao.service.ActivityService;
 import com.tutuniao.tutuniao.service.NewsService;
-import com.tutuniao.tutuniao.util.RedisClusterUtil;
+import com.tutuniao.tutuniao.util.RedisUtil;
 import com.tutuniao.tutuniao.vo.PageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,10 +30,10 @@ public class IndexController {
     public IndexObject index(){
         IndexObject indexObject = ScheduledService.getIndexObject(Constant.Redis_Index);
         if(indexObject!= null && indexObject.getNewsList() == null){
-//            indexObject.setNewsList(news().getNewsList());
-//            indexObject.setActivityList(activity().getActivityList());
-            setNewsList(indexObject);
-            setActivityList(indexObject);
+            indexObject.setNewsList(news().getNewsList());
+            indexObject.setActivityList(activity().getActivityList());
+//            setNewsList(indexObject);
+//            setActivityList(indexObject);
         }
         return indexObject;
     }
@@ -116,7 +116,7 @@ public class IndexController {
                 if(indexObject == null)
                     indexObject = new IndexObject();
                 indexObject.setNewsList(t);
-                RedisClusterUtil.set(Constant.Redis_News, JSONObject.toJSONString(indexObject));
+                RedisUtil.set(Constant.Redis_News, JSONObject.toJSONString(indexObject));
             }
 
         }
@@ -137,7 +137,7 @@ public class IndexController {
                 if(indexObject == null)
                     indexObject = new IndexObject();
                 indexObject.setActivityList(t);
-                RedisClusterUtil.set(Constant.Redis_Activity, JSONObject.toJSONString(indexObject));
+                RedisUtil.set(Constant.Redis_Activity, JSONObject.toJSONString(indexObject));
             }
 
         }

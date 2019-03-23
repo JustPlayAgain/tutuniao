@@ -28,7 +28,7 @@ public class GuoMeiTemplateServiceImplTest {
     public void queryGuoMeiTemplate() {
     }
 
-    @Test
+//    @Test
     public void insertGuoMeiTemplate() {
         GuoMeiTemplate guoMeiTemplate = new GuoMeiTemplate();
         guoMeiTemplate.setNumberId(11111);
@@ -51,13 +51,13 @@ public class GuoMeiTemplateServiceImplTest {
         log.info("插入国美证书结果: ======== {}", num);
     }
 
-    @Test
+//    @Test
     public void deleteGuoMeiTemplateById() {
         int num = guoMeiTemplateService.deleteGuoMeiTemplateById(1);
         log.info("逻辑删除国美证书结果: ======== {}", num);
     }
 
-    @Test
+//    @Test
     public void updateGuoMeiTemplateById() {
         GuoMeiTemplate guoMeiTemplate = new GuoMeiTemplate();
         guoMeiTemplate.setId(1);
@@ -66,7 +66,7 @@ public class GuoMeiTemplateServiceImplTest {
         log.info("修改国美证书结果: ======== {}", num);
     }
 
-    @Test
+//    @Test
     public void queryGuoMeiTemplateList() {
         GuoMeiTemplate guoMeiTemplate = new GuoMeiTemplate();
         guoMeiTemplate.setPageIndex(1);
@@ -75,13 +75,13 @@ public class GuoMeiTemplateServiceImplTest {
         log.info("查询列表信息: ========= {}", Jackson2Helper.toJsonStringNotNull(listPageVO));
     }
 
-    @Test
+//    @Test
     public void queryGuoMeiTemplateById() {
         GuoMeiTemplate guoMeiTemplate = guoMeiTemplateService.queryGuoMeiTemplateById(1);
         log.info("查询单条信息: ========= {}", Jackson2Helper.toJsonStringNotNull(guoMeiTemplate));
     }
 
-    @Test
+//    @Test
     public void importGuoMeiData() {
     }
 }

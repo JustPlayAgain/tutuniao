@@ -24,7 +24,7 @@ public class UserServiceImplTest {
     @Autowired
     private UserService userService;
 
-    @Test
+//    @Test
     public void quertyUser() {
         User user = userMapper.queryUserById(1);
         log.info("登录用户信息：{} ========", user);

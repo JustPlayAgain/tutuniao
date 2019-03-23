@@ -38,7 +38,7 @@ public class ActivityServiceImplTest {
         System.out.println(activity.getId());
     }
 
-//    @Test
+    @Test
     public void deleteActivityById() {
     }
 
@@ -60,7 +60,7 @@ public class ActivityServiceImplTest {
         log.info("活动信息：{} ========", Jackson2Helper.toJsonString(activities));
     }
 
-    @Test
+//    @Test
     public void queryActivityById() {
         Activity activity = new Activity();
         activity.setId(1);

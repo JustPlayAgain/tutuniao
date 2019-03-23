@@ -35,7 +35,7 @@ public class NewsServiceImplTest {
         System.out.println(news.getId());
     }
 
-//    @Test
+    @Test
     public void queryNewsList() {
     }
 

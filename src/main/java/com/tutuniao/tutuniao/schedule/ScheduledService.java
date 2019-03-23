@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.tutuniao.tutuniao.common.Constant;
 import com.tutuniao.tutuniao.entity.IndexObject;
 import com.tutuniao.tutuniao.util.HttpClientUtils;
-import com.tutuniao.tutuniao.util.RedisClusterUtil;
+import com.tutuniao.tutuniao.util.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,7 +22,7 @@ public class ScheduledService {
          buildIndex();
     }
     public static IndexObject getIndexObject(String key){
-        IndexObject indexObject = JSONObject.parseObject(RedisClusterUtil.get(key), IndexObject.class);
+        IndexObject indexObject = JSONObject.parseObject(RedisUtil.get(key), IndexObject.class);
         if(indexObject == null ){
             indexObject = ScheduledService.buildIndex();
         }
@@ -42,7 +42,7 @@ public class ScheduledService {
                     String content = doc.getElementsByClass("container").toString();
                     if(StringUtils.isNoneBlank(content)) {
                         tmpIndexObject.setContent(urlAddHttp(content));
-                        RedisClusterUtil.set(Constant.Redis_Index,JSONObject.toJSONString(tmpIndexObject));
+                        RedisUtil.set(Constant.Redis_Index,JSONObject.toJSONString(tmpIndexObject));
                         return tmpIndexObject;
                     }
                 }
