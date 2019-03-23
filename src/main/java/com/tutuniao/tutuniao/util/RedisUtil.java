@@ -1,19 +1,20 @@
 package com.tutuniao.tutuniao.util;
 
+import com.tutuniao.tutuniao.common.Constant;
 import redis.clients.jedis.Jedis;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RedisUtil {
 
-    private static String CLUSTER = "97.64.36.211:7011";
+
     private static Map<String, Jedis> jedisMap = new ConcurrentHashMap<>();
     public static Jedis getInstance(String cluster){
         if(cluster == null ){
-            cluster = CLUSTER;
+            cluster = Constant.CLUSTER;
         }
         if(jedisMap.get(cluster) == null){
-            String[] serverFields = CLUSTER.split(":");
+            String[] serverFields = Constant.CLUSTER.split(":");
             String host = serverFields[0];
             int port = Integer.parseInt(serverFields[1]);
             jedisMap.put(cluster,new Jedis(host,port));

@@ -9,7 +9,6 @@ import com.tutuniao.tutuniao.service.ActivityService;
 import com.tutuniao.tutuniao.service.GuoMeiTemplateService;
 import com.tutuniao.tutuniao.service.MatchTemplateService;
 import com.tutuniao.tutuniao.service.NewsService;
-import com.tutuniao.tutuniao.util.MD5Utils;
 import com.tutuniao.tutuniao.util.RedisUtil;
 import com.tutuniao.tutuniao.util.Utils;
 import com.tutuniao.tutuniao.util.response.Response;

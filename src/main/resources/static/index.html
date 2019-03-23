@@ -22,14 +22,24 @@
 <body>
 <div class="header">
     <div class="wrap clearfix">
-        <a target="_blank" href="/tutuniao/page/tutuniao.html" class="logo fl"><img src="../images/logo.png" alt=""></a>
-        <a target="_blank" href="/tutuniao/page/tutuniao.html" style="float: right;padding-top: 15px;">国美认证证书</a>
+        <a target="_blank" href="/index.html" class="logo fl"><img src="../images/logo.png" alt=""></a>
+        <a target="_blank" href="/index.html" style="float: right;padding-top: 15px;">国美认证证书</a>
     </div>
 </div>
 <div id="header"></div>
 <div id="content" style="width: 1048px; margin: 0 auto;"></div>
 <div class="footer">
     <div class="wrap">
+        <div style="width: 300px;height: 98px;padding: 25px;">
+            <div style="width: 103px;height: 103px;float: left;">
+                <div style="width: 19px;padding: 6px 43px;"><img src="../images/Wechat.png" alt="" style="width: 37px;"></div>
+                <img src="../images/wchat.jpg" alt="">
+            </div>
+            <!--<div style="width: 103px;height: 103px;float: right;">-->
+            <!--<img src="../images/wchat.jpg" alt="">-->
+            <!--</div>-->
+        </div>
+
         <div class="logo-link">
             <a  target="_blank"  href="http://caam.caa.edu.cn/"><img src="http://www.caa.edu.cn/images/f_98.png" alt="" /></a>
             <a  target="_blank"  href="http://www.caa.edu.cn/zyxz/201702/U020170214505599533630.pdf"><img src="http://www.caa.edu.cn/images/fb_104.png" alt="" /></a>
@@ -47,7 +57,7 @@
 <script type="text/javascript">
     $(function() {
 
-        $.ajax({ url: "/tutuniao/index/index", success: function(s){
+        $.ajax({ url: "/index/index", success: function(s){
                 if(s == null && s.banners == null  && s.banners == '' && s.content == null && s.content == ''){
                     window.location.href='search.html';
                 }
