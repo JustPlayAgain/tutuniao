@@ -9,6 +9,7 @@ import com.tutuniao.tutuniao.service.ActivityService;
 import com.tutuniao.tutuniao.service.GuoMeiTemplateService;
 import com.tutuniao.tutuniao.service.MatchTemplateService;
 import com.tutuniao.tutuniao.service.NewsService;
+import com.tutuniao.tutuniao.util.MD5Utils;
 import com.tutuniao.tutuniao.util.RedisUtil;
 import com.tutuniao.tutuniao.util.Utils;
 import com.tutuniao.tutuniao.util.response.Response;
@@ -102,6 +103,8 @@ public class IndexController {
             if (Utils.isNull(template)) { // 数据不存在
                 return ResponseUtil.buildErrorResponse(ErrorEnum.GUOMEITEMPLATE_NULL);
             }
+            String str = MD5Utils.MD5Encode(template.getIdCard(), "utf-8");
+            template.setIdCard(str);
             return ResponseUtil.buildResponse(template);
         } else { // 否则查询结业证书情况
             MatchTemplate match = new MatchTemplate();
