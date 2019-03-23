@@ -2,13 +2,17 @@ package com.tutuniao.tutuniao.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tutuniao.tutuniao.common.Constant;
-import com.tutuniao.tutuniao.entity.Activity;
-import com.tutuniao.tutuniao.entity.IndexObject;
-import com.tutuniao.tutuniao.entity.News;
+import com.tutuniao.tutuniao.common.enums.ErrorEnum;
+import com.tutuniao.tutuniao.entity.*;
 import com.tutuniao.tutuniao.schedule.ScheduledService;
 import com.tutuniao.tutuniao.service.ActivityService;
+import com.tutuniao.tutuniao.service.GuoMeiTemplateService;
+import com.tutuniao.tutuniao.service.MatchTemplateService;
 import com.tutuniao.tutuniao.service.NewsService;
 import com.tutuniao.tutuniao.util.RedisUtil;
+import com.tutuniao.tutuniao.util.Utils;
+import com.tutuniao.tutuniao.util.response.Response;
+import com.tutuniao.tutuniao.util.response.ResponseUtil;
 import com.tutuniao.tutuniao.vo.PageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +29,13 @@ public class IndexController {
     private NewsService newsService;
     @Autowired
     private ActivityService activityService;
+
+    @Autowired
+    private GuoMeiTemplateService guoMeiTemplateService;
+
+    @Autowired
+    private MatchTemplateService matchTemplateService;
+
 
     @RequestMapping("/index")
     public IndexObject index(){
@@ -67,6 +78,38 @@ public class IndexController {
         map.put("username",username);
         map.put("idCart",idCart);
         return map;
+    }
+
+    /**
+     * 重新获取 首页信息
+     * @return
+     */
+    @RequestMapping("/refreshIndex")
+    public Response queryInfo(String username, String idCard, int activityId, int flag){
+        if (Utils.isEmpty(idCard) && Utils.isEmpty(username)) { // 验证数据
+            return ResponseUtil.buildErrorResponse(ErrorEnum.GUOMEITEMPLATE_ERROR);
+        }
+        if (Utils.isNull(flag)) { // 如果flag为空 查询国美比赛测评
+            GuoMeiTemplate guoMeiTemplate = new GuoMeiTemplate();
+            guoMeiTemplate.setStudentName(username);
+            guoMeiTemplate.setIdCard(idCard);
+            guoMeiTemplate.setActId(activityId);
+            GuoMeiTemplate template = guoMeiTemplateService.queryGuoMeiTemplate(guoMeiTemplate);
+            if (Utils.isNull(template)) { // 数据不存在
+                return ResponseUtil.buildErrorResponse(ErrorEnum.GUOMEITEMPLATE_NULL);
+            }
+            return ResponseUtil.buildResponse(template);
+        } else { // 否则查询结业证书情况
+            MatchTemplate match = new MatchTemplate();
+            match.setStudentName(username);
+            match.setIdCard(idCard);
+            PageVO<List<MatchTemplate>> listPageVO = matchTemplateService.queryMatchTemplateList(match);
+            List<MatchTemplate> list = listPageVO.getT();
+            if (Utils.isNull(list) && list.size() == 0) { // 数据不存在
+                return ResponseUtil.buildErrorResponse(ErrorEnum.MATCHTEMPLATE_NULL);
+            }
+            return ResponseUtil.buildResponse(list);
+        }
     }
 
     /**

@@ -1,7 +1,6 @@
 package com.tutuniao.tutuniao.common.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
-import com.tutuniao.tutuniao.entity.User;
 import com.tutuniao.tutuniao.util.Utils;
 import com.tutuniao.tutuniao.util.response.ResponseCode;
 import com.tutuniao.tutuniao.util.response.ResponseUtil;
@@ -10,7 +9,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 
 @Component
 public class MyHandlerInterceptor implements HandlerInterceptor {

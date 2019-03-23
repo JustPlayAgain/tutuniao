@@ -28,15 +28,12 @@ public class GuoMeiTemplateController {
     @RequestMapping("/queryguomeitemplate")
     public Response queryGuoMeiTemplate(GuoMeiTemplate guoMeiTemplate){
         if (Utils.isNull(guoMeiTemplate)
-                && Utils.isEmpty(guoMeiTemplate.getCertificateNumber())
+                && Utils.isEmpty(guoMeiTemplate.getIdCard())
                 && Utils.isEmpty(guoMeiTemplate.getStudentName())) {
             return ResponseUtil.buildErrorResponse(ErrorEnum.GUOMEITEMPLATE_ERROR);
         }
-        GuoMeiTemplate template = guoMeiTemplateService.queryGuoMeiTemplate(guoMeiTemplate);
-        if (Utils.isNull(template)) {
-            return ResponseUtil.buildErrorResponse(ErrorEnum.GUOMEITEMPLATE_NULL);
-        }
-        return ResponseUtil.buildResponse(template);
+
+        return null;
     }
 
     /**

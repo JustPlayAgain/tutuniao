@@ -50,6 +50,10 @@ public class GuoMeiTemplate extends BaseEntity implements Serializable {
     /**是否删除 0：否 1：是**/
     private int valid;
     /**
+     * 身份证
+     */
+    private String idCard;
+    /**
      * 关联活动id
      */
     private Integer actId;

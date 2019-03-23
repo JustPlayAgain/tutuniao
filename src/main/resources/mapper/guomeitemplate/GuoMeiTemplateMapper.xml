@@ -19,6 +19,7 @@
         <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
         <result column="create_user" property="createUser" jdbcType="VARCHAR" />
         <result column="valid" property="valid" jdbcType="INTEGER" />
+        <result column="id_card" property="idCard" jdbcType="VARCHAR" />
         <result column="act_id" property="actId" jdbcType="INTEGER" />
         <result column="activity_name" property="activityName" jdbcType="VARCHAR" />
         <!--<association property="activity" javaType="com.tutuniao.tutuniao.entity.Activity" >-->
@@ -35,14 +36,14 @@
     </resultMap>
     <sql id="Base_Column_List" >
         id, number_id, student_name, nationality, nation, gender, birth_date, certificate_number, profession, declare_level,
-        examination_level, original_level, native_place, exam_date, create_date, create_user, valid, act_id
+        examination_level, original_level, native_place, exam_date, create_date, create_user, valid, act_id, id_card
     </sql>
     <sql id="Base_Activity_GuoMei_List" >
 --      G.id, G.number_id, G.student_name, G.nationality, G.nation, G.gender, G.birth_date, G.certificate_number, G.profession, G.declare_level,
 --      G.examination_level, G.original_level, G.native_place, G.exam_date, G.create_date, G.create_user, G.valid, G.act_id,
 --      A.id, A.activity_name, A.activity_code, A.activity_date, A.create_user, A.create_date, A.update_user, A.update_date
      G.id, G.number_id, G.student_name, G.nationality, G.nation, G.gender, G.birth_date, G.certificate_number, G.profession, G.declare_level,
-     G.examination_level, G.original_level, G.native_place, G.exam_date, G.create_date, G.create_user, G.valid, G.act_id,
+     G.examination_level, G.original_level, G.native_place, G.exam_date, G.create_date, G.create_user, G.valid, G.act_id, G.id_card,
      A.activity_name
     </sql>
 
@@ -100,6 +101,9 @@
             <if test="actId != null and actId !=''">
                 and G.act_id = #{actId,jdbcType=INTEGER}
             </if>
+            <if test="idCard != null and idCard !=''">
+                and G.id_card = #{idCard,jdbcType=VARCHAR}
+            </if>
         </where>
     </sql>
 
@@ -107,7 +111,7 @@
         select
         <include refid="Base_Column_List" />
         from t_guomei_template G
-        where  certificate_number = #{certificateNumber,jdbcType=VARCHAR}
+        where  id_card = #{idCard,jdbcType=VARCHAR}
         and student_name = #{studentName,jdbcType=VARCHAR}
     </select>
 
@@ -190,6 +194,9 @@
             <if test="actId != null">
                 act_id,
             </if>
+            <if test="idCard != null">
+                id_card,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -245,6 +252,9 @@
             </if>
             <if test="actId != null">
                 #{actId,jdbcType=INTEGER},
+            </if>
+            <if test="idCard != null">
+                #{idCard,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -302,6 +312,9 @@
             </if>
             <if test="actId != null">
                 act_id = #{actId,jdbcType=INTEGER},
+            </if>
+            <if test="idCard != null">
+                id_card = #{idCard,jdbcType=VARCHAR},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
