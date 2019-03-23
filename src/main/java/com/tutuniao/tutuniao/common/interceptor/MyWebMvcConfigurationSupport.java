@@ -25,7 +25,7 @@ public class MyWebMvcConfigurationSupport extends WebMvcConfigurationSupport {
     protected void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new MyHandlerInterceptor())
                 .addPathPatterns("/**") // 添加拦截器规则
-                .excludePathPatterns(Arrays.asList("/", "/*.html","/error","/login/**","/index/**","/img/**","/images/**","/page/**","/js/**","/css/**")); // 哪些访问可以被忽略
+                .excludePathPatterns(Arrays.asList("/*.html","/error","/login/**","/index/**","/img/**","/images/**","/page/**","/js/**","/css/**")); // 哪些访问可以被忽略
 
         super.addInterceptors(registry);
     }

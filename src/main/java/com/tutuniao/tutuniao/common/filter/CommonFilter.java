@@ -20,7 +20,7 @@ public class CommonFilter implements Filter {
         HttpServletResponse rep = (HttpServletResponse) response;
         rep.setHeader("Access-Control-Allow-Origin","*");
         rep.setHeader("Access-Control-Allow-Credentials", "true");
-        rep.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+        rep.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS");
         rep.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         chain.doFilter(request, response);
     }
