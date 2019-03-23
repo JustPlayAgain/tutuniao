@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/login")
@@ -28,8 +29,11 @@ public class UserController extends CommonFilter {
         }
         User tmpUser = userService.queryUserByPassword(user);
         if(tmpUser != null){
-//            CookieUtils.addUserCookie(response, tmpUser);
+            CookieUtils.addUserCookie(response, tmpUser);
             String md5User = CookieUtils.md5User(user);
+
+            request.getSession().setAttribute("uuid",tmpUser.getId()+"&"+ md5User);
+
             tmpUser.setUuid(tmpUser.getId()+"&"+ md5User);
             tmpUser.setUserPassword("");
             return ResponseUtil.buildResponse(tmpUser);
