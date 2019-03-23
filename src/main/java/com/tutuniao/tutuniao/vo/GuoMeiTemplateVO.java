@@ -4,6 +4,7 @@ import com.tutuniao.tutuniao.entity.BaseEntity;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 public class GuoMeiTemplateVO extends BaseEntity implements Serializable {
@@ -15,6 +16,6 @@ public class GuoMeiTemplateVO extends BaseEntity implements Serializable {
     private String idCard;
     /** 比赛 测评名称 **/
     private String  activityName;
-    /** 插入数据库用户 **/
-    private String createUser;
+    /** 插入数据库时间 **/
+    private Date createDate;
 }
