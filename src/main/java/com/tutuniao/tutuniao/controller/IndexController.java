@@ -105,12 +105,12 @@ public class IndexController {
             if (Utils.isNull(template)) { // 数据不存在
                 return ResponseUtil.buildErrorResponse(ErrorEnum.GUOMEITEMPLATE_NULL);
             }
-            if (Utils.isEmpty(template.getCertificateNumber())) { // 如果证书编号为空 说明没有考试结果
-                return ResponseUtil.buildErrorResponse(ErrorEnum.GUOMEI_MATCH_NULL);
+            if (Utils.isEmpty(template.getCertificateNumber())) { // 如果证书编号为空 说明没有考试结果 返回false
+                return ResponseUtil.buildSuccessResponse(false, template);
             }
             GuoMeiTemplateVO vo = new GuoMeiTemplateVO();
             BeanUtils.copyProperties(template, vo);
-            return ResponseUtil.buildResponse(vo);
+            return ResponseUtil.buildSuccessResponse(true, vo);
         } else { // 否则查询结业证书情况
             MatchTemplate match = new MatchTemplate();
             match.setStudentName(username);

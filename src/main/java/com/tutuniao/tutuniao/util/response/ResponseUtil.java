@@ -16,6 +16,10 @@ public class ResponseUtil {
         return new Response(ResponseCode.SUCCESS.getCode());
     }
 
+    public static <T> Response<T> buildSuccessResponse(boolean flag, T data) {
+        return new Response(ResponseCode.SUCCESS.getCode(), flag, data);
+    }
+
     public static <T> Response<T> buildErrorResponse(String code, String msg) {
         return new Response(code, msg);
     }

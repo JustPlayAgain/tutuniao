@@ -5,7 +5,7 @@ public class Response<T> {
     private String status;
     private T data;
     private String message;
-
+    private boolean flag;
 
     public Response() {
     }
@@ -19,6 +19,15 @@ public class Response<T> {
 
     public Response(String status, T data) {
         this.status = status;
+        this.data = data;
+        if (ResponseCode.SUCCESS.getCode().equals(status)) {
+            this.message = ResponseCode.SUCCESS.getDescription();
+        }
+    }
+
+    public Response(String status, boolean flag, T data) {
+        this.status = status;
+        this.flag = flag;
         this.data = data;
         if (ResponseCode.SUCCESS.getCode().equals(status)) {
             this.message = ResponseCode.SUCCESS.getDescription();
@@ -56,6 +65,14 @@ public class Response<T> {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 
 
