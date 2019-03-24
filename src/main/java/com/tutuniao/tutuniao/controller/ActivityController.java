@@ -68,10 +68,7 @@ public class ActivityController extends CommonFilter {
      */
     @RequestMapping("/queryActivityById")
     public Response<Activity> queryActivityById(Activity activity, HttpServletRequest request){
-        User user = CookieUtils.userVerification(request);
-        if(Utils.isNull(user)) {
-            return ResponseUtil.buildErrorResponse(ResponseCode.NEED_LOGIN);
-        }
+
         if( Utils.isNotNull(activity) && Utils.isNotNull(activity.getId()) ){
             Activity tmpActivity = activityService.queryActivityById(activity);
             if(Utils.isNotNull(tmpActivity)){

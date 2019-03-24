@@ -66,10 +66,7 @@ public class NewsController {
      */
     @RequestMapping("/queryNewsById")
     public Response<News> queryNewsById(News news, HttpServletRequest request){
-        User user = CookieUtils.userVerification(request);
-        if(Utils.isNull(user)) {
-            return ResponseUtil.buildErrorResponse(ResponseCode.NEED_LOGIN);
-        }
+
         if( Utils.isNotNull(news) && Utils.isNotNull(news.getId()) ){
             News tmpNews = newsService.queryNewById(news);
             if(Utils.isNotNull(tmpNews)){
