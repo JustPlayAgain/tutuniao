@@ -42,10 +42,10 @@ public class IndexController {
     public IndexObject index(){
         IndexObject indexObject = ScheduledService.getIndexObject(Constant.Redis_Index);
         if(indexObject!= null && indexObject.getNewsList() == null){
-//            indexObject.setNewsList(news().getNewsList());
-//            indexObject.setActivityList(activity().getActivityList());
-            setNewsList(indexObject);
-            setActivityList(indexObject);
+            indexObject.setNewsList(news().getNewsList());
+            indexObject.setActivityList(activity().getActivityList());
+//            setNewsList(indexObject);
+//            setActivityList(indexObject);
         }
         return indexObject;
     }
