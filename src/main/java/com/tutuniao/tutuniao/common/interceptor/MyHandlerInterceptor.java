@@ -1,6 +1,8 @@
 package com.tutuniao.tutuniao.common.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
+import com.tutuniao.tutuniao.entity.User;
+import com.tutuniao.tutuniao.util.CookieUtils;
 import com.tutuniao.tutuniao.util.Utils;
 import com.tutuniao.tutuniao.util.response.ResponseCode;
 import com.tutuniao.tutuniao.util.response.ResponseUtil;
@@ -21,7 +23,10 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
         if (Utils.isEmpty(uuid)) {
             response.getWriter().write(JSONObject.toJSONString(ResponseUtil.buildErrorResponse(ResponseCode.NEED_LOGIN)));
         } else {
-            flag = true;
+            User user = CookieUtils.userVerification(request);
+            if (user != null ){
+                flag = true;
+            }
         }
         return flag;
     }

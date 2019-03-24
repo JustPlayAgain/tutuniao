@@ -56,19 +56,17 @@ public class CookieUtils {
      * @return
      */
     public static User userVerification(HttpServletRequest request){
-        String uuid = request.getHeader("uuid");
+        String uuid = (String) request.getSession().getAttribute("uuid");
         if(Utils.isNotEmpty(uuid)){
             String[] split = uuid.split("&");
-            if (split.length == 3){
+            if (split.length == 2){
                 try {
-                    if(sim.format(new Date()).equals(split[2])){
-                        Integer id = Integer.valueOf(split[0]);
-                        User user = service.quertyUserById(id);
-                        if(user != null && Utils.isNotNull(user.getUserName()) && Utils.isNotNull(user.getUserPassword()) ){
-                            String userMd5 = md5User(user);
-                            if(userMd5.equals(split[1])){
-                                return user;
-                            }
+                    Integer id = Integer.valueOf(split[0]);
+                    User user = service.quertyUserById(id);
+                    if(user != null && Utils.isNotNull(user.getUserName()) && Utils.isNotNull(user.getUserPassword()) ){
+                        String userMd5 = md5User(user);
+                        if(userMd5.equals(split[1])){
+                            return user;
                         }
                     }
                 }catch (Exception e ){

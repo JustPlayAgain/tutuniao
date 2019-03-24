@@ -40,16 +40,16 @@ public class NewsController {
      */
     @RequestMapping("/insertNews")
     public Response<String> insertNews(News news, HttpServletRequest request){
-        /*User user = CookieUtils.userVerification(request);
+        User user = CookieUtils.userVerification(request);
         if(Utils.isNull(user)) {
             return ResponseUtil.buildErrorResponse(ResponseCode.NEED_LOGIN);
-        }*/
+        }
         if (Utils.isNull(news)) {
             return ResponseUtil.buildErrorResponse(ErrorEnum.INSERT_DATA_ERROR);
         }
-        // news.setCreateUser(user.getUserName());
+        news.setCreateUser(user.getUserName());
         news.setCreateDate(new Date());
-        // news.setUpdateUser(user.getUserName());
+        news.setUpdateUser(user.getUserName());
         news.setUpdateDate(new Date());
         int i = newsService.insertNews(news);
         if (i != 0) {
@@ -87,15 +87,14 @@ public class NewsController {
      */
     @RequestMapping("/updateNews")
     public Response<String> updateNews(News news, HttpServletRequest request){
-        /*User user = CookieUtils.userVerification(request);
+        User user = CookieUtils.userVerification(request);
         if(Utils.isNull(user)) {
             return ResponseUtil.buildErrorResponse(ResponseCode.NEED_LOGIN);
-        }*/
-
+        }
         if (Utils.isNull(news)) {
             return ResponseUtil.buildErrorResponse(ErrorEnum.UPDATE_DATA_ERROR);
         }
-        // news.setUpdateUser(user.getUserName());
+         news.setUpdateUser(user.getUserName());
         news.setUpdateDate(new Date());
         newsService.updateNewsById(news);
         return ResponseUtil.buildSuccessResponse();
