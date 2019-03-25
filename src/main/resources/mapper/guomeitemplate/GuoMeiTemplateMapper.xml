@@ -107,7 +107,7 @@
                 and G.act_id = #{actId,jdbcType=INTEGER}
             </if>
             <if test="idCard != null and idCard !=''">
-                and G.id_card = #{idCard,jdbcType=VARCHAR}
+                and G.id_card like CONCAT('%', #{idCard,jdbcType=VARCHAR} ,'%')
             </if>
         </where>
     </sql>

@@ -3,6 +3,7 @@ package com.tutuniao.tutuniao.controller;
 import com.tutuniao.tutuniao.common.enums.ErrorEnum;
 import com.tutuniao.tutuniao.entity.News;
 import com.tutuniao.tutuniao.entity.User;
+import com.tutuniao.tutuniao.service.IndexService;
 import com.tutuniao.tutuniao.service.NewsService;
 import com.tutuniao.tutuniao.util.CookieUtils;
 import com.tutuniao.tutuniao.util.Utils;
@@ -24,6 +25,9 @@ import java.util.List;
 public class NewsController {
     @Autowired
     private NewsService newsService;
+
+    @Autowired
+    private IndexService indexService;
 
     @RequestMapping("/queryNewsList")
     public Response<PageVO<List<News>>> queryNewsList(@RequestBody News news){
@@ -53,6 +57,7 @@ public class NewsController {
         news.setUpdateDate(new Date());
         int i = newsService.insertNews(news);
         if (i != 0) {
+            indexService.refreshNewsList();
             return ResponseUtil.buildSuccessResponse();
         }
         return ResponseUtil.buildErrorResponse(ErrorEnum.INSERT_DATA_ERROR);
@@ -94,6 +99,7 @@ public class NewsController {
          news.setUpdateUser(user.getUserName());
         news.setUpdateDate(new Date());
         newsService.updateNewsById(news);
+        indexService.refreshNewsList();
         return ResponseUtil.buildSuccessResponse();
     }
 

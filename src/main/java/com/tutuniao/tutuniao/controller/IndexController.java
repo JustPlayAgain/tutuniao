@@ -1,20 +1,16 @@
 package com.tutuniao.tutuniao.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.tutuniao.tutuniao.common.Constant;
 import com.tutuniao.tutuniao.common.enums.ErrorEnum;
 import com.tutuniao.tutuniao.entity.*;
 import com.tutuniao.tutuniao.schedule.ScheduledService;
-import com.tutuniao.tutuniao.service.ActivityService;
 import com.tutuniao.tutuniao.service.GuoMeiTemplateService;
+import com.tutuniao.tutuniao.service.IndexService;
 import com.tutuniao.tutuniao.service.MatchTemplateService;
-import com.tutuniao.tutuniao.service.NewsService;
-import com.tutuniao.tutuniao.util.RedisUtil;
 import com.tutuniao.tutuniao.util.Utils;
 import com.tutuniao.tutuniao.util.response.Response;
 import com.tutuniao.tutuniao.util.response.ResponseUtil;
 import com.tutuniao.tutuniao.vo.GuoMeiTemplateVO;
-import com.tutuniao.tutuniao.vo.PageVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,9 +23,7 @@ import java.util.List;
 @RequestMapping("/index")
 public class IndexController {
     @Autowired
-    private NewsService newsService;
-    @Autowired
-    private ActivityService activityService;
+    private IndexService indexService;
 
     @Autowired
     private GuoMeiTemplateService guoMeiTemplateService;
@@ -159,41 +153,17 @@ public class IndexController {
      * @param indexObject
      */
     private void setNewsList(IndexObject indexObject) {
-        News news = new News();
-        news.setPageIndex(1);
-        news.setPageSize(3);
-        PageVO<List<News>> listPageVO = newsService.queryNewsList(news);
-        if (listPageVO != null){
-            List<News> t = listPageVO.getT();
-            if(t != null ){
-                if(indexObject == null)
-                    indexObject = new IndexObject();
-                indexObject.setNewsList(t);
-                RedisUtil.set(Constant.Redis_News, JSONObject.toJSONString(indexObject));
-            }
-
-        }
+        IndexObject indexObject1 = indexService.refreshNewsList();
+        indexObject.setNewsList(indexObject1.getNewsList());
     }
 
     /**
      * 从数据库中取出 20条活动 并放入Redis中
      * @param indexObject
      */
-    private void setActivityList(IndexObject indexObject) {
-        Activity activity = new Activity();
-        activity.setPageIndex(1);
-        activity.setPageSize(20);
-        PageVO<List<Activity>> listPageVO = activityService.queryActivityList(activity);
-        if (listPageVO != null){
-            List<Activity> t = listPageVO.getT();
-            if(t != null ){
-                if(indexObject == null)
-                    indexObject = new IndexObject();
-                indexObject.setActivityList(t);
-                RedisUtil.set(Constant.Redis_Activity, JSONObject.toJSONString(indexObject));
-            }
-
-        }
+    public void  setActivityList(IndexObject indexObject) {
+        IndexObject indexObject1 = indexService.refreshActivityList();
+        indexObject.setActivityList(indexObject1.getActivityList());
     }
 }
 

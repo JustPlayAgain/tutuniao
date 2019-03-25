@@ -29,7 +29,7 @@
                 and news_pic = #{newsPic,jdbcType=VARCHAR}
             </if>
             <if test="newsTitle != null and newsTitle !=''">
-                and news_title = #{newsTitle,jdbcType=VARCHAR}
+                and news_title like CONCAT(#{newsTitle,jdbcType=VARCHAR},'%')
             </if>
             <if test="newsIsAble != null and newsIsAble !=''">
                 and news_is_able = #{newsIsAble,jdbcType=INTEGER}

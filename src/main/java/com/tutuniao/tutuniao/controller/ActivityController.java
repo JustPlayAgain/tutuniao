@@ -5,6 +5,7 @@ import com.tutuniao.tutuniao.common.filter.CommonFilter;
 import com.tutuniao.tutuniao.entity.Activity;
 import com.tutuniao.tutuniao.entity.User;
 import com.tutuniao.tutuniao.service.ActivityService;
+import com.tutuniao.tutuniao.service.IndexService;
 import com.tutuniao.tutuniao.util.CookieUtils;
 import com.tutuniao.tutuniao.util.Utils;
 import com.tutuniao.tutuniao.util.response.Response;
@@ -25,6 +26,8 @@ public class ActivityController extends CommonFilter {
     @Autowired
     private ActivityService activityService;
 
+    @Autowired
+    private IndexService indexService;
     /**
      * 查询所有活动 并支持 活动名称，活动码 模糊查询
      * @param activity
@@ -55,6 +58,7 @@ public class ActivityController extends CommonFilter {
             activity.setUpdateDate(new Date());
             int i = activityService.insertActivity(activity);
             if (i != 0) {
+                indexService.refreshActivityList();
                 return ResponseUtil.buildSuccessResponse();
             }
         }
@@ -94,6 +98,7 @@ public class ActivityController extends CommonFilter {
             activity.setUpdateUser(user.getUserName());
             activity.setUpdateDate(new Date());
             activityService.updateActivityById(activity);
+            indexService.refreshActivityList();
             return ResponseUtil.buildSuccessResponse();
         }
         return ResponseUtil.buildErrorResponse(ErrorEnum.UPDATE_DATA_ERROR);
