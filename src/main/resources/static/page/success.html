@@ -56,7 +56,7 @@
         if(activityId ==null && username == null && idCard == null){
             $("#result").append("未能查询到您的信息");
         }else{
-            $.post("/index/search",
+            $.post("./index/search",
                 {
                     "idCard":idCard,
                     "username":username,
@@ -78,7 +78,7 @@
 
                         }else {
                             $("#result").append("恭喜您：<h6 style='display: inline'>"+s.data.studentName+"</h6> 同学 身份证：<h6 style='display: inline'>"+s.data.idCard+"</h6>\n" );
-                            if(s.data.certificateNumber != null){
+                            if(s.data.certificateNumber != null && s.data.certificateNumber.length >=1){
                                 $("#result").append("        <h4>您已通过 \""+s.data.activityName+"\" 评测，取得 \""+s.data.activityName+"\" 证书</h4>");
                             }else{
                                 $("#result").append("        <h4>很抱歉，您没有通过此次 \""+s.data.activityName+"\" 评测</h4>");

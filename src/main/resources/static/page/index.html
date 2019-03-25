@@ -57,7 +57,7 @@
 <script type="text/javascript">
     $(function() {
 
-        $.ajax({ url: "/index/index", success: function(s){
+        $.ajax({ url: "./index/index", success: function(s){
                 if(s == null && s.banners == null  && s.banners == '' && s.content == null && s.content == ''){
                     window.location.href='search.html';
                 }
