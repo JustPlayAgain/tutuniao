@@ -120,6 +120,7 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
             guoMeiTemplate.setNationality(row.getCell(j++).getStringCellValue()); // 国籍
             guoMeiTemplate.setNation(row.getCell(j++).getStringCellValue()); // 民族
             guoMeiTemplate.setGender(row.getCell(j++).getStringCellValue()); // 性别
+            guoMeiTemplate.setIdCard(row.getCell(j++).getStringCellValue()); // 身份证
             guoMeiTemplate.setBirthDate(row.getCell(j++).getDateCellValue()); // 出生日期
 
             row.getCell(j).setCellType(CellType.STRING);
