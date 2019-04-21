@@ -23,6 +23,9 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
         } else {
             flag = true;
         }
+
+
+
         return flag;
     }
 }
