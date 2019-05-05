@@ -6,11 +6,13 @@ import com.tutuniao.tutuniao.entity.MatchTemplate;
 import com.tutuniao.tutuniao.mapper.MatchTemplateMapper;
 import com.tutuniao.tutuniao.service.MatchTemplateService;
 import com.tutuniao.tutuniao.util.ExcelUtils;
+import com.tutuniao.tutuniao.util.IdCardUtil;
 import com.tutuniao.tutuniao.util.response.Response;
 import com.tutuniao.tutuniao.util.response.ResponseUtil;
 import com.tutuniao.tutuniao.vo.PageVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -20,15 +22,17 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static com.tutuniao.tutuniao.common.enums.ErrorEnum.EXCEL_ERROR;
 
 @Service
 @Slf4j
 public class MatchTemplateServiceImpl implements MatchTemplateService {
-
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     @Autowired
     private MatchTemplateMapper matchTemplateMapper;
 
@@ -80,6 +84,7 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
 
     @Override
     public Response importMatchData(InputStream file, String name){
+
         Workbook wb = null;
         List<MatchTemplate> matchTemplateList = new ArrayList();
         try {
@@ -102,8 +107,20 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
             MatchTemplate matchTemplate = new MatchTemplate();
             matchTemplate.setNumberId((int) row.getCell(j++).getNumericCellValue()); // 序号
             matchTemplate.setStudentName(row.getCell(j++).getStringCellValue()); // 名字
-            matchTemplate.setBirthDate(row.getCell(j++).getDateCellValue()); // 出生日期
             matchTemplate.setGender(row.getCell(j++).getStringCellValue()); // 性别
+
+
+            row.getCell(j).setCellType(CellType.STRING);
+            String idCard = row.getCell(j++).getStringCellValue();
+            matchTemplate.setIdCard(idCard); // 身份证
+            try {
+                Map<String, String> birAgeSex = IdCardUtil.getBirAgeSex(idCard);
+                String birthday = birAgeSex.get("birthday");
+                matchTemplate.setBirthDate(simpleDateFormat.parse(birthday));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             matchTemplate.setProfession(row.getCell(j++).getStringCellValue()); // 专业
             matchTemplate.setGroupLevel(row.getCell(j++).getStringCellValue()); // 组别
             matchTemplate.setWorksName(row.getCell(j++).getStringCellValue()); // 作品名称

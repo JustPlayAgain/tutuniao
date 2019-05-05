@@ -6,6 +6,7 @@ import com.tutuniao.tutuniao.entity.GuoMeiTemplate;
 import com.tutuniao.tutuniao.mapper.GuoMeiTemplateMapper;
 import com.tutuniao.tutuniao.service.GuoMeiTemplateService;
 import com.tutuniao.tutuniao.util.ExcelUtils;
+import com.tutuniao.tutuniao.util.IdCardUtil;
 import com.tutuniao.tutuniao.util.Jackson2Helper;
 import com.tutuniao.tutuniao.util.Utils;
 import com.tutuniao.tutuniao.util.response.Response;
@@ -23,15 +24,18 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import static com.tutuniao.tutuniao.common.enums.ErrorEnum.EXCEL_ERROR;
 
 @Service
 @Slf4j
 public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired
     private GuoMeiTemplateMapper guoMeiTemplateMapper;
@@ -120,12 +124,20 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
             guoMeiTemplate.setNationality(row.getCell(j++).getStringCellValue()); // 国籍
             guoMeiTemplate.setNation(row.getCell(j++).getStringCellValue()); // 民族
             guoMeiTemplate.setGender(row.getCell(j++).getStringCellValue()); // 性别
-            guoMeiTemplate.setIdCard(row.getCell(j++).getStringCellValue()); // 身份证
-            guoMeiTemplate.setBirthDate(row.getCell(j++).getDateCellValue()); // 出生日期
+
+            row.getCell(j).setCellType(CellType.STRING);
+            String idCard = row.getCell(j++).getStringCellValue();
+            guoMeiTemplate.setIdCard(idCard); //身份证
+            try {
+                Map<String, String> birAgeSex = IdCardUtil.getBirAgeSex(idCard);
+                String birthday = birAgeSex.get("birthday");
+                guoMeiTemplate.setBirthDate(simpleDateFormat.parse(birthday)); // 出生日期
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             row.getCell(j).setCellType(CellType.STRING);
             guoMeiTemplate.setCertificateNumber(row.getCell(j++).getStringCellValue()); // 证书编号
-
             guoMeiTemplate.setProfession(row.getCell(j++).getStringCellValue()); // 专业
             guoMeiTemplate.setDeclareLevel(row.getCell(j++).getStringCellValue()); // 申报级别
             guoMeiTemplate.setExaminationLevel(row.getCell(j++).getStringCellValue()); // 考试级别
