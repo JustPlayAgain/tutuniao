@@ -13,6 +13,6 @@ public class ScheduledServiceTest {
 //        IndexObject indexObject = new ScheduledService().buildIndex();
 //        System.out.println(JSONObject.toJSONString(indexObject));
 
-//        System.out.println(ScheduledService.buildIndexJson());
+        System.out.println(ScheduledService.buildIndexJson());
     }
 }

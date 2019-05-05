@@ -4,14 +4,17 @@ package com.tutuniao.tutuniao.util;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
@@ -33,6 +36,27 @@ public class HttpClientUtils {
         }
         return httpClientUtil;
     }
+
+    public static String doGet(String url){
+        HttpClient httpClient = null;
+        HttpGet httpGet = null;
+        String result = null;
+        try{
+            httpClient = new SSLClient();
+            httpGet = new HttpGet(url);
+            HttpResponse response = httpClient.execute(httpGet);
+            if(response != null){
+                HttpEntity resEntity = response.getEntity();
+                if(resEntity != null){
+                    result = EntityUtils.toString(resEntity,"utf-8");
+                }
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return result;
+    }
+
 
     public static String get(String  url) {
         CloseableHttpClient httpCilent = HttpClients.createDefault();

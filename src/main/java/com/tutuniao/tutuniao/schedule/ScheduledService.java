@@ -32,7 +32,7 @@ public class ScheduledService {
         try {
             IndexObject tmpIndexObject = new IndexObject();
 
-            String dataAsStringFromUrl = HttpClientUtils.get(academyArtUrl);
+            String dataAsStringFromUrl = HttpClientUtils.doGet(academyArtUrl);
             if(null != dataAsStringFromUrl){
                 Document doc = Jsoup.parse(dataAsStringFromUrl);
                 // 获取 banner
@@ -63,7 +63,7 @@ public class ScheduledService {
     public static String buildIndexJson(){
         JSONObject reslut = new JSONObject();
         try {
-            String dataAsStringFromUrl = HttpClientUtils.get(academyArtUrl);
+            String dataAsStringFromUrl = HttpClientUtils.doGet(academyArtUrl);
             if(null != dataAsStringFromUrl){
                 Document doc = Jsoup.parse(dataAsStringFromUrl);
                 // 获取 banner
