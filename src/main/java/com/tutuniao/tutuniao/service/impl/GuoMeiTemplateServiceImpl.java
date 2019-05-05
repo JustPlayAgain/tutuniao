@@ -119,6 +119,7 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
             Row row = sheet.getRow(i);//获取索引为i的行，以0开始
             int j = 0;
             GuoMeiTemplate guoMeiTemplate = new GuoMeiTemplate();
+            row.getCell(j).setCellType(CellType.NUMERIC);
             guoMeiTemplate.setNumberId((int) row.getCell(j++).getNumericCellValue()); // 序号
             guoMeiTemplate.setStudentName(row.getCell(j++).getStringCellValue()); // 名字
             guoMeiTemplate.setNationality(row.getCell(j++).getStringCellValue()); // 国籍

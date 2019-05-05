@@ -105,10 +105,9 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
                 // 取出excel 当前行中的数据 设置数据
             int j = 0;
             MatchTemplate matchTemplate = new MatchTemplate();
+            row.getCell(j).setCellType(CellType.NUMERIC);
             matchTemplate.setNumberId((int) row.getCell(j++).getNumericCellValue()); // 序号
             matchTemplate.setStudentName(row.getCell(j++).getStringCellValue()); // 名字
-            matchTemplate.setGender(row.getCell(j++).getStringCellValue()); // 性别
-
 
             row.getCell(j).setCellType(CellType.STRING);
             String idCard = row.getCell(j++).getStringCellValue();
@@ -120,6 +119,7 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            matchTemplate.setGender(row.getCell(j++).getStringCellValue()); // 性别
 
             matchTemplate.setProfession(row.getCell(j++).getStringCellValue()); // 专业
             matchTemplate.setGroupLevel(row.getCell(j++).getStringCellValue()); // 组别
