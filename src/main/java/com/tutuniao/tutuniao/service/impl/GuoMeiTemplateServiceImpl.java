@@ -117,6 +117,8 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
         Sheet sheet = wb.getSheetAt(0);
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);//获取索引为i的行，以0开始
+            if(row == null )
+                break;
             int j = 0;
             GuoMeiTemplate guoMeiTemplate = new GuoMeiTemplate();
             row.getCell(j).setCellType(CellType.NUMERIC);
