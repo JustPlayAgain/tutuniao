@@ -14,10 +14,7 @@ import com.tutuniao.tutuniao.util.response.ResponseUtil;
 import com.tutuniao.tutuniao.vo.PageVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -121,8 +118,11 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
                 break;
             int j = 0;
             GuoMeiTemplate guoMeiTemplate = new GuoMeiTemplate();
-            row.getCell(j).setCellType(CellType.NUMERIC);
-            guoMeiTemplate.setNumberId((int) row.getCell(j++).getNumericCellValue()); // 序号
+            Cell cellNumberId = row.getCell(j++);
+            if(cellNumberId == null)
+                continue;
+            cellNumberId.setCellType(CellType.NUMERIC);
+            guoMeiTemplate.setNumberId((int) cellNumberId.getNumericCellValue()); // 序号
             guoMeiTemplate.setStudentName(row.getCell(j++).getStringCellValue()); // 名字
             guoMeiTemplate.setNationality(row.getCell(j++).getStringCellValue()); // 国籍
             guoMeiTemplate.setNation(row.getCell(j++).getStringCellValue()); // 民族
@@ -139,7 +139,8 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
                 e.printStackTrace();
             }
 
-            guoMeiTemplate.setCertificateNumber(row.getCell(j++).getStringCellValue()); // 证书编号
+            Cell cellCertificateNumber = row.getCell(j++);
+            guoMeiTemplate.setCertificateNumber(cellCertificateNumber == null ?null : cellCertificateNumber.getStringCellValue()); // 证书编号
             guoMeiTemplate.setProfession(row.getCell(j++).getStringCellValue()); // 专业
             guoMeiTemplate.setDeclareLevel(row.getCell(j++).getStringCellValue()); // 申报级别
             guoMeiTemplate.setExaminationLevel(row.getCell(j++).getStringCellValue()); // 考试级别
