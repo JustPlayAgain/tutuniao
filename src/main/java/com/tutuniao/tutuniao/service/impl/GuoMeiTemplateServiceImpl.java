@@ -139,7 +139,6 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
                 e.printStackTrace();
             }
 
-            row.getCell(j).setCellType(CellType.STRING);
             guoMeiTemplate.setCertificateNumber(row.getCell(j++).getStringCellValue()); // 证书编号
             guoMeiTemplate.setProfession(row.getCell(j++).getStringCellValue()); // 专业
             guoMeiTemplate.setDeclareLevel(row.getCell(j++).getStringCellValue()); // 申报级别
