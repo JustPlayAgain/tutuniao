@@ -171,8 +171,10 @@
             alert("请输入身份证");
             return false;
         }else {
-            search.username.value = encodeURI(search.username.value);
-            search.idCard.value = hex_md5(search.idCard.value);
+            var username = search.username.value.trim();
+            search.username.value = encodeURI(username);
+            var idCard = search.idCard.value.trim();
+            search.idCard.value = hex_md5(idCard);
             return true;
         }
     }
