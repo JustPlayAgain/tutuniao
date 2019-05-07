@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ScheduledService {
     private static final String academyArtUrl = "http://www.caa.edu.cn/index.html";
-    @Scheduled(cron = "1 1 1 0/1 * *")
+//    @Scheduled(cron = "1 1 1 0/1 * *")
     public void scheduled(){
          buildIndex();
     }
