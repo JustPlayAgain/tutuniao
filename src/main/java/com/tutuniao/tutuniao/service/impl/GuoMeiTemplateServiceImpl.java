@@ -6,6 +6,7 @@ import com.tutuniao.tutuniao.entity.GuoMeiTemplate;
 import com.tutuniao.tutuniao.mapper.GuoMeiTemplateMapper;
 import com.tutuniao.tutuniao.service.GuoMeiTemplateService;
 import com.tutuniao.tutuniao.util.ExcelUtils;
+import com.tutuniao.tutuniao.util.IdCardUtil;
 import com.tutuniao.tutuniao.util.Jackson2Helper;
 import com.tutuniao.tutuniao.util.Utils;
 import com.tutuniao.tutuniao.util.response.Response;
@@ -13,25 +14,26 @@ import com.tutuniao.tutuniao.util.response.ResponseUtil;
 import com.tutuniao.tutuniao.vo.PageVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.jsoup.helper.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import static com.tutuniao.tutuniao.common.enums.ErrorEnum.EXCEL_ERROR;
 
 @Service
 @Slf4j
 public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired
     private GuoMeiTemplateMapper guoMeiTemplateMapper;
@@ -47,6 +49,9 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
 
     @Override
     public int insertGuoMeiTemplate(GuoMeiTemplate guoMeiTemplate) {
+        if(!StringUtil.isBlank(guoMeiTemplate.getIdCard())){
+            setBirthday(guoMeiTemplate,guoMeiTemplate.getIdCard());
+        }
         log.info("新增国美证书数据: ========== {}", guoMeiTemplate);
         int i = guoMeiTemplateMapper.insertGuoMeiTemplate(guoMeiTemplate);
         log.info("新增国美证书数据受影响行数: ========== {}", i);
@@ -70,6 +75,9 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
 
     @Override
     public int updateGuoMeiTemplateById(GuoMeiTemplate guoMeiTemplate) {
+        if(!StringUtil.isBlank(guoMeiTemplate.getIdCard())){
+            setBirthday(guoMeiTemplate,guoMeiTemplate.getIdCard());
+        }
         log.info("修改国美证书数据信息: ============= {}", guoMeiTemplate);
         int i = guoMeiTemplateMapper.updateGuoMeiTemplateById(guoMeiTemplate);
         log.info("修改国美证书数据信息行数: ============= {}", i);
@@ -113,27 +121,30 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
         Sheet sheet = wb.getSheetAt(0);
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);//获取索引为i的行，以0开始
+            if(row == null )
+                break;
             int j = 0;
             GuoMeiTemplate guoMeiTemplate = new GuoMeiTemplate();
-            guoMeiTemplate.setNumberId((int) row.getCell(j++).getNumericCellValue()); // 序号
+
+            Cell cellNumberId = row.getCell(j);
+            if(cellNumberId == null)
+                continue;
+            row.getCell(j++).setCellType(CellType.NUMERIC);
+            guoMeiTemplate.setNumberId((int) cellNumberId.getNumericCellValue()); // 序号
+
             guoMeiTemplate.setStudentName(row.getCell(j++).getStringCellValue()); // 名字
-            guoMeiTemplate.setNationality(row.getCell(j++).getStringCellValue()); // 国籍
-            guoMeiTemplate.setNation(row.getCell(j++).getStringCellValue()); // 民族
-            guoMeiTemplate.setGender(row.getCell(j++).getStringCellValue()); // 性别
-            guoMeiTemplate.setBirthDate(row.getCell(j++).getDateCellValue()); // 出生日期
 
             row.getCell(j).setCellType(CellType.STRING);
-            guoMeiTemplate.setCertificateNumber(row.getCell(j++).getStringCellValue()); // 证书编号
+            String idCard = row.getCell(j++).getStringCellValue();
+            guoMeiTemplate.setIdCard(idCard); // 身份证
+            setBirthday(guoMeiTemplate, idCard);
 
+            guoMeiTemplate.setWorksName(row.getCell(j++).getStringCellValue()); // 大赛名称
             guoMeiTemplate.setProfession(row.getCell(j++).getStringCellValue()); // 专业
-            guoMeiTemplate.setDeclareLevel(row.getCell(j++).getStringCellValue()); // 申报级别
-            guoMeiTemplate.setExaminationLevel(row.getCell(j++).getStringCellValue()); // 考试级别
-            guoMeiTemplate.setOriginalLevel(row.getCell(j++).getStringCellValue()); // 原级别
-            guoMeiTemplate.setNativePlace(row.getCell(j++).getStringCellValue()); // 所在地
-            guoMeiTemplate.setExamDate(row.getCell(j++).getDateCellValue()); // 考试时间
-            guoMeiTemplate.setCreateDate(new Date());
-            guoMeiTemplate.setCreateUser("admin");
+
+            guoMeiTemplate.setResults(row.getCell(j++).getStringCellValue()); // 获奖结果
             guoMeiTemplate.setActId(actId);
+
             guoMeiTemplateList.add(guoMeiTemplate);
         }
         for(GuoMeiTemplate guomei : guoMeiTemplateList) {
@@ -149,5 +160,15 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
             return ResponseUtil.buildErrorResponse();
         }
         return ResponseUtil.buildSuccessResponse();
+    }
+
+    private void setBirthday(GuoMeiTemplate guoMeiTemplate, String idCard) {
+        try {
+            Map<String, String> birAgeSex = IdCardUtil.getBirAgeSex(idCard);
+            String birthday = birAgeSex.get("birthday");
+            guoMeiTemplate.setBirthDate(simpleDateFormat.parse(birthday));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
