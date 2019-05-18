@@ -31,7 +31,15 @@
     </sql>
 
     <sql id="Base_show_Column_List" >
-        student_name, CONCAT(LEFT(id_card,3), '****' ,RIGHT(id_card,4)) id_card, profession, works_name,  results, create_date
+        student_name,
+        CONCAT(LEFT(id_card,3), '****' ,RIGHT(id_card,4)) id_card,
+        works_name,
+        certificate_number,
+        profession,
+        examination_level,
+        native_place,
+        exam_date,
+        create_date
     </sql>
 
     <sql id="Base_Where_Clause">
