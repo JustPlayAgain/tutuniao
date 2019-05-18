@@ -68,6 +68,9 @@
                     if (s.status != 'ok'){
                         $("#result").append(s.message);
                     }else {
+                        if(s.data.length == 0 ){
+                            $("#result").append("<h4 style='display: inline'> 很抱歉，查询不到您的证书 </h4>\n" );
+                        }
                         if(activityId == -1){
                             var da = s.data[0];
                             $("#result").append("<h4 style='display: inline'>"+da.studentName+"</h4> 同学 身份证：<h4 style='display: inline'>"+da.idCard+"</h4>\n" );
