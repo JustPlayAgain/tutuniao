@@ -23,11 +23,11 @@ public class MyWebMvcConfigurationSupport extends WebMvcConfigurationSupport {
      */
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new MyHandlerInterceptor())
-                .addPathPatterns("/**") // 添加拦截器规则
-                .excludePathPatterns(Arrays.asList("/*.html","/error","/login/**","/index/**","/img/**","/images/**","/page/**","/js/**","/css/**")); // 哪些访问可以被忽略
-
-        super.addInterceptors(registry);
+//        registry.addInterceptor(new MyHandlerInterceptor())
+//                .addPathPatterns("/**") // 添加拦截器规则
+//                .excludePathPatterns(Arrays.asList("/*.html","/error","/login/**","/index/**","/img/**","/images/**","/page/**","/js/**","/css/**")); // 哪些访问可以被忽略
+//
+//        super.addInterceptors(registry);
     }
 
     /**
@@ -38,11 +38,11 @@ public class MyWebMvcConfigurationSupport extends WebMvcConfigurationSupport {
     //addResourceHandler请求路径
     //addResourceLocations 在项目中的资源路径
     //setCacheControl 设置静态资源缓存时间
-        registry
-            .addResourceHandler("/*.html","/img/**","/images/**","/page/**","/js/**","/css/**")
-            .addResourceLocations("classpath:/static/*.html","classpath:/static/img/","classpath:/static/images/","classpath:/static/page/","classpath:/static/js/","classpath:/static/css/")
-
-            .setCacheControl(CacheControl.maxAge(1, TimeUnit.HOURS).cachePublic());
-        super.addResourceHandlers(registry);
+//        registry
+//            .addResourceHandler("/*.html","/img/**","/images/**","/page/**","/js/**","/css/**")
+//            .addResourceLocations("classpath:/static/*.html","classpath:/static/img/","classpath:/static/images/","classpath:/static/page/","classpath:/static/js/","classpath:/static/css/")
+//
+//            .setCacheControl(CacheControl.maxAge(1, TimeUnit.HOURS).cachePublic());
+//        super.addResourceHandlers(registry);
     }
 }

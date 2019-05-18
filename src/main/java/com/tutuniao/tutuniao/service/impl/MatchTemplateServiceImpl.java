@@ -12,11 +12,9 @@ import com.tutuniao.tutuniao.util.response.ResponseUtil;
 import com.tutuniao.tutuniao.vo.PageVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.jsoup.helper.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +44,9 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
 
     @Override
     public int insertMatchTemplate(MatchTemplate matchTemplate) {
+        if(!StringUtil.isBlank(matchTemplate.getIdCard())){
+            setBirthday(matchTemplate,matchTemplate.getIdCard());
+        }
         log.info("插入图图鸟活动证书: ============= {}", matchTemplate);
         int num = matchTemplateMapper.insertMatchTemplate(matchTemplate);
         log.info("插入图图鸟活动证书结果: ============= {}", num);
@@ -62,6 +63,9 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
 
     @Override
     public int updateMatchTemplateById(MatchTemplate matchTemplate) {
+        if(!StringUtil.isBlank(matchTemplate.getIdCard())){
+            setBirthday(matchTemplate,matchTemplate.getIdCard());
+        }
         log.info("修改图图鸟活动证书: ============= {}", matchTemplate);
         int num = matchTemplateMapper.updateMatchTemplateById(matchTemplate);
         log.info("修改图图鸟活动证书结果: =============== {}", num);
@@ -107,26 +111,29 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
                 break;
             int j = 0;
             MatchTemplate matchTemplate = new MatchTemplate();
-            row.getCell(j).setCellType(CellType.NUMERIC);
-            matchTemplate.setNumberId((int) row.getCell(j++).getNumericCellValue()); // 序号
+            Cell cell = row.getCell(j);
+            if(cell == null ){
+                continue;
+            }
+            row.getCell(j++).setCellType(CellType.NUMERIC);
+            matchTemplate.setNumberId((int) cell.getNumericCellValue()); // 序号
             matchTemplate.setStudentName(row.getCell(j++).getStringCellValue()); // 名字
 
             row.getCell(j).setCellType(CellType.STRING);
             String idCard = row.getCell(j++).getStringCellValue();
             matchTemplate.setIdCard(idCard); // 身份证
-            try {
-                Map<String, String> birAgeSex = IdCardUtil.getBirAgeSex(idCard);
-                String birthday = birAgeSex.get("birthday");
-                matchTemplate.setBirthDate(simpleDateFormat.parse(birthday));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            matchTemplate.setGender(row.getCell(j++).getStringCellValue()); // 性别
+            setBirthday(matchTemplate,idCard);
+
+            matchTemplate.setWorksName(row.getCell(j++).getStringCellValue()); // 测评名称
+            row.getCell(j).setCellType(CellType.STRING);
+            matchTemplate.setCertificateNumber(row.getCell(j++).getStringCellValue()); // 测评名称
+
             matchTemplate.setProfession(row.getCell(j++).getStringCellValue()); // 专业
-            matchTemplate.setGroupLevel(row.getCell(j++).getStringCellValue()); // 组别
-            matchTemplate.setWorksName(row.getCell(j++).getStringCellValue()); // 作品名称
-            matchTemplate.setTutor(row.getCell(j++).getStringCellValue()); // 辅导老师
-            matchTemplate.setResults(row.getCell(j++).getStringCellValue()); // 获奖结果
+
+            matchTemplate.setExaminationLevel(row.getCell(j++).getStringCellValue()); // 级别
+            matchTemplate.setNativePlace(row.getCell(j++).getStringCellValue()); // 所在地
+            matchTemplate.setExamDate(row.getCell(j++).getDateCellValue()); // 考试时间
+
             matchTemplateList.add(matchTemplate);
 
         }
@@ -142,5 +149,15 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
             e.printStackTrace();
         }
         return ResponseUtil.buildSuccessResponse();
+    }
+
+    private void setBirthday(MatchTemplate matchTemplate, String idCard) {
+        try {
+            Map<String, String> birAgeSex = IdCardUtil.getBirAgeSex(idCard);
+            String birthday = birAgeSex.get("birthday");
+            matchTemplate.setBirthDate(simpleDateFormat.parse(birthday));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

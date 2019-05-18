@@ -7,20 +7,31 @@
         <result column="student_name" property="studentName" jdbcType="VARCHAR" />
         <result column="id_card" property="idCard" jdbcType="VARCHAR" />
         <result column="birth_date" property="birthDate" jdbcType="TIMESTAMP" />
-        <result column="gender" property="gender" jdbcType="VARCHAR" />
-        <result column="profession" property="profession" jdbcType="VARCHAR" />
-        <result column="group_level" property="groupLevel" jdbcType="VARCHAR" />
         <result column="works_name" property="worksName" jdbcType="VARCHAR" />
-        <result column="tutor" property="tutor" jdbcType="VARCHAR" />
-        <result column="results" property="results" jdbcType="VARCHAR" />
+        <result column="certificate_number" property="certificateNumber" jdbcType="VARCHAR" />
+        <result column="profession" property="profession" jdbcType="VARCHAR" />
+        <result column="examination_level" property="examinationLevel" jdbcType="VARCHAR" />
+        <result column="native_place" property="nativePlace" jdbcType="VARCHAR" />
+        <result column="exam_date" property="examDate" jdbcType="TIMESTAMP" />
         <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     </resultMap>
     <sql id="Base_Column_List" >
-        id, number_id, student_name, id_card, birth_date, gender, profession, group_level, works_name, tutor, results, create_date
+        id,
+        number_id,
+        student_name,
+        id_card,
+        birth_date,
+        works_name,
+        certificate_number,
+        profession,
+        examination_level,
+        native_place,
+        exam_date,
+        create_date
     </sql>
 
     <sql id="Base_show_Column_List" >
-        student_name, CONCAT(LEFT(id_card,3), '****' ,RIGHT(id_card,4)) id_card, results, create_date
+        student_name, CONCAT(LEFT(id_card,3), '****' ,RIGHT(id_card,4)) id_card, profession, works_name,  results, create_date
     </sql>
 
     <sql id="Base_Where_Clause">
@@ -33,7 +44,7 @@
                 and number_id = #{numberId,jdbcType=INTEGER}
             </if>
             <if test="studentName != null and studentName !=''">
-                and student_name = #{studentName,jdbcType=VARCHAR}
+                and student_name like CONCAT('%',#{studentName,jdbcType=VARCHAR},'%')
             </if>
             <if test="idCard != null and idCard !=''">
                 and id_card like CONCAT('%',#{idCard,jdbcType=VARCHAR},'%')
@@ -41,23 +52,23 @@
             <if test="birthDate != null">
                 and birth_date = #{birthDate,jdbcType=TIMESTAMP}
             </if>
-            <if test="gender != null and gender !=''">
-                and gender = #{gender,jdbcType=VARCHAR}
+            <if test="worksName != null and worksName !=''">
+                and works_name like CONCAT('%',#{worksName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="certificateNumber != null and certificateNumber !=''">
+                and certificate_number like CONCAT(#{certificateNumber,jdbcType=VARCHAR},'%')
             </if>
             <if test="profession != null and profession !=''">
-                and profession = #{profession,jdbcType=INTEGER}
+                and profession like CONCAT('%',#{profession,jdbcType=VARCHAR},'%')
             </if>
-            <if test="groupLevel != null and groupLevel !=''">
-                and group_level = #{groupLevel,jdbcType=VARCHAR}
+            <if test="examinationLevel != null and examinationLevel !=''">
+                and examination_level like CONCAT('%',#{examinationLevel,jdbcType=VARCHAR},'%')
             </if>
-            <if test="worksName != null and worksName !=''">
-                and works_name = #{worksName,jdbcType=INTEGER}
+            <if test="nativePlace != null and nativePlace !=''">
+                and native_place like CONCAT('%', #{nativePlace,jdbcType=VARCHAR},'%')
             </if>
-            <if test="tutor != null and tutor !=''">
-                and tutor = #{tutor,jdbcType=VARCHAR}
-            </if>
-            <if test="results != null and results !=''">
-                and results = #{results,jdbcType=VARCHAR}
+            <if test="examDate != null">
+                and exam_date = #{examDate,jdbcType=TIMESTAMP}
             </if>
             <if test="createDate != null">
                 and create_date = #{createDate,jdbcType=TIMESTAMP}
@@ -114,23 +125,23 @@
             <if test="birthDate != null" >
                 birth_date,
             </if>
-            <if test="gender != null and gender !=''" >
-                gender,
+            <if test="worksName != null and worksName !=''" >
+                works_name,
+            </if>
+            <if test="certificateNumber != null and certificateNumber !=''" >
+                certificate_number,
             </if>
             <if test="profession != null and profession !=''" >
                 profession,
             </if>
-            <if test="groupLevel != null and groupLevel !=''" >
-                group_level,
+            <if test="examinationLevel != null and examinationLevel !=''" >
+                examination_level,
             </if>
-            <if test="worksName != null and worksName !=''" >
-                works_name,
+            <if test="nativePlace != null and nativePlace !=''" >
+                native_place,
             </if>
-            <if test="tutor != null and tutor !=''" >
-                tutor,
-            </if>
-            <if test="results != null and results !=''" >
-                results,
+            <if test="examDate != null" >
+                exam_date,
             </if>
             <if test="createDate != null" >
                 create_date,
@@ -152,23 +163,23 @@
             <if test="birthDate != null" >
                 #{birthDate,jdbcType=TIMESTAMP},
             </if>
-            <if test="gender != null and gender !=''" >
-                #{gender,jdbcType=VARCHAR},
+            <if test="worksName != null and worksName !=''" >
+                #{worksName,jdbcType=VARCHAR},
+            </if>
+            <if test="certificateNumber != null and certificateNumber !=''" >
+                #{certificateNumber,jdbcType=VARCHAR},
             </if>
             <if test="profession != null and profession !=''" >
                 #{profession,jdbcType=VARCHAR},
             </if>
-            <if test="groupLevel != null and groupLevel !=''" >
-                #{groupLevel,jdbcType=VARCHAR},
+            <if test="examinationLevel != null and examinationLevel !=''" >
+                #{examinationLevel,jdbcType=VARCHAR},
             </if>
-            <if test="worksName != null and worksName !=''" >
-                #{worksName,jdbcType=VARCHAR},
+            <if test="nativePlace != null and nativePlace !=''" >
+                #{nativePlace,jdbcType=VARCHAR},
             </if>
-            <if test="tutor != null and tutor !=''" >
-                #{tutor,jdbcType=VARCHAR},
-            </if>
-            <if test="results != null and results !=''" >
-                #{results,jdbcType=VARCHAR},
+            <if test="examDate != null" >
+                #{examDate,jdbcType=TIMESTAMP},
             </if>
             <if test="createDate != null" >
                 #{createDate,jdbcType=TIMESTAMP},
@@ -190,23 +201,20 @@
             <if test="birthDate != null" >
                 birth_date = #{birthDate,jdbcType=TIMESTAMP},
             </if>
-            <if test="gender != null and gender !=''" >
-                gender = #{gender,jdbcType=VARCHAR},
+            <if test="certificateNumber != null and certificateNumber !=''" >
+                certificate_number = #{certificateNumber,jdbcType=VARCHAR},
             </if>
             <if test="profession != null and profession !=''" >
                 profession = #{profession,jdbcType=VARCHAR},
             </if>
-            <if test="groupLevel != null and groupLevel !=''" >
-                group_level = #{groupLevel,jdbcType=VARCHAR},
+            <if test="examinationLevel != null and examinationLevel !=''" >
+                examination_level = #{examinationLevel,jdbcType=VARCHAR},
             </if>
-            <if test="worksName != null and worksName !=''" >
-                works_name = #{worksName,jdbcType=VARCHAR},
+            <if test="nativePlace != null and nativePlace !=''" >
+                native_place = #{nativePlace,jdbcType=VARCHAR},
             </if>
-            <if test="tutor != null and tutor !=''" >
-                tutor = #{tutor,jdbcType=VARCHAR},
-            </if>
-            <if test="results != null and results !=''" >
-                results = #{results,jdbcType=VARCHAR},
+            <if test="examDate != null" >
+                exam_date = #{examDate,jdbcType=TIMESTAMP},
             </if>
             <if test="createDate != null" >
                 create_date = #{createDate,jdbcType=TIMESTAMP},

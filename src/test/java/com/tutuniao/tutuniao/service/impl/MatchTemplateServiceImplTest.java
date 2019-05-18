@@ -37,12 +37,7 @@ public class MatchTemplateServiceImplTest {
         matchTemplate.setStudentName("测试3");
         matchTemplate.setIdCard("测试3");
         matchTemplate.setBirthDate(new Date());
-        matchTemplate.setGender("男");
         matchTemplate.setProfession("测试专业3");
-        matchTemplate.setGroupLevel("组别test3");
-        matchTemplate.setWorksName("测试工作3");
-        matchTemplate.setTutor("老师3");
-        matchTemplate.setResults("获奖结果3");
         matchTemplate.setCreateDate(new Date());
         int num = matchTemplateService.insertMatchTemplate(matchTemplate);
         log.info("插入证书结果: =========== {}", num);
@@ -57,7 +52,6 @@ public class MatchTemplateServiceImplTest {
         MatchTemplate matchTemplate = new MatchTemplate();
         matchTemplate.setId(3);
         matchTemplate.setNumberId(10000);
-        matchTemplate.setGender("女");
         int num = matchTemplateService.updateMatchTemplateById(matchTemplate);
         log.info("修改结果: ============ {}", num);
     }

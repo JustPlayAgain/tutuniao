@@ -98,9 +98,9 @@ public class IndexController {
             if (Utils.isNull(template)) { // 数据不存在
                 return ResponseUtil.buildErrorResponse(ErrorEnum.GUOMEITEMPLATE_NULL);
             }
-            if (Utils.isEmpty(template.getCertificateNumber())) { // 如果证书编号为空 说明没有考试结果 返回false
-                return ResponseUtil.buildSuccessResponse(false, template);
-            }
+//            if (Utils.isEmpty(template.getCertificateNumber())) { // 如果证书编号为空 说明没有考试结果 返回false
+//                return ResponseUtil.buildSuccessResponse(false, template);
+//            }
             GuoMeiTemplateVO vo = new GuoMeiTemplateVO();
             BeanUtils.copyProperties(template, vo);
             return ResponseUtil.buildSuccessResponse(true, vo);
