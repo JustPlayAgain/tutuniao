@@ -106,6 +106,7 @@
         where  md5(G.id_card) = #{idCard,jdbcType=VARCHAR}
         and G.student_name = #{studentName,jdbcType=VARCHAR}
         and G.act_id = #{actId,jdbcType=INTEGER}
+        order by G.id desc ;
     </select>
 
     <select id="queryGuoMeiTemplateById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

@@ -70,19 +70,24 @@
                     }else {
                         if(activityId == -1){
                             var da = s.data[0];
-                            $("#result").append("恭喜您：<h6 style='display: inline'>"+da.studentName+"</h6> 同学 身份证：<h6 style='display: inline'>"+da.idCard+"</h6>\n" );
+                            $("#result").append("<h4 style='display: inline'>"+da.studentName+"</h4> 同学 身份证：<h4 style='display: inline'>"+da.idCard+"</h4>\n" );
                             for(var i = 0 ; i < s.data.length; i++){
                                 var da = s.data[i];
-                                $("#result").append("        <h4>"+ da.createDate+ " : "+da.results+"</h4>");
+                                $("#result").append("        <h4>获得 "+ da.worksName + " " + da.profession + " " + da.examinationLevel +"</h4>");
                             }
 
                         }else {
-                            $("#result").append("恭喜您：<h6 style='display: inline'>"+s.data.studentName+"</h6> 同学 身份证：<h6 style='display: inline'>"+s.data.idCard+"</h6>\n" );
-                            if(s.data.certificateNumber != null && s.data.certificateNumber.length >=1){
-                                $("#result").append("        <h4>您已通过 \""+s.data.activityName+"\" 评测，取得 \""+s.data.activityName+"\" 证书</h4>");
-                            }else{
-                                $("#result").append("        <h4>很抱歉，您没有通过此次 \""+s.data.activityName+"\" 评测</h4>");
+                            var da = s.data[0];
+                            $("#result").append("<h4 style='display: inline'>"+da.studentName+"</h4> 同学 身份证：<h4 style='display: inline'>"+da.idCard+"</h4>\n" );
+                            for(var i = 0 ; i < s.data.length; i++){
+                                var da = s.data[i];
+                                $("#result").append("        <h4>获得 "+da.worksName+" "+da.results +" </h4>");
                             }
+                            // if(s.data.certificateNumber != null && s.data.certificateNumber.length >=1){
+                            //     $("#result").append("        <h4>您已通过 \""+s.data.activityName+"\" 评测，取得 \""+s.data.activityName+"\" 证书</h4>");
+                            // }else{
+                            //     $("#result").append("        <h4>很抱歉，您没有通过此次 \""+s.data.activityName+"\" 评测</h4>");
+                            // }
                         }
 
                     }

@@ -39,8 +39,8 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
     private GuoMeiTemplateMapper guoMeiTemplateMapper;
 
     @Override
-    public GuoMeiTemplate queryGuoMeiTemplate(GuoMeiTemplate guoMeiTemplate) {
-        GuoMeiTemplate template = guoMeiTemplateMapper.queryGuoMeiTemplate(guoMeiTemplate);
+    public List<GuoMeiTemplate> queryGuoMeiTemplate(GuoMeiTemplate guoMeiTemplate) {
+        List<GuoMeiTemplate> template = guoMeiTemplateMapper.queryGuoMeiTemplate(guoMeiTemplate);
         if (Utils.isNull(template)) { // 未查到该数据
             return null;
         }

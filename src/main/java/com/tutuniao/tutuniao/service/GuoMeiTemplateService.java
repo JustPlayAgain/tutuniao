@@ -14,7 +14,7 @@ public interface GuoMeiTemplateService {
      * @param guoMeiTemplate
      * @return
      */
-    GuoMeiTemplate queryGuoMeiTemplate(GuoMeiTemplate guoMeiTemplate);
+    List<GuoMeiTemplate> queryGuoMeiTemplate(GuoMeiTemplate guoMeiTemplate);
 
     /**
      * 新增活动

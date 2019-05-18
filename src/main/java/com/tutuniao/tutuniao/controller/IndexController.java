@@ -100,16 +100,17 @@ public class IndexController {
             guoMeiTemplate.setStudentName(username);
             guoMeiTemplate.setIdCard(idCard);
             guoMeiTemplate.setActId(activityId);
-            GuoMeiTemplate template = guoMeiTemplateService.queryGuoMeiTemplate(guoMeiTemplate);
+            List<GuoMeiTemplate> template = guoMeiTemplateService.queryGuoMeiTemplate(guoMeiTemplate);
             if (Utils.isNull(template)) { // 数据不存在
                 return ResponseUtil.buildErrorResponse(ErrorEnum.GUOMEITEMPLATE_NULL);
             }
 //            if (Utils.isEmpty(template.getCertificateNumber())) { // 如果证书编号为空 说明没有考试结果 返回false
 //                return ResponseUtil.buildSuccessResponse(false, template);
 //            }
-            GuoMeiTemplateVO vo = new GuoMeiTemplateVO();
-            BeanUtils.copyProperties(template, vo);
-            return ResponseUtil.buildSuccessResponse(true, vo);
+//            GuoMeiTemplateVO vo = new GuoMeiTemplateVO();
+//            BeanUtils.copyProperties(template, vo);
+//            return ResponseUtil.buildSuccessResponse(true, vo);
+            return ResponseUtil.buildSuccessResponse(true, template);
         } else { // 否则查询结业证书情况
             MatchTemplate match = new MatchTemplate();
             match.setStudentName(username);
