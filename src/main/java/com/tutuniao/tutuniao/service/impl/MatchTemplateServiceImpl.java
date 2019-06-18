@@ -125,8 +125,7 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
             setBirthday(matchTemplate,idCard);
 
             matchTemplate.setWorksName(row.getCell(j++).getStringCellValue()); // 测评名称
-            row.getCell(j).setCellType(CellType.STRING);
-            matchTemplate.setCertificateNumber(row.getCell(j++).getStringCellValue()); // 测评名称
+            matchTemplate.setCertificateNumber(row.getCell(j++).getStringCellValue()); // 证书编号
 
             matchTemplate.setProfession(row.getCell(j++).getStringCellValue()); // 专业
 
