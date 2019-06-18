@@ -73,7 +73,7 @@
                         }
                         if(activityId == -1){
                             var da = s.data[0];
-                            $("#result").append("<h4 style='display: inline'>"+da.studentName+"</h4>    身份证：<h4 style='display: inline'>"+da.idCard+"</h4>\n" );
+                            $("#result").append("<h4 style='display: inline'>"+da.studentName+"</h4>&nbsp;&nbsp;&nbsp;&nbsp;身份证：<h4 style='display: inline'>"+da.idCard+"</h4>\n" );
                             for(var i = 0 ; i < s.data.length; i++){
                                 var da = s.data[i];
                                 $("#result").append("        <h4>获得 "+ da.worksName + " " + da.profession + " " + da.examinationLevel +"</h4>");
@@ -81,7 +81,7 @@
 
                         }else {
                             var da = s.data[0];
-                            $("#result").append("<h4 style='display: inline'>"+da.studentName+"</h4>    身份证：<h4 style='display: inline'>"+da.idCard+"</h4>\n" );
+                            $("#result").append("<h4 style='display: inline'>"+da.studentName+"</h4>&nbsp;&nbsp;&nbsp;&nbsp;身份证：<h4 style='display: inline'>"+da.idCard+"</h4>\n" );
                             for(var i = 0 ; i < s.data.length; i++){
                                 var da = s.data[i];
                                 $("#result").append("        <h4>获得 "+da.worksName+" "+da.results +" </h4>");
