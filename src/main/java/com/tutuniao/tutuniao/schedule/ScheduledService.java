@@ -58,6 +58,7 @@ public class ScheduledService {
         content = content.replaceAll("href=\"./|href=\"/", "href=\"https://www.caa.edu.cn/");
         content = content.replaceAll("src=\"./|src=\"/", "src=\"https://www.caa.edu.cn/");
         content = content.replaceAll("src=\"images", "src=\"https://www.caa.edu.cn/images");
+        content = content.replaceAll("target=\"_blank\"", "");
 
         return content;
     }
