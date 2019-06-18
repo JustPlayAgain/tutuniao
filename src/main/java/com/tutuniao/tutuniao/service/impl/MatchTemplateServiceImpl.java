@@ -117,7 +117,9 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
             }
             row.getCell(j++).setCellType(CellType.NUMERIC);
             matchTemplate.setNumberId((int) cell.getNumericCellValue()); // 序号
-            matchTemplate.setStudentName(row.getCell(j++).getStringCellValue()); // 名字
+            Cell studentName = row.getCell(j++);
+            if(studentName != null )
+            matchTemplate.setStudentName(studentName.getStringCellValue().trim()); // 名字
 
             row.getCell(j).setCellType(CellType.STRING);
             String idCard = row.getCell(j++).getStringCellValue();

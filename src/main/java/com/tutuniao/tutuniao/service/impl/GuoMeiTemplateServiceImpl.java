@@ -131,8 +131,9 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
                 continue;
             row.getCell(j++).setCellType(CellType.NUMERIC);
             guoMeiTemplate.setNumberId((int) cellNumberId.getNumericCellValue()); // 序号
-
-            guoMeiTemplate.setStudentName(row.getCell(j++).getStringCellValue()); // 名字
+            Cell studentName = row.getCell(j++);
+            if (studentName != null )
+            guoMeiTemplate.setStudentName(studentName.getStringCellValue().trim()); // 名字
 
             row.getCell(j).setCellType(CellType.STRING);
             String idCard = row.getCell(j++).getStringCellValue();
