@@ -54,9 +54,11 @@ public class ScheduledService {
     }
 
     private static String urlAddHttp(String content) {
-        content = content.replaceAll("href=\"./|href=\"/", "href=\"http://www.caa.edu.cn/");
-        content = content.replaceAll("src=\"./|src=\"/", "src=\"http://www.caa.edu.cn/");
-        content = content.replaceAll("src=\"images", "src=\"http://www.caa.edu.cn/images");
+        content = content.replaceAll("http://", "https://");
+        content = content.replaceAll("href=\"./|href=\"/", "href=\"https://www.caa.edu.cn/");
+        content = content.replaceAll("src=\"./|src=\"/", "src=\"https://www.caa.edu.cn/");
+        content = content.replaceAll("src=\"images", "src=\"https://www.caa.edu.cn/images");
+
         return content;
     }
 
