@@ -59,8 +59,10 @@
                 minContent+="                    <option value='-1'>结业证书</option>";
                 minContent+="                </select>\n" +
                     "            </div>\n" +
-                    "            <input name='username' type='text' class='span2 search-query' style='margin-left: 40px; width: 130px;' placeholder='请输入您的姓名'>\n" +
-                    "            <input name='idCard' type='text' class='span2 search-query' style='margin-left: 20px; width: 220px' placeholder='请输入您的身份证号'>\n" +
+                    "            <input name='username_' type='text' class='span2 search-query' style='margin-left: 40px; width: 130px;' placeholder='请输入您的姓名'>\n" +
+                    "            <input name='username' type='hidden' class='span2 search-query' style='margin-left: 40px; width: 130px;' placeholder='请输入您的姓名'>\n" +
+                    "            <input name='idCard_' type='text' class='span2 search-query' style='margin-left: 20px; width: 220px' placeholder='请输入您的身份证号'>\n" +
+                    "            <input name='idCard' type='hidden' class='span2 search-query' style='margin-left: 20px; width: 220px' placeholder='请输入您的身份证号'>\n" +
                     "        </div>\n" +
                     "        <div style='margin-left: 200px; margin-top: 15px'>\n" +
                     "            <button class='btn btn-danger' type='submit' style='width: 100px; height: 40px'>查询</button>\n" +
@@ -80,9 +82,9 @@
             alert("请输入身份证");
             return false;
         }else {
-            var username = search.username.value.trim();
+            var username = search.username_.value.trim();
             search.username.value = encodeURI(username);
-            var idCard = search.idCard.value.trim();
+            var idCard = search.idCard_.value.trim();
             search.idCard.value = hex_md5(idCard);
             return true;
         }
