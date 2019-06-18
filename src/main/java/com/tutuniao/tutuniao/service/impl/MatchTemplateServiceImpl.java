@@ -132,7 +132,9 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
             matchTemplate.setProfession(row.getCell(j++).getStringCellValue()); // 专业
 
             matchTemplate.setExaminationLevel(row.getCell(j++).getStringCellValue()); // 级别
-            matchTemplate.setNativePlace(row.getCell(j++).getStringCellValue()); // 所在地
+            Cell nativePlace = row.getCell(j++);
+            if(nativePlace != null)
+            matchTemplate.setNativePlace(nativePlace.getStringCellValue()); // 所在地
             matchTemplate.setExamDate(row.getCell(j++).getDateCellValue()); // 考试时间
 
             matchTemplateList.add(matchTemplate);
