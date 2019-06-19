@@ -10,7 +10,7 @@ public class Constant {
     public static final String academyArtUrl = "https://www.caa.edu.cn/index.html";
 
 
-    public static String imageStaticPath = "/Users/yuguangchao/Documents/workspace_git/tutuniao";
-//    public static String imageStaticPath = "/data/static";
+//    public static String imageStaticPath = "/Users/yuguangchao/Documents/workspace_git/tutuniao";
+    public static String imageStaticPath = "/data/static";
 
 }
