@@ -6,6 +6,7 @@ import com.tutuniao.tutuniao.common.Constant;
 import com.tutuniao.tutuniao.entity.IndexObject;
 import com.tutuniao.tutuniao.util.HttpClientUtils;
 import com.tutuniao.tutuniao.util.RedisUtil;
+import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,6 +18,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
@@ -74,6 +76,7 @@ public class ScheduledService {
         content = content.replaceAll("src=\"./|src=\"/", "src=\"https://www.caamxh.cn/static/");
         content = content.replaceAll("src=\"images", "src=\"https://www.caamxh.cn/static/images");
         content = content.replaceAll("target=\"_blank\"", "");
+        content = content.replaceAll(".png", ".png.jpg");
 
         return content;
     }
@@ -168,6 +171,8 @@ public class ScheduledService {
             //开始时间
             Date begindate = new Date();
             for (String url : listImgSrc) {
+                // file size
+                long size = 0;
                 //开始时间
                 Date begindate2 = new Date();
                 String imageName = url.substring(url.lastIndexOf("/") + 1, url.length());
@@ -183,7 +188,10 @@ public class ScheduledService {
                 logger.info("开始下载:" + url);
                 while ((length = in.read(buf, 0, buf.length)) != -1) {
                     fo.write(buf, 0, length);
+                    size += length;
                 }
+
+                System.out.println(size);
                 //关闭流
                 in.close();
                 fo.close();
@@ -192,6 +200,12 @@ public class ScheduledService {
                 Date overdate2 = new Date();
                 double time = overdate2.getTime() - begindate2.getTime();
                 logger.info("耗时：" + time / 1000 + "s");
+                if(size < 200*1024){
+                    Thumbnails.of(finalPath+'/'+imageName).scale(1f).outputFormat("jpg").toFile(finalPath+"/"+imageName);
+                }else{
+                    Thumbnails.of(finalPath+'/'+imageName).scale(1f).outputQuality( (200*1024f) / size  ).outputFormat("jpg").toFile(finalPath+"/"+imageName);
+                }
+
             }
             Date overdate = new Date();
             double time = overdate.getTime() - begindate.getTime();
