@@ -32,7 +32,7 @@ public class ScheduledService {
         try {
             IndexObject tmpIndexObject = new IndexObject();
 
-            String dataAsStringFromUrl = HttpClientUtils.get(academyArtUrl);
+            String dataAsStringFromUrl = HttpClientUtils.doGet(academyArtUrl);
             if(null != dataAsStringFromUrl){
                 Document doc = Jsoup.parse(dataAsStringFromUrl);
                 // 获取 banner
@@ -58,6 +58,7 @@ public class ScheduledService {
         content = content.replaceAll("href=\"./|href=\"/", "href=\"https://www.caa.edu.cn/");
         content = content.replaceAll("src=\"./|src=\"/", "src=\"https://www.caa.edu.cn/");
         content = content.replaceAll("src=\"images", "src=\"https://www.caa.edu.cn/images");
+        content = content.replaceAll("target=\"_blank\"", "");
 
         return content;
     }
@@ -65,7 +66,7 @@ public class ScheduledService {
     public static String buildIndexJson(){
         JSONObject reslut = new JSONObject();
         try {
-            String dataAsStringFromUrl = HttpClientUtils.get(academyArtUrl);
+            String dataAsStringFromUrl = HttpClientUtils.doGet(academyArtUrl);
             if(null != dataAsStringFromUrl){
                 Document doc = Jsoup.parse(dataAsStringFromUrl);
                 // 获取 banner
