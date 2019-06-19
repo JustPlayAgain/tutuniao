@@ -11,15 +11,29 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Service
+
 public class ScheduledService {
-    private static final String academyArtUrl = "http://www.caa.edu.cn/index.html";
+    private static final Logger logger = LoggerFactory.getLogger(ScheduledService.class);
+
 //    @Scheduled(cron = "1 1 1 0/1 * *")
     public void scheduled(){
-         buildIndex();
+        buildIndex();
     }
     public static IndexObject getIndexObject(String key){
         IndexObject indexObject = JSONObject.parseObject(RedisUtil.get(key), IndexObject.class);
@@ -32,7 +46,7 @@ public class ScheduledService {
         try {
             IndexObject tmpIndexObject = new IndexObject();
 
-            String dataAsStringFromUrl = HttpClientUtils.doGet(academyArtUrl);
+            String dataAsStringFromUrl = HttpClientUtils.doGet(Constant.academyArtUrl);
             if(null != dataAsStringFromUrl){
                 Document doc = Jsoup.parse(dataAsStringFromUrl);
                 // 获取 banner
@@ -47,6 +61,7 @@ public class ScheduledService {
                     }
                 }
             }
+            downloadImage(dataAsStringFromUrl);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,8 +71,8 @@ public class ScheduledService {
     private static String urlAddHttp(String content) {
         content = content.replaceAll("http://", "https://");
         content = content.replaceAll("href=\"./|href=\"/", "href=\"https://www.caa.edu.cn/");
-        content = content.replaceAll("src=\"./|src=\"/", "src=\"https://www.caa.edu.cn/");
-        content = content.replaceAll("src=\"images", "src=\"https://www.caa.edu.cn/images");
+        content = content.replaceAll("src=\"./|src=\"/", "src=\"https://www.caamxh.cn/static/");
+        content = content.replaceAll("src=\"images", "src=\"https://www.caamxh.cn/static/images");
         content = content.replaceAll("target=\"_blank\"", "");
 
         return content;
@@ -66,7 +81,7 @@ public class ScheduledService {
     public static String buildIndexJson(){
         JSONObject reslut = new JSONObject();
         try {
-            String dataAsStringFromUrl = HttpClientUtils.doGet(academyArtUrl);
+            String dataAsStringFromUrl = HttpClientUtils.doGet(Constant.academyArtUrl);
             if(null != dataAsStringFromUrl){
                 Document doc = Jsoup.parse(dataAsStringFromUrl);
                 // 获取 banner
@@ -107,5 +122,82 @@ public class ScheduledService {
             e.printStackTrace();
         }
         return reslut.toJSONString();
+    }
+
+
+    public static void downloadImage(String dataAsStringFromUrl){
+        List<String> imageUrl = getImageUrl(dataAsStringFromUrl);
+        logger.error("imageUrl ---->" + JSONArray.toJSONString(imageUrl));
+        List<String> imageSrc = getImageSrc(imageUrl);
+        logger.error("imageSrc ---->" + JSONArray.toJSONString(imageSrc));
+        download(imageSrc);
+    }
+
+    private static final String IMGURL_REG = "<img.*src=(.*?)[^>]*?>";
+    //获取ImageUrl地址
+    private static List<String> getImageUrl(String html){
+        Matcher matcher= Pattern.compile(IMGURL_REG).matcher(html);
+        List<String> listimgurl=new ArrayList<String>();
+        while (matcher.find()){
+            String group = matcher.group();
+            group = group.replaceAll("src=\"./|src=\"/", "src=\"https://www.caa.edu.cn/");
+            group = group.replaceAll("src=\"images", "src=\"https://www.caa.edu.cn/images");
+            listimgurl.add(group);
+        }
+        return listimgurl;
+    }
+
+    private static final String IMGSRC_REG = "[a-zA-z]+://[^\\s]*.[jpg|png|jpeg]";
+    //获取ImageSrc地址
+    private static List<String> getImageSrc(List<String> listimageurl){
+        List<String> listImageSrc=new ArrayList<String>();
+        for (String image:listimageurl){
+            Matcher matcher=Pattern.compile(IMGSRC_REG).matcher(image);
+            if (matcher.find()){
+                String group = matcher.group();
+                if(group.endsWith("jpg") || group.endsWith("png")|| group.endsWith("jpeg") )
+                    listImageSrc.add(group);
+            }
+        }
+        return listImageSrc;
+    }
+
+    //下载图片
+    private  static void download(List<String> listImgSrc) {
+        try {
+            //开始时间
+            Date begindate = new Date();
+            for (String url : listImgSrc) {
+                //开始时间
+                Date begindate2 = new Date();
+                String imageName = url.substring(url.lastIndexOf("/") + 1, url.length());
+                String path = url.substring(0,url.lastIndexOf("/")).replaceAll("https://www.caa.edu.cn","");
+                String finalPath = Constant.imageStaticPath + path;
+                new File(finalPath).mkdirs();
+
+                URL uri = new URL(url);
+                InputStream in = uri.openStream();
+                FileOutputStream fo = new FileOutputStream(new File(finalPath+'/'+imageName));//文件输出流
+                byte[] buf = new byte[1024];
+                int length = 0;
+                logger.info("开始下载:" + url);
+                while ((length = in.read(buf, 0, buf.length)) != -1) {
+                    fo.write(buf, 0, length);
+                }
+                //关闭流
+                in.close();
+                fo.close();
+                logger.info(imageName + "下载完成");
+                //结束时间
+                Date overdate2 = new Date();
+                double time = overdate2.getTime() - begindate2.getTime();
+                logger.info("耗时：" + time / 1000 + "s");
+            }
+            Date overdate = new Date();
+            double time = overdate.getTime() - begindate.getTime();
+            logger.error("总耗时：" + time / 1000 + "s");
+        } catch (Exception e) {
+            logger.error("下载失败",e);
+        }
     }
 }
