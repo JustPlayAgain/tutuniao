@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -180,9 +181,16 @@ public class ScheduledService {
                 File file = new File(finalPath);
                 if (!file.exists()) file.mkdirs();
 
-                URL uri = new URL(url.replaceAll("https://","http://"));
-                InputStream in = uri.openStream();
-                FileOutputStream fo = new FileOutputStream(new File(finalPath+'/'+imageName));//文件输出流
+                URL uri = new URL(url);
+                HttpURLConnection conn = (HttpURLConnection) uri.openConnection();
+//                InputStream in = uri.openStream();
+
+                //必须设置false，否则会自动redirect到重定向后的地址
+                conn.setInstanceFollowRedirects(false);
+                conn.connect();
+                InputStream in = conn.getInputStream();
+                String fileName = finalPath + '/' + imageName;
+                FileOutputStream fo = new FileOutputStream(new File(fileName));//文件输出流
                 byte[] buf = new byte[1024];
                 int length = 0;
                 logger.info("开始下载:" + url);
@@ -190,8 +198,6 @@ public class ScheduledService {
                     fo.write(buf, 0, length);
                     size += length;
                 }
-
-                System.out.println(size);
                 //关闭流
                 in.close();
                 fo.close();
@@ -201,9 +207,9 @@ public class ScheduledService {
                 double time = overdate2.getTime() - begindate2.getTime();
                 logger.info("耗时：" + time / 1000 + "s");
                 if(size < 200*1024){
-                    Thumbnails.of(finalPath+'/'+imageName).scale(1f).outputFormat("jpg").toFile(finalPath+"/"+imageName);
+                    Thumbnails.of(fileName).scale(1f).outputFormat("jpg").toFile(fileName);
                 }else{
-                    Thumbnails.of(finalPath+'/'+imageName).scale(1f).outputQuality( (200*1024f) / size  ).outputFormat("jpg").toFile(finalPath+"/"+imageName);
+                    Thumbnails.of(fileName).scale(1f).outputQuality( (200*1024f) / size  ).outputFormat("jpg").toFile(fileName);
                 }
 
             }
