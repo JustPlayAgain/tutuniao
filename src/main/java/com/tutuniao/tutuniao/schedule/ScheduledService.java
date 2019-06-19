@@ -177,9 +177,10 @@ public class ScheduledService {
                 String imageName = url.substring(url.lastIndexOf("/") + 1, url.length());
                 String path = url.substring(0,url.lastIndexOf("/")).replaceAll("https://www.caa.edu.cn","");
                 String finalPath = Constant.imageStaticPath + path;
-                new File(finalPath).mkdirs();
+                File file = new File(finalPath);
+                if (!file.exists()) file.mkdirs();
 
-                URL uri = new URL(url);
+                URL uri = new URL(url.replaceAll("https://","http://"));
                 InputStream in = uri.openStream();
                 FileOutputStream fo = new FileOutputStream(new File(finalPath+'/'+imageName));//文件输出流
                 byte[] buf = new byte[1024];
