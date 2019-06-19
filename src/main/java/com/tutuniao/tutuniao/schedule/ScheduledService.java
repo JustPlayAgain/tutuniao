@@ -186,9 +186,9 @@ public class ScheduledService {
 //                InputStream in = uri.openStream();
 
                 //必须设置false，否则会自动redirect到重定向后的地址
-                conn.setInstanceFollowRedirects(false);
-                conn.connect();
-                InputStream in = conn.getInputStream();
+//                conn.setInstanceFollowRedirects(false);
+//                conn.connect();
+                InputStream in = HttpClientUtils.doGetInput(url);
                 String fileName = finalPath + '/' + imageName;
                 FileOutputStream fo = new FileOutputStream(new File(fileName));//文件输出流
                 byte[] buf = new byte[1024];

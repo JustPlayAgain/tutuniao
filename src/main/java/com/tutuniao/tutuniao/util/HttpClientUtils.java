@@ -21,6 +21,7 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +57,25 @@ public class HttpClientUtils {
         }
         return result;
     }
-
+    public static InputStream doGetInput(String url){
+        HttpClient httpClient = null;
+        HttpGet httpGet = null;
+        InputStream result = null;
+        try{
+            httpClient = new SSLClient();
+            httpGet = new HttpGet(url);
+            HttpResponse response = httpClient.execute(httpGet);
+            if(response != null){
+                HttpEntity resEntity = response.getEntity();
+                if(resEntity != null){
+                    result = resEntity.getContent();
+                }
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return result;
+    }
 
     public static String get(String  url) {
         CloseableHttpClient httpCilent = HttpClients.createDefault();
