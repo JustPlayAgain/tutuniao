@@ -71,7 +71,7 @@ public class ScheduledService {
     private static String urlAddHttp(String content) {
         content = content.replaceAll("http://", "https://");
         content = content.replaceAll("href=\"./|href=\"/", "href=\"https://www.caa.edu.cn/");
-        content = content.replaceAll("src=\"./|src=\"/", "src=\"https://www.caamxh.cn/static");
+        content = content.replaceAll("src=\"./|src=\"/", "src=\"https://www.caamxh.cn/static/");
         content = content.replaceAll("src=\"images", "src=\"https://www.caamxh.cn/static/images");
         content = content.replaceAll("target=\"_blank\"", "");
 
