@@ -49,6 +49,7 @@ public class ScheduledService {
             IndexObject tmpIndexObject = new IndexObject();
 
             String dataAsStringFromUrl = HttpClientUtils.doGet(Constant.academyArtUrl);
+            downloadImage(dataAsStringFromUrl);
             if(null != dataAsStringFromUrl){
                 Document doc = Jsoup.parse(dataAsStringFromUrl);
                 // 获取 banner
@@ -63,7 +64,7 @@ public class ScheduledService {
                     }
                 }
             }
-            downloadImage(dataAsStringFromUrl);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
