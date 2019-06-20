@@ -75,7 +75,9 @@ public class ScheduledService {
         content = content.replaceAll("href=\"./|href=\"/", "href=\"https://www.caa.edu.cn/");
         content = content.replaceAll("src=\"./|src=\"/", "src=\"https://www.caamxh.cn/static/");
         content = content.replaceAll("src=\"images", "src=\"https://www.caamxh.cn/static/images");
+        content = content.replaceAll("src=\"./images", "src=\"https://www.caamxh.cn/static/images");
         content = content.replaceAll("target=\"_blank\"", "");
+        content = content.replaceAll("target=\"blank\"", "");
         content = content.replaceAll(".png", ".png.jpg");
 
         return content;
@@ -136,7 +138,7 @@ public class ScheduledService {
         download(imageSrc);
     }
 
-    private static final String IMGURL_REG = "<img.*src=(.*?)[^>]*?>";
+    private static final String IMGURL_REG = "<img[\\n]?(.)*src=(.*?)[^>]*?>";
     //获取ImageUrl地址
     private static List<String> getImageUrl(String html){
         Matcher matcher= Pattern.compile(IMGURL_REG).matcher(html);
@@ -145,6 +147,7 @@ public class ScheduledService {
             String group = matcher.group();
             group = group.replaceAll("src=\"./|src=\"/", "src=\"https://www.caa.edu.cn/");
             group = group.replaceAll("src=\"images", "src=\"https://www.caa.edu.cn/images");
+            group = group.replaceAll("src=\"./images", "src=\"https://www.caa.edu.cn/images");
             listimgurl.add(group);
         }
         return listimgurl;
