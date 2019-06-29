@@ -49,7 +49,7 @@ public class IndexServiceImpl implements IndexService {
         IndexObject indexObject = null;
         News news = new News();
         news.setPageIndex(1);
-        news.setPageSize(3);
+        news.setPageSize(24);
         PageVO<List<News>> listPageVO = newsService.queryNewsList(news);
         if (listPageVO != null){
             List<News> t = listPageVO.getT();

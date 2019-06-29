@@ -56,12 +56,12 @@ public class ScheduledService {
                 String banner = doc.getElementsByClass("banner").toString();
                 if(StringUtils.isNoneBlank(banner)){
                     tmpIndexObject.setBanners(urlAddHttp(banner));
-                    String content = doc.getElementsByClass("container").toString();
-                    if(StringUtils.isNoneBlank(content)) {
-                        tmpIndexObject.setContent(urlAddHttp(content));
+//                    String content = doc.getElementsByClass("container").toString();
+//                    if(StringUtils.isNoneBlank(content)) {
+//                        tmpIndexObject.setContent(urlAddHttp(content));
                         RedisUtil.set(Constant.Redis_Index,JSONObject.toJSONString(tmpIndexObject));
                         return tmpIndexObject;
-                    }
+//                    }
                 }
             }
 
