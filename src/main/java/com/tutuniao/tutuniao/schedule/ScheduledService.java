@@ -56,12 +56,12 @@ public class ScheduledService {
                 String banner = doc.getElementsByClass("banner").toString();
                 if(StringUtils.isNoneBlank(banner)){
                     tmpIndexObject.setBanners(urlAddHttp(banner));
-                    String content = doc.getElementsByClass("container").toString();
-                    if(StringUtils.isNoneBlank(content)) {
-                        tmpIndexObject.setContent(urlAddHttp(content));
-                        RedisUtil.set(Constant.Redis_Index,JSONObject.toJSONString(tmpIndexObject));
-                        return tmpIndexObject;
-                    }
+//                    String content = doc.getElementsByClass("container").toString();
+//                    if(StringUtils.isNoneBlank(content)) {
+//                        tmpIndexObject.setContent(urlAddHttp(content));
+                    RedisUtil.set(Constant.Redis_Index,JSONObject.toJSONString(tmpIndexObject));
+                    return tmpIndexObject;
+//                    }
                 }
             }
 
@@ -163,7 +163,7 @@ public class ScheduledService {
             if (matcher.find()){
                 String group = matcher.group();
                 if(group.endsWith("jpg") || group.endsWith("png")|| group.endsWith("jpeg") )
-                listImageSrc.add(group);
+                    listImageSrc.add(group);
             }
         }
         return listImageSrc;

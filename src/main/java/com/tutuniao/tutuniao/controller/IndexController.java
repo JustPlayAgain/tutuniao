@@ -156,13 +156,13 @@ public class IndexController {
     }
 
     /**
-     * 从数据库中取出 三条新闻 并放入Redis中
+     * 从数据库中取出 24条新闻 并放入Redis中
      * @param indexObject
      */
     private void setNewsList(IndexObject indexObject) {
         News news = new News();
         news.setPageIndex(1);
-        news.setPageSize(3);
+        news.setPageSize(24);
         PageVO<List<News>> listPageVO = newsService.queryNewsList(news);
         if (listPageVO != null){
             List<News> t = listPageVO.getT();
