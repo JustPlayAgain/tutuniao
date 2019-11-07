@@ -52,6 +52,7 @@
     $(function() {
         var idCard = getQueryString("idCard");
         var username = getQueryString("username");
+        var username_ = getQueryString("username_");
         var idCard_ = getQueryString("idCard_");
         var activityId = getQueryString("activityId");
         if(activityId ==null && username == null && idCard == null){
@@ -71,14 +72,14 @@
                     }else {
                         if(activityId == -1){
                             var da = s.data[0];
-                            $("#result").append("恭喜您：<h6 style='display: inline'>"+username+"</h6> 同学 身份证：<h6 style='display: inline'>"+idCard_+"</h6>\n" );
+                            $("#result").append("恭喜您：<h6 style='display: inline'>"+username_+"</h6> 同学 身份证：<h6 style='display: inline'>"+idCard_+"</h6>\n" );
                             for(var i = 0 ; i < s.data.length; i++){
                                 var da = s.data[i];
                                 $("#result").append("        <h4>"+ da.createDate+ " : "+da.results+"</h4>");
                             }
 
                         }else {
-                            $("#result").append("恭喜您：<h6 style='display: inline'>"+username+"</h6> 同学 身份证：<h6 style='display: inline'>"+idCard_+"</h6>\n" );
+                            $("#result").append("恭喜您：<h6 style='display: inline'>"+username_+"</h6> 同学 身份证：<h6 style='display: inline'>"+idCard_+"</h6>\n" );
 
                             if(s.data != null && s.data.length >= 1){
                                 for(var i = 0 ; i < s.data.length; i++){
