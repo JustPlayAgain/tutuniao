@@ -68,22 +68,22 @@
                     // 不通过是：很抱歉，您没有通过此次XXX评测
                     // 很抱歉，查询不到您的证书
                     if (s.status != 'ok'){
-                        $("#result").append(s.message);
+                        $("#result").append("        <h4>"+ s.message +"</h4>");
                     }else {
+                        $("#result").append("恭喜您：<h6 style='display: inline'>"+username_+"</h6> 同学 身份证：<h6 style='display: inline'>"+idCard_+"</h6>\n" );
                         if(activityId == -1){
                             var da = s.data[0];
-                            $("#result").append("恭喜您：<h6 style='display: inline'>"+username_+"</h6> 同学 身份证：<h6 style='display: inline'>"+idCard_+"</h6>\n" );
+
                             for(var i = 0 ; i < s.data.length; i++){
                                 var da = s.data[i];
-                                $("#result").append("        <h4>"+ da.createDate+ " : "+da.worksName+"</h4>");
+                                $("#result").append("        <h4>"+ da.createDate+ " : "+da.worksName +"</h4>");
                             }
 
                         }else {
-                            $("#result").append("恭喜您：<h6 style='display: inline'>"+username_+"</h6> 同学 身份证：<h6 style='display: inline'>"+idCard_+"</h6>\n" );
 
                             if(s.data != null && s.data.length >= 1){
                                 for(var i = 0 ; i < s.data.length; i++){
-                                    $("#result").append("        <h4>您已通过 \""+s.data[i].activityName+"\" 评测，取得 \""+s.data[i].worksName+"\" 证书</h4>");
+                                    $("#result").append("        <h4>您已通过 \""+s.data[i].activityName+"\" 评测，取得 \""+s.data[i].worksName +"\" 证书</h4>");
                                 }
                             }else{
                                 $("#result").append("        <h4>很抱歉，未查询到您的评测</h4>");
