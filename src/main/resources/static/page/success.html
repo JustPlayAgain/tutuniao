@@ -83,7 +83,7 @@
 
                             if(s.data != null && s.data.length >= 1){
                                 for(var i = 0 ; i < s.data.length; i++){
-                                    $("#result").append("        <h4>您已通过 \""+s.data[i].activityName+"\" 评测，取得 \""+s.data[i].worksName +"\" 证书</h4>");
+                                    $("#result").append("        <h4>恭喜您在：\""+s.data[i].worksName+"\"，取得"+s.data[i].profession +": \""+s.data[i].results +"\" </h4>");
                                 }
                             }else{
                                 $("#result").append("        <h4>很抱歉，未查询到您的评测</h4>");
