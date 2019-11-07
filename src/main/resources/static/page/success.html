@@ -95,8 +95,13 @@
                                     var da = tmpDate[tmpWorksName[j]];
                                     worksName = tmpWorksName[j] === 'null' ? '': tmpWorksName[j];
                                     $("#result").append("        <h4></h4>  <h4></h4>");
-                                    $("#result").append("<h4>在"+ worksName + "中</h4>");
-                                    $("#result").append("<h4>获得</h4>");
+                                    if(activityId == -1){
+                                        $("#result").append("<h4>获得"+ worksName + "</h4>");
+                                    }else{
+                                        $("#result").append("<h4>在"+ worksName + "中</h4>");
+                                        $("#result").append("<h4>获得</h4>");
+                                    }
+
                                     for(var k = 0 ; k < da.length; k++){
                                         if(activityId == -1){
                                             $("#result").append("                <h5>《"+da[k].profession +"》："+da[k].examinationLevel +" </h5>");
