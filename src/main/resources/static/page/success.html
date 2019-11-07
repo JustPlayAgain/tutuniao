@@ -76,7 +76,7 @@
 
                             for(var i = 0 ; i < s.data.length; i++){
                                 var da = s.data[i];
-                                worksName = da.worksName == null ? '', da.worksName;
+                                worksName = da.worksName == null ? '': da.worksName;
                                 if(da.worksName != null){
                                     $("#result").append("        <h4>"+worksName+"  取得  《"+s.data[i].profession +"》："+s.data[i].examinationLevel +" </h4>");
                                 }else{
