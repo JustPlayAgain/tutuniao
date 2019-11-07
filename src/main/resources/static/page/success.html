@@ -92,7 +92,7 @@
                                 for(var i = 0 ; i < s.data.length; i++){
                                     var da = s.data[i];
                                     var tmpDa = [];
-                                    worksName = da.worksName;
+                                    worksName = da.worksName == null ? 'null': da.worksName;
                                     if (tmpDate[worksName] == null){
                                         tmpDa[0] = da;
                                         tmpWorksName[tmpWorksName.length]  = worksName;
@@ -105,7 +105,7 @@
 
                                 for(var j = 0 ; j < tmpWorksName.length; j++){
                                     var da = tmpDate[tmpWorksName[i]];
-                                    worksName = tmpWorksName[i] == null ? '': tmpWorksName[i];
+                                    worksName = tmpWorksName[i] === 'null' ? '': tmpWorksName[i];
                                     $("#result").append("        <h4>"+ worksName + "</h4>");
                                     for(var i = 0 ; i < da.length; i++){
                                         $("#result").append("        <h5>《"+da[i].profession +"》：\""+da[i].results +"\" </h5>");
