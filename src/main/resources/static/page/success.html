@@ -89,7 +89,14 @@
 
                             if(s.data != null && s.data.length >= 1){
                                 for(var i = 0 ; i < s.data.length; i++){
-                                    $("#result").append("        <h4>"+s.data[i].worksName+"  取得  《"+s.data[i].profession +"》：\""+s.data[i].results +"\" </h4>");
+                                    var da = s.data[i];
+                                    worksName = da.worksName == null ? '': da.worksName;
+                                    if(da.worksName != null){
+                                        $("#result").append("        <h4>"+worksName+"  取得  《"+s.data[i].profession +"》：\""+s.data[i].results +"\" </h4>");
+                                    }else {
+                                        $("#result").append("        <h4>《"+s.data[i].profession +"》：\""+s.data[i].results +"\" </h4>");
+                                    }
+
                                 }
                             }else{
                                 $("#result").append("        <h4>很抱歉，未查询到您参与的大赛的评测</h4>");
