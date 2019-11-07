@@ -67,55 +67,52 @@
                     // 通过是：恭喜您：XXX 身份证：XXXX  您已通过XXX评测，取得XXX证书
                     // 不通过是：很抱歉，您没有通过此次XXX评测
                     // 很抱歉，查询不到您的证书
+
+                    $("#result").append("恭喜您：<h6 style='display: inline'>"+username_+"</h6> 同学 身份证：<h6 style='display: inline'>"+idCard_+"</h6>\n" );
+
                     if (s.status != 'ok'){
                         $("#result").append("        <h4>"+ s.message +"</h4>");
                     }else {
-                        $("#result").append("恭喜您：<h6 style='display: inline'>"+username_+"</h6> 同学 身份证：<h6 style='display: inline'>"+idCard_+"</h6>\n" );
-                        if(activityId == -1){
-                            var da = s.data[0];
 
-                            for(var i = 0 ; i < s.data.length; i++){
-                                var da = s.data[i];
-                                worksName = da.worksName == null ? '': da.worksName;
-                                if(da.worksName != null){
-                                    $("#result").append("        <h4>"+worksName+"  取得  《"+s.data[i].profession +"》："+s.data[i].examinationLevel +" </h4>");
-                                }else{
-                                    $("#result").append("        <h4>《"+s.data[i].profession +"》："+s.data[i].examinationLevel +" </h4>");
-                                }
-
-                            }
-
-                        }else {
-                            tmpWorksName = [];
-                            if(s.data != null && s.data.length >= 1){
-                                var tmpDate = {};
-                                for(var i = 0 ; i < s.data.length; i++){
+                        if(s.data != null && s.data.length >= 1){
+                            var tmpWorksName = [];
+                            var tmpDate = {};
+                            if(s.data != null && s.data.length >= 1) {
+                                for (var i = 0; i < s.data.length; i++) {
                                     var da = s.data[i];
                                     var tmpDa = [];
-                                    worksName = da.worksName == null ? 'null': da.worksName;
-                                    if (tmpDate[worksName] == null){
+                                    worksName = da.worksName == null ? 'null' : da.worksName;
+                                    if (tmpDate[worksName] == null) {
                                         tmpDa[0] = da;
-                                        tmpWorksName[tmpWorksName.length]  = worksName;
-                                    } else{
+                                        tmpWorksName[tmpWorksName.length] = worksName;
+                                    } else {
                                         tmpDa = tmpDate[worksName];
                                         tmpDa[tmpDa.length] = da;
                                     }
                                     tmpDate[worksName] = tmpDa;
                                 }
-
                                 for(var j = 0 ; j < tmpWorksName.length; j++){
                                     var da = tmpDate[tmpWorksName[j]];
                                     worksName = tmpWorksName[j] === 'null' ? '': tmpWorksName[j];
-                                    $("#result").append("        <h4>"+ worksName + "</h4>");
+                                    $("#result").append("        <h4></h4>  <h4></h4>");
+                                    $("#result").append("<h4>"+ worksName + "</h4>");
                                     for(var k = 0 ; k < da.length; k++){
-                                        $("#result").append("        <h5>《"+da[k].profession +"》：\""+da[k].results +"\" </h5>");
+                                        if(activityId == -1){
+                                            $("#result").append("                <h5>《"+da[k].profession +"》："+da[k].examinationLevel +" </h5>");
+                                        }else {
+                                            $("#result").append("                <h5>《"+da[k].profession +"》：\""+da[k].results +"\" </h5>");
+                                        }
+
                                     }
                                 }
-                            }else{
-                                $("#result").append("        <h4>很抱歉，未查询到您参与的大赛的评测</h4>");
-                            }
-                        }
 
+
+
+                            }
+                        }else{
+                            $("#result").append("        <h4></h4>  <h4></h4>");
+                            $("#result").append("        <h4>很抱歉，未查询到您参与的大赛的评测</h4>");
+                        }
                     }
 
                 });
