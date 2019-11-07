@@ -68,7 +68,7 @@
                     // 不通过是：很抱歉，您没有通过此次XXX评测
                     // 很抱歉，查询不到您的证书
 
-                    $("#result").append("恭喜您：<h6 style='display: inline'>"+username_+"</h6> 同学 身份证：<h6 style='display: inline'>"+idCard_+"</h6>\n" );
+                    $("#result").append("恭喜：<h6 style='display: inline'>"+username_+"</h6>  身份证：<h6 style='display: inline'>"+idCard_+"</h6>\n" );
 
                     if (s.status != 'ok'){
                         $("#result").append("        <h4>"+ s.message +"</h4>");
@@ -95,7 +95,8 @@
                                     var da = tmpDate[tmpWorksName[j]];
                                     worksName = tmpWorksName[j] === 'null' ? '': tmpWorksName[j];
                                     $("#result").append("        <h4></h4>  <h4></h4>");
-                                    $("#result").append("<h4>"+ worksName + "</h4>");
+                                    $("#result").append("<h4>在"+ worksName + "中</h4>");
+                                    $("#result").append("<h4>获得</h4>");
                                     for(var k = 0 ; k < da.length; k++){
                                         if(activityId == -1){
                                             $("#result").append("                <h5>《"+da[k].profession +"》："+da[k].examinationLevel +" </h5>");
