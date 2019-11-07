@@ -67,14 +67,11 @@
                     // 通过是：恭喜您：XXX 身份证：XXXX  您已通过XXX评测，取得XXX证书
                     // 不通过是：很抱歉，您没有通过此次XXX评测
                     // 很抱歉，查询不到您的证书
-
-                    $("#result").append("恭喜：<h6 style='display: inline'>"+username_+"</h6>  身份证：<h6 style='display: inline'>"+idCard_+"</h6>\n" );
-
                     if (s.status != 'ok'){
+                        $("#result").append("很抱歉：<h6 style='display: inline'>"+username_+"</h6>  身份证：<h6 style='display: inline'>"+idCard_+"</h6>\n" );
                         $("#result").append("        <h4>"+ s.message +"</h4>");
-                    }else {
-
-                        if(s.data != null && s.data.length >= 1){
+                    }else if(s.data != null && s.data.length >= 1){
+                            $("#result").append("恭喜：<h6 style='display: inline'>"+username_+"</h6>  身份证：<h6 style='display: inline'>"+idCard_+"</h6>\n" );
                             var tmpWorksName = [];
                             var tmpDate = {};
                             if(s.data != null && s.data.length >= 1) {
@@ -117,10 +114,8 @@
                             }
                         }else{
                             $("#result").append("        <h4></h4>  <h4></h4>");
-                            $("#result").append("        <h4>很抱歉，未查询到您参与的大赛的评测</h4>");
+                            $("#result").append("        <h4>很抱歉，未查询到您的信息</h4>");
                         }
-                    }
-
                 });
         }
     });
