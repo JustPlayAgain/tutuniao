@@ -104,8 +104,8 @@
                                 }
 
                                 for(var j = 0 ; j < tmpWorksName.length; j++){
-                                    var da = tmpDate[tmpWorksName[i]];
-                                    worksName = tmpWorksName[i] === 'null' ? '': tmpWorksName[i];
+                                    var da = tmpDate[tmpWorksName[j]];
+                                    worksName = tmpWorksName[j] === 'null' ? '': tmpWorksName[j];
                                     $("#result").append("        <h4>"+ worksName + "</h4>");
                                     for(var i = 0 ; i < da.length; i++){
                                         $("#result").append("        <h5>《"+da[i].profession +"》：\""+da[i].results +"\" </h5>");
