@@ -55,8 +55,8 @@
         var username_ = decodeURI(username)
         var idCard_ = getQueryString("idCard_");
         var activityId = getQueryString("activityId");
-        if(activityId ==null && username == null && idCard == null){
-            $("#result").append("未能查询到您的信息");
+        if(activityId ==null || username == null || idCard == null){
+            $("#result").append("        <h4>未能查询到您的信息</h4>");
         }else{
             $.post("./index/search",
                 {
@@ -75,7 +75,7 @@
                             $("#result").append("恭喜您：<h6 style='display: inline'>"+username_+"</h6> 同学 身份证：<h6 style='display: inline'>"+idCard_+"</h6>\n" );
                             for(var i = 0 ; i < s.data.length; i++){
                                 var da = s.data[i];
-                                $("#result").append("        <h4>"+ da.createDate+ " : "+da.results+"</h4>");
+                                $("#result").append("        <h4>"+ da.createDate+ " : "+da.worksName+"</h4>");
                             }
 
                         }else {
