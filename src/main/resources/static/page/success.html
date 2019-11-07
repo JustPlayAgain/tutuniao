@@ -52,7 +52,7 @@
     $(function() {
         var idCard = getQueryString("idCard");
         var username = getQueryString("username");
-        var username_ = getQueryString("username_");
+        var username_ = decodeURI(username)
         var idCard_ = getQueryString("idCard_");
         var activityId = getQueryString("activityId");
         if(activityId ==null && username == null && idCard == null){
