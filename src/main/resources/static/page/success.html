@@ -76,17 +76,17 @@
 
                             for(var i = 0 ; i < s.data.length; i++){
                                 var da = s.data[i];
-                                $("#result").append("        <h4>"+ da.createDate+ " : "+da.worksName +"</h4>");
+                                $("#result").append("        <h4>恭喜您在："+s.data[i].examDate+":"+s.data[i].worksName+"  取得  《"+s.data[i].profession +"》: \""+s.data[i].examinationLevel +"\" </h4>");
                             }
 
                         }else {
 
                             if(s.data != null && s.data.length >= 1){
                                 for(var i = 0 ; i < s.data.length; i++){
-                                    $("#result").append("        <h4>恭喜您在：\""+s.data[i].worksName+"\"  取得  《"+s.data[i].profession +"》: \""+s.data[i].results +"\" </h4>");
+                                    $("#result").append("        <h4>恭喜您在："+s.data[i].worksName+"  取得  《"+s.data[i].profession +"》: \""+s.data[i].results +"\" </h4>");
                                 }
                             }else{
-                                $("#result").append("        <h4>很抱歉，未查询到您的评测</h4>");
+                                $("#result").append("        <h4>很抱歉，未查询到您参与的大赛的评测</h4>");
                             }
                         }
 
