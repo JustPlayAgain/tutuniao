@@ -103,7 +103,13 @@
                                         if(activityId == -1){
                                             $("#result").append("                <h5>《"+da[k].profession +"》："+da[k].examinationLevel +" </h5>");
                                         }else {
-                                            $("#result").append("                <h5>《"+da[k].profession +"》：\""+da[k].results +"\" </h5>");
+                                            profession = da[k].profession;
+                                            if (profession == null ){
+                                                $("#result").append("                <h5> \""+da[k].results +"\" </h5>");
+                                            }else {
+                                                $("#result").append("                <h5>《"+ profession +"》：\""+da[k].results +"\" </h5>");
+                                            }
+
                                         }
 
                                     }
