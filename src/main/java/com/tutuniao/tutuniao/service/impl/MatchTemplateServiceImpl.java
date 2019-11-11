@@ -2,6 +2,7 @@ package com.tutuniao.tutuniao.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.tutuniao.tutuniao.common.Constant;
 import com.tutuniao.tutuniao.entity.MatchTemplate;
 import com.tutuniao.tutuniao.mapper.MatchTemplateMapper;
 import com.tutuniao.tutuniao.service.MatchTemplateService;
@@ -24,6 +25,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.tutuniao.tutuniao.common.enums.ErrorEnum.EXCEL_ERROR;
 
@@ -33,6 +36,8 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     @Autowired
     private MatchTemplateMapper matchTemplateMapper;
+
+
 
     @Override
     public MatchTemplate queryMatchTemplateById(Integer mtId) {
@@ -118,8 +123,15 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
             row.getCell(j++).setCellType(CellType.NUMERIC);
             matchTemplate.setNumberId((int) cell.getNumericCellValue()); // 序号
             Cell studentName = row.getCell(j++);
-            if(studentName != null )
-            matchTemplate.setStudentName(studentName.getStringCellValue().trim()); // 名字
+            if(studentName != null ){
+                String tmpName = studentName.getStringCellValue();
+                Matcher matcher = Pattern.compile(Constant.regex).matcher(tmpName);
+                if(matcher.find()){
+                    String group = matcher.group(0);
+                    matchTemplate.setStudentName(group); // 名字
+                }
+            }
+
 
             row.getCell(j).setCellType(CellType.STRING);
             String idCard = row.getCell(j++).getStringCellValue();

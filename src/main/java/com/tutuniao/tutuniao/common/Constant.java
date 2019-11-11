@@ -13,4 +13,6 @@ public class Constant {
 //    public static String imageStaticPath = "/Users/yuguangchao/Documents/workspace_git/tutuniao";
     public static String imageStaticPath = "/data/static";
 
+    public static String regex="([\u4e00-\u9fa5]+)";
+
 }

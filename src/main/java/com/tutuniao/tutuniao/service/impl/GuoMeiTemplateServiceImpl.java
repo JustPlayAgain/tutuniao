@@ -2,6 +2,7 @@ package com.tutuniao.tutuniao.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.tutuniao.tutuniao.common.Constant;
 import com.tutuniao.tutuniao.entity.GuoMeiTemplate;
 import com.tutuniao.tutuniao.mapper.GuoMeiTemplateMapper;
 import com.tutuniao.tutuniao.service.GuoMeiTemplateService;
@@ -27,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.tutuniao.tutuniao.common.enums.ErrorEnum.EXCEL_ERROR;
 
@@ -37,6 +40,8 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
 
     @Autowired
     private GuoMeiTemplateMapper guoMeiTemplateMapper;
+
+    private static String regex="([\u4e00-\u9fa5]+)";
 
     @Override
     public GuoMeiTemplate queryGuoMeiTemplate(GuoMeiTemplate guoMeiTemplate) {
@@ -132,8 +137,14 @@ public class GuoMeiTemplateServiceImpl implements GuoMeiTemplateService {
             row.getCell(j++).setCellType(CellType.NUMERIC);
             guoMeiTemplate.setNumberId((int) cellNumberId.getNumericCellValue()); // 序号
             Cell studentName = row.getCell(j++);
-            if (studentName != null )
-            guoMeiTemplate.setStudentName(studentName.getStringCellValue().trim()); // 名字
+            if(studentName != null ){
+                String tmpName = studentName.getStringCellValue();
+                Matcher matcher = Pattern.compile(Constant.regex).matcher(tmpName);
+                if(matcher.find()){
+                    String group = matcher.group(0);
+                    guoMeiTemplate.setStudentName(group); // 名字
+                }
+            }
 
             row.getCell(j).setCellType(CellType.STRING);
             String idCard = row.getCell(j++).getStringCellValue();
