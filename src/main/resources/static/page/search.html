@@ -60,8 +60,10 @@
                 minContent+="                    <option value='-1'>全国美术特长生专业测评</option>";
                 minContent+="                </select>\n" +
                     "            </div>\n" +
-                    "            <input name='username' type='text' class='span2 search-query' style='margin-left: 40px; width: 130px;' placeholder='请输入您的姓名'>\n" +
-                    "            <input name='idCard' type='text' class='span2 search-query' style='margin-left: 20px; width: 220px' placeholder='请输入您的身份证号'>\n" +
+                    "            <input name='username_' type='text' class='span2 search-query' style='margin-left: 40px; width: 130px;' placeholder='请输入您的姓名'>\n" +
+                    "            <input name='username' type='hidden' class='span2 search-query' style='margin-left: 40px; width: 130px;' placeholder='请输入您的姓名'>\n" +
+                    "            <input name='idCard_' type='text' class='span2 search-query' style='margin-left: 20px; width: 220px' placeholder='请输入您的身份证号'>\n" +
+                    "            <input name='idCard' type='hidden' class='span2 search-query' style='margin-left: 20px; width: 220px' placeholder='请输入您的身份证号'>\n" +
                     "        </div>\n" +
                     "        <div style='margin-left: 200px; margin-top: 15px'>\n" +
                     "            <button class='btn btn-danger' type='submit' style='width: 100px; height: 40px'>查询</button>\n" +
@@ -74,15 +76,17 @@
     function validate() {
         if(search.zhengshu.value == ""){
             return false;
-        }else if(search.username.value == ""){
+        }else if(search.username_.value == ""){
             alert("请输入用户名");
             return false;
-        }else if(search.idCard.value == ""){
+        }else if(search.idCard_.value == ""){
             alert("请输入身份证");
             return false;
         }else {
-            search.username.value = encodeURI(search.username.value);
-            search.idCard.value = hex_md5(search.idCard.value);
+            var username = search.username_.value.trim();
+            search.username.value = encodeURI(username);
+            var idCard = search.idCard_.value.trim();
+            search.idCard.value = hex_md5(idCard);
             return true;
         }
     }
