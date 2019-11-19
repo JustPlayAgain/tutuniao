@@ -53,7 +53,7 @@ public class IdCardUtil {
     }
 
     public static void main(String[] args) {
-        Map<String, String> birAgeSex = getBirAgeSex("341221198910020232");
+        Map<String, String> birAgeSex = getBirAgeSex("150783200610312721");
         System.out.println(JSONObject.toJSONString(birAgeSex));
     }
 }

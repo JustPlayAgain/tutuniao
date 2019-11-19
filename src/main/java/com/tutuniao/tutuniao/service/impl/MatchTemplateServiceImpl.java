@@ -125,6 +125,9 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
             Cell studentName = row.getCell(j++);
             if(studentName != null ){
                 String tmpName = studentName.getStringCellValue();
+                tmpName = tmpName.replaceAll("\r","");
+                tmpName = tmpName.replaceAll("\n","");
+                tmpName = tmpName.replaceAll(" ","");
                 Matcher matcher = Pattern.compile(Constant.regex).matcher(tmpName);
                 if(matcher.find()){
                     String group = matcher.group(0);
@@ -135,6 +138,11 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
 
             row.getCell(j).setCellType(CellType.STRING);
             String idCard = row.getCell(j++).getStringCellValue();
+            if(idCard != null ){
+                idCard = idCard.replaceAll("\r","");
+                idCard = idCard.replaceAll("\n","");
+                idCard = idCard.replaceAll(" ","");
+            }
             matchTemplate.setIdCard(idCard); // 身份证
             setBirthday(matchTemplate,idCard);
 
