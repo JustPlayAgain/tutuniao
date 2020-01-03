@@ -1,5 +1,7 @@
 package com.tutuniao.tutuniao.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.tutuniao.tutuniao.common.Constant;
@@ -16,6 +18,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jsoup.helper.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +37,7 @@ import static com.tutuniao.tutuniao.common.enums.ErrorEnum.EXCEL_ERROR;
 @Service
 @Slf4j
 public class MatchTemplateServiceImpl implements MatchTemplateService {
+    private static final Logger logger = LoggerFactory.getLogger(MatchTemplateServiceImpl.class);
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     @Autowired
     private MatchTemplateMapper matchTemplateMapper;
@@ -112,6 +117,7 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);//获取索引为i的行，以0开始
                 // 取出excel 当前行中的数据 设置数据
+            logger.info("row = {}", JSON.toJSONString(row));
             if(row == null )
                 break;
             int j = 0;
