@@ -141,9 +141,10 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
                     matchTemplate.setStudentName(group); // 名字
                 }
             }
-
-            row.getCell(2).setCellType(CellType.STRING);
-            String idCard = row.getCell(2).getStringCellValue();
+            cell = row.getCell(2);
+            logger.info("idCard  = {} " , cell.getStringCellValue());
+            cell.setCellType(CellType.STRING);
+            String idCard = cell.getStringCellValue();
             if(idCard != null ){
                 idCard = idCard.replaceAll("\r","");
                 idCard = idCard.replaceAll("\n","");
