@@ -120,16 +120,16 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
 
             if(row == null )
                 break;
-            int j = 0;
+
             MatchTemplate matchTemplate = new MatchTemplate();
-            Cell cell = row.getCell(j);
-            logger.info("row = {}", JSON.toJSONString(cell));
+            Cell cell = row.getCell(0);
             if(cell == null ){
                 continue;
             }
-            row.getCell(j++).setCellType(CellType.NUMERIC);
+            row.getCell(0).setCellType(CellType.NUMERIC);
             matchTemplate.setNumberId((int) cell.getNumericCellValue()); // 序号
-            Cell studentName = row.getCell(j++);
+
+            Cell studentName = row.getCell(1);
             if(studentName != null ){
                 String tmpName = studentName.getStringCellValue();
                 tmpName = tmpName.replaceAll("\r","");
@@ -142,9 +142,8 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
                 }
             }
 
-
-            row.getCell(j).setCellType(CellType.STRING);
-            String idCard = row.getCell(j++).getStringCellValue();
+            row.getCell(2).setCellType(CellType.STRING);
+            String idCard = row.getCell(2).getStringCellValue();
             if(idCard != null ){
                 idCard = idCard.replaceAll("\r","");
                 idCard = idCard.replaceAll("\n","");
@@ -153,18 +152,21 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
             matchTemplate.setIdCard(idCard); // 身份证
             setBirthday(matchTemplate,idCard);
 
-            matchTemplate.setWorksName(row.getCell(j++).getStringCellValue()); // 测评名称
-            Cell certificateNumber = row.getCell(j++);
+            matchTemplate.setWorksName(row.getCell(3).getStringCellValue()); // 测评名称
+
+            Cell certificateNumber = row.getCell(4);
             if(certificateNumber != null )
             matchTemplate.setCertificateNumber(certificateNumber.getStringCellValue()); // 证书编号
 
-            matchTemplate.setProfession(row.getCell(j++).getStringCellValue()); // 专业
+            matchTemplate.setProfession(row.getCell(5).getStringCellValue()); // 专业
 
-            matchTemplate.setExaminationLevel(row.getCell(j++).getStringCellValue()); // 级别
-            Cell nativePlace = row.getCell(j++);
+            matchTemplate.setExaminationLevel(row.getCell(6).getStringCellValue()); // 级别
+
+            Cell nativePlace = row.getCell(7);
             if(nativePlace != null)
             matchTemplate.setNativePlace(nativePlace.getStringCellValue()); // 所在地
-            matchTemplate.setExamDate(row.getCell(j++).getDateCellValue()); // 考试时间
+
+            matchTemplate.setExamDate(row.getCell(8).getDateCellValue()); // 考试时间
 
             matchTemplateList.add(matchTemplate);
 
