@@ -117,12 +117,13 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);//获取索引为i的行，以0开始
                 // 取出excel 当前行中的数据 设置数据
-            logger.info("row = {}", JSON.toJSONString(row));
+
             if(row == null )
                 break;
             int j = 0;
             MatchTemplate matchTemplate = new MatchTemplate();
             Cell cell = row.getCell(j);
+            logger.info("row = {}", JSON.toJSONString(cell));
             if(cell == null ){
                 continue;
             }
