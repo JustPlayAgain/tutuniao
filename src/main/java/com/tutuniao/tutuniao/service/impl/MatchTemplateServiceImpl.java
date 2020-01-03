@@ -43,7 +43,6 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
     private MatchTemplateMapper matchTemplateMapper;
 
 
-
     @Override
     public MatchTemplate queryMatchTemplateById(Integer mtId) {
         log.info("查询图图鸟活动证书: ============= {}", mtId);
@@ -54,8 +53,8 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
 
     @Override
     public int insertMatchTemplate(MatchTemplate matchTemplate) {
-        if(!StringUtil.isBlank(matchTemplate.getIdCard())){
-            setBirthday(matchTemplate,matchTemplate.getIdCard());
+        if (!StringUtil.isBlank(matchTemplate.getIdCard())) {
+            setBirthday(matchTemplate, matchTemplate.getIdCard());
         }
         log.info("插入图图鸟活动证书: ============= {}", matchTemplate);
         int num = matchTemplateMapper.insertMatchTemplate(matchTemplate);
@@ -73,8 +72,8 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
 
     @Override
     public int updateMatchTemplateById(MatchTemplate matchTemplate) {
-        if(!StringUtil.isBlank(matchTemplate.getIdCard())){
-            setBirthday(matchTemplate,matchTemplate.getIdCard());
+        if (!StringUtil.isBlank(matchTemplate.getIdCard())) {
+            setBirthday(matchTemplate, matchTemplate.getIdCard());
         }
         log.info("修改图图鸟活动证书: ============= {}", matchTemplate);
         int num = matchTemplateMapper.updateMatchTemplateById(matchTemplate);
@@ -97,7 +96,7 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
 
 
     @Override
-    public Response importMatchData(InputStream file, String name){
+    public Response importMatchData(InputStream file, String name) {
 
         Workbook wb = null;
         List<MatchTemplate> matchTemplateList = new ArrayList();
@@ -107,8 +106,7 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
             } else {
                 wb = new HSSFWorkbook(file);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return ResponseUtil.buildErrorResponse(EXCEL_ERROR.EXCEL_ERROR);
         }
@@ -116,56 +114,60 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
         Sheet sheet = wb.getSheetAt(0);//获取第一张表
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);//获取索引为i的行，以0开始
-                // 取出excel 当前行中的数据 设置数据
+            // 取出excel 当前行中的数据 设置数据
 
-            if(row == null )
+            if (row == null)
                 break;
 
             MatchTemplate matchTemplate = new MatchTemplate();
             Cell cell = row.getCell(0);
-            if(cell == null ){
+            if (cell == null) {
                 continue;
             }
             row.getCell(0).setCellType(CellType.NUMERIC);
-            matchTemplate.setNumberId((int) cell.getNumericCellValue()); // 序号
+            double numericCellValue = cell.getNumericCellValue();
+            logger.info("cell 0  = {} ", (int) numericCellValue);
+            matchTemplate.setNumberId((int) numericCellValue); // 序号
 
             Cell studentName = row.getCell(1);
-            if(studentName != null ){
+            logger.info("cell 1  = {} ", studentName.getStringCellValue());
+
+            if (studentName != null) {
                 String tmpName = studentName.getStringCellValue();
-                tmpName = tmpName.replaceAll("\r","");
-                tmpName = tmpName.replaceAll("\n","");
-                tmpName = tmpName.replaceAll(" ","");
+                tmpName = tmpName.replaceAll("\r", "");
+                tmpName = tmpName.replaceAll("\n", "");
+                tmpName = tmpName.replaceAll(" ", "");
                 Matcher matcher = Pattern.compile(Constant.regex).matcher(tmpName);
-                if(matcher.find()){
+                if (matcher.find()) {
                     String group = matcher.group(0);
                     matchTemplate.setStudentName(group); // 名字
                 }
             }
             cell = row.getCell(2);
-            logger.info("idCard  = {} " , cell.getStringCellValue());
+            logger.info("cell 2 = {} ", cell.getStringCellValue());
             cell.setCellType(CellType.STRING);
             String idCard = cell.getStringCellValue();
-            if(idCard != null ){
-                idCard = idCard.replaceAll("\r","");
-                idCard = idCard.replaceAll("\n","");
-                idCard = idCard.replaceAll(" ","");
+            if (idCard != null) {
+                idCard = idCard.replaceAll("\r", "");
+                idCard = idCard.replaceAll("\n", "");
+                idCard = idCard.replaceAll(" ", "");
             }
             matchTemplate.setIdCard(idCard); // 身份证
-            setBirthday(matchTemplate,idCard);
+            setBirthday(matchTemplate, idCard);
 
             matchTemplate.setWorksName(row.getCell(3).getStringCellValue()); // 测评名称
 
             Cell certificateNumber = row.getCell(4);
-            if(certificateNumber != null )
-            matchTemplate.setCertificateNumber(certificateNumber.getStringCellValue()); // 证书编号
+            if (certificateNumber != null)
+                matchTemplate.setCertificateNumber(certificateNumber.getStringCellValue()); // 证书编号
 
             matchTemplate.setProfession(row.getCell(5).getStringCellValue()); // 专业
 
             matchTemplate.setExaminationLevel(row.getCell(6).getStringCellValue()); // 级别
 
             Cell nativePlace = row.getCell(7);
-            if(nativePlace != null)
-            matchTemplate.setNativePlace(nativePlace.getStringCellValue()); // 所在地
+            if (nativePlace != null)
+                matchTemplate.setNativePlace(nativePlace.getStringCellValue()); // 所在地
 
             matchTemplate.setExamDate(row.getCell(8).getDateCellValue()); // 考试时间
 
@@ -179,8 +181,7 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
         }
         try {
             wb.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return ResponseUtil.buildSuccessResponse();
