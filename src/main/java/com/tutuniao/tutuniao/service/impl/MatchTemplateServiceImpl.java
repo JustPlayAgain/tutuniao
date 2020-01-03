@@ -122,6 +122,7 @@ public class MatchTemplateServiceImpl implements MatchTemplateService {
             MatchTemplate matchTemplate = new MatchTemplate();
             Cell cell = row.getCell(0);
             if (cell == null) {
+                logger.info("cell 0  = null continue ");
                 continue;
             }
             row.getCell(0).setCellType(CellType.NUMERIC);
